@@ -1,0 +1,56 @@
+.nav-area .menu
+  display: grid
+  margin-bottom: 8px
+  box-shadow: $boxshadow-inset-block
+  padding: 1px
+  border: 1px solid var(--block-border)
+  border-radius: $border-bar
+  background: var(--block)
+  grid-template-columns: repeat(hexo-config('menubar.columns'), 1fr)
+  grid-gap: 2px
+  &::-webkit-scrollbar
+    display: none
+  &::-webkit-scrollbar-track-piece
+    background: transparent
+  &::-webkit-scrollbar-thumb
+    display: none
+  
+  .nav-item
+    box-sizing: border-box
+    width: 100%
+    min-height: 38px
+    font-size: $fs-15
+    font-weight: 500
+    color: var(--text-p3)
+    text-align: center
+    position: relative
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    img,svg
+      height: 28px
+      object-fit: contain
+      filter: grayscale(100%) brightness(0.8) opacity(0.8)
+      trans1 all
+    span
+      text-overflow: ellipsis
+      word-break: keep-all
+    &.active, &:hover
+      color: var(--text-p1)
+      background: var(--card)
+      trans1 background
+      border-radius: $border-bar
+      box-shadow: $boxshadow-button
+      img,svg
+        filter: unset
+    &.active:after
+      content: ''
+      position absolute
+      width: 16px
+      height: 2px
+      left: 50%
+      transform: translateX(-50%)
+      border-radius: 2px
+      bottom: 2px
+      background: currentColor

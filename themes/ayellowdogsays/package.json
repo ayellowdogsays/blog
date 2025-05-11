@@ -1,32 +1,30 @@
 {
-  "name": "hexo-theme-anzhiyu",
-  "version": "1.6.14",
-  "description": "A Simple and Card UI Design theme for Hexo",
+  "name": "hexo-theme-stellar",
+  "version": "1.29.1",
+  "description": "Elegant and powerful theme for Hexo.",
   "main": "package.json",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xaoxuu/hexo-theme-stellar.git"
   },
   "keywords": [
     "hexo",
     "theme",
-    "anzhiyu",
-    "Card UI Design",
-    "AnZhiYu",
-    "hexo-theme-anzhiyu"
+    "stellar"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/anzhiyu-c/hexo-theme-anzhiyu.git"
-  },
+  "author": "[@xaoxuu](https://github.com/xaoxuu/)",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/anzhiyu-c/hexo-theme-anzhiyu/issues",
-    "email": "me@anheyu.com"
+    "url": "https://github.com/xaoxuu/hexo-theme-stellar/issues/"
   },
   "dependencies": {
-    "hexo-renderer-stylus": "^3.0.0",
-    "hexo-renderer-pug": "^3.0.0"
+    "hexo-renderer-ejs": "^2.0.0",
+    "hexo-renderer-stylus": "^3.0.1"
   },
-  "homepage": "https://blog.anheyu.com/",
-  "author": "anzhiyu <me@anheyu.com>",
-  "license": "GPL-3.0"
+  "homepage": "https://xaoxuu.com/wiki/stellar/",
+  "devDependencies": {
+  }
 }
