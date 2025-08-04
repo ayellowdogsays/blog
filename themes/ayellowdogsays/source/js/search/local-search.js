@@ -1,360 +1,169 @@
-/**
- * Refer to hexo-generator-searchdb
- * https://github.com/next-theme/hexo-generator-searchdb/blob/main/dist/search.js
- * Modified by hexo-theme-butterfly
- */
+var searchFunc = function(path, filter, wrapperId, searchId, contentId) {
 
-class LocalSearch {
-  constructor ({
-    path = '',
-    unescape = false,
-    top_n_per_article = 1
-  }) {
-    this.path = path
-    this.unescape = unescape
-    this.top_n_per_article = top_n_per_article
-    this.isfetched = false
-    this.datas = null
-  }
-
-  getIndexByWord (words, text, caseSensitive = false) {
-    const index = []
-    const included = new Set()
-
-    if (!caseSensitive) {
-      text = text.toLowerCase()
+  function getAllCombinations(keywords) {
+    let result = [];
+    const len = keywords.length;
+    for (let i = 0; i < len; i++) {
+      for (let j = i + 1; j <= len; j++) {
+        result.push(keywords.slice(i, j).join(" "));
+      }
     }
-    words.forEach(word => {
-      if (this.unescape) {
-        const div = document.createElement('div')
-        div.innerText = word
-        word = div.innerHTML
-      }
-      const wordLen = word.length
-      if (wordLen === 0) return
-      let startPosition = 0
-      let position = -1
-      if (!caseSensitive) {
-        word = word.toLowerCase()
-      }
-      while ((position = text.indexOf(word, startPosition)) > -1) {
-        index.push({ position, word })
-        included.add(word)
-        startPosition = position + wordLen
-      }
-    })
-    // Sort index by position of keyword
-    index.sort((left, right) => {
-      if (left.position !== right.position) {
-        return left.position - right.position
-      }
-      return right.word.length - left.word.length
-    })
-    return [index, included]
+    return result;
   }
 
-  // Merge hits into slices
-  mergeIntoSlice (start, end, index) {
-    let item = index[0]
-    let { position, word } = item
-    const hits = []
-    const count = new Set()
-    while (position + word.length <= end && index.length !== 0) {
-      count.add(word)
-      hits.push({
-        position,
-        length: word.length
-      })
-      const wordEnd = position + word.length
+  // 防抖函数减少触发频率
+  function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), wait);
+    };
+  }
 
-      // Move to next position of hit
-      index.shift()
-      while (index.length !== 0) {
-        item = index[0]
-        position = item.position
-        word = item.word
-        if (wordEnd > position) {
-          index.shift()
+  $.ajax({
+    url: path,
+    dataType: "json",
+    success: function(jsonResponse) {
+      const datas = jsonResponse;
+      const $input = document.getElementById(searchId);
+      if (!$input) { return; }
+      const $resultContent = document.getElementById(contentId);
+      const $wrapper = document.getElementById(wrapperId);
+
+      // 输入事件处理，使用防抖优化
+      const handleInput = debounce(function() {
+        const resultList = [];
+        const query = this.value.trim().toLowerCase();
+        if (query.length <= 0) {
+          $wrapper.setAttribute('searching', 'false');
+          $resultContent.innerHTML = "";
+          return;
+        }
+        $wrapper.setAttribute('searching', 'true');
+
+        // 获取所有关键词组合并排序
+        const keywords = getAllCombinations(query.split(" "))
+          .sort((a, b) => b.split(" ").length - a.split(" ").length);
+
+        datas.forEach(data => {
+          if (!data.content || !data.content.trim().length) return;
+          if (filter && !data.path.includes(filter)) return;
+          
+          const dataTitle = data.title?.trim() || 'Untitled';
+          const dataTitleLowerCase = dataTitle.toLowerCase();
+          const dataContent = data.content;
+          const dataContentLowerCase = dataContent.toLowerCase();
+          const dataUrl = data.path.startsWith('//') ? data.path.slice(1) : data.path;
+
+          let matches = 0;
+          let firstOccur = -1;
+          // 检查关键词匹配
+          keywords.forEach(keyword => {
+            const indexTitle = dataTitleLowerCase.indexOf(keyword);
+            const indexContent = dataContentLowerCase.indexOf(keyword);
+
+            if (indexTitle >= 0 || indexContent >= 0) {
+              matches += 1;
+              if (indexContent < 0) {
+                firstOccur = 0;
+              } else if (firstOccur < 0) {
+                firstOccur = indexContent;
+              }
+            }
+          });
+          // 如果有匹配结果，生成结果项
+          if (matches > 0) {
+            let matchContent = '';
+            if (firstOccur >= 0) {
+              let start = Math.max(firstOccur - 20, 0);
+              let end = Math.min(firstOccur + 80, dataContent.length);
+              matchContent = dataContent.substring(start, end);
+
+              // 高亮匹配的关键词
+              const regS = new RegExp(keywords.join("|"), "gi");
+              matchContent = matchContent.replace(regS, keyword => `<span class="search-keyword">${keyword}</span>`);
+            }
+
+            resultList.push({
+              rank: matches,
+              str: `
+                <li>
+                  <a href="${dataUrl}">
+                    <span class="search-result-title">${dataTitle}</span>
+                    ${matchContent ? `<p class="search-result-content">${matchContent}...</p>` : ''}
+                  </a>
+                </li>
+              `
+            });
+          }
+        });
+        if (resultList.length) {
+          resultList.sort((a, b) => b.rank - a.rank);
+          $resultContent.innerHTML = `<ul class="search-result-list">${resultList.map(item => item.str).join('')}</ul>`;
         } else {
-          break
+          $resultContent.innerHTML = '';
+        }
+      }, 300);
+
+      // 监听输入事件
+      $input.addEventListener("input", handleInput);
+    }
+  });
+};
+
+utils.jq(() => {
+  $(function () {
+    const $inputArea = $("#search-input");
+    if ($inputArea.length == 0) {
+      return;
+    }
+    const $resultArea = $("#search-result");
+    $inputArea.focus(function() {
+      let path = ctx.search.path;
+      if (path.startsWith('/')) {
+        path = path.substring(1);
+      }
+      path = ctx.root + path;
+      const filter = $inputArea.attr('data-filter') || '';
+      searchFunc(path, filter, 'search-wrapper', 'search-input', 'search-result');
+    });
+    // 阻止回车默认事件
+    $inputArea.keydown(function(e) {
+      if (e.which == 13) {
+        e.preventDefault();
+      }
+    });
+    // 监听搜索结果变化，更新样式
+    const observer = new MutationObserver(function(mutationsList) {
+      if (mutationsList.length == 1) {
+        if (mutationsList[0].addedNodes.length) {
+          $('.search-wrapper').removeClass('noresult');
+        } else if (mutationsList[0].removedNodes.length) {
+          $('.search-wrapper').addClass('noresult');
         }
       }
-    }
-    return {
-      hits,
-      start,
-      end,
-      count: count.size
-    }
-  }
+    });
+    observer.observe($resultArea[0], { childList: true });
 
-  // Highlight title and content
-  highlightKeyword (val, slice) {
-    let result = ''
-    let index = slice.start
-    for (const { position, length } of slice.hits) {
-      result += val.substring(index, position)
-      index = position + length
-      result += `<mark class="search-keyword">${val.substr(position, length)}</mark>`
-    }
-    result += val.substring(index, slice.end)
-    return result
-  }
-
-  getResultItems (keywords) {
-    const resultItems = []
-    this.datas.forEach(({ title, content, url }) => {
-      // The number of different keywords included in the article.
-      const [indexOfTitle, keysOfTitle] = this.getIndexByWord(keywords, title)
-      const [indexOfContent, keysOfContent] = this.getIndexByWord(keywords, content)
-      const includedCount = new Set([...keysOfTitle, ...keysOfContent]).size
-
-      // Show search results
-      const hitCount = indexOfTitle.length + indexOfContent.length
-      if (hitCount === 0) return
-
-      const slicesOfTitle = []
-      if (indexOfTitle.length !== 0) {
-        slicesOfTitle.push(this.mergeIntoSlice(0, title.length, indexOfTitle))
-      }
-
-      let slicesOfContent = []
-      while (indexOfContent.length !== 0) {
-        const item = indexOfContent[0]
-        const { position } = item
-        // Cut out 120 characters. The maxlength of .search-input is 80.
-        const start = Math.max(0, position - 20)
-        const end = Math.min(content.length, position + 100)
-        slicesOfContent.push(this.mergeIntoSlice(start, end, indexOfContent))
-      }
-
-      // Sort slices in content by included keywords' count and hits' count
-      slicesOfContent.sort((left, right) => {
-        if (left.count !== right.count) {
-          return right.count - left.count
-        } else if (left.hits.length !== right.hits.length) {
-          return right.hits.length - left.hits.length
-        }
-        return left.start - right.start
-      })
-
-      // Select top N slices in content
-      const upperBound = parseInt(this.top_n_per_article, 10)
-      if (upperBound >= 0) {
-        slicesOfContent = slicesOfContent.slice(0, upperBound)
-      }
-
-      let resultItem = ''
-
-      url = new URL(url, location.origin)
-      url.searchParams.append('highlight', keywords.join(' '))
-
-      if (slicesOfTitle.length !== 0) {
-        resultItem += `<div class="local-search-hit-item"><a href="${url.href}"><span class="search-result-title">${this.highlightKeyword(title, slicesOfTitle[0])}</span>`
+    const $searchWrapper = $("#search-wrapper");
+    const $searchMask = $("#search-mask");
+    const toggleSearch = (show) => {
+      const method = show ? 'fadeIn' : 'fadeOut';
+      $searchWrapper.stop(true, true)[method](300);
+      $searchMask.stop(true, true)[method](300);
+      if (show) {
+        $inputArea.focus();
       } else {
-        resultItem += `<div class="local-search-hit-item"><a href="${url.href}"><span class="search-result-title">${title}</span>`
+        clearSearch();
       }
-
-      slicesOfContent.forEach(slice => {
-        resultItem += `<p class="search-result">${this.highlightKeyword(content, slice)}...</p></a>`
-      })
-
-      resultItem += '</div>'
-      resultItems.push({
-        item: resultItem,
-        id: resultItems.length,
-        hitCount,
-        includedCount
-      })
-    })
-    return resultItems
-  }
-
-  fetchData () {
-    const isXml = !this.path.endsWith('json')
-    fetch(this.path)
-      .then(response => response.text())
-      .then(res => {
-        // Get the contents from search data
-        this.isfetched = true
-        this.datas = isXml
-          ? [...new DOMParser().parseFromString(res, 'text/xml').querySelectorAll('entry')].map(element => ({
-              title: element.querySelector('title').textContent,
-              content: element.querySelector('content').textContent,
-              url: element.querySelector('url').textContent
-            }))
-          : JSON.parse(res)
-        // Only match articles with non-empty titles
-        this.datas = this.datas.filter(data => data.title).map(data => {
-          data.title = data.title.trim()
-          data.content = data.content ? data.content.trim().replace(/<[^>]+>/g, '') : ''
-          data.url = decodeURIComponent(data.url).replace(/\/{2,}/g, '/')
-          return data
-        })
-        // Remove loading animation
-        window.dispatchEvent(new Event('search:loaded'))
-      })
-  }
-
-  // Highlight by wrapping node in mark elements with the given class name
-  highlightText (node, slice, className) {
-    const val = node.nodeValue
-    let index = slice.start
-    const children = []
-    for (const { position, length } of slice.hits) {
-      const text = document.createTextNode(val.substring(index, position))
-      index = position + length
-      const mark = document.createElement('mark')
-      mark.className = className
-      mark.appendChild(document.createTextNode(val.substr(position, length)))
-      children.push(text, mark)
-    }
-    node.nodeValue = val.substring(index, slice.end)
-    children.forEach(element => {
-      node.parentNode.insertBefore(element, node)
-    })
-  }
-
-  // Highlight the search words provided in the url in the text
-  highlightSearchWords (body) {
-    const params = new URL(location.href).searchParams.get('highlight')
-    const keywords = params ? params.split(' ') : []
-    if (!keywords.length || !body) return
-    const walk = document.createTreeWalker(body, NodeFilter.SHOW_TEXT, null)
-    const allNodes = []
-    while (walk.nextNode()) {
-      if (!walk.currentNode.parentNode.matches('button, select, textarea, .mermaid')) allNodes.push(walk.currentNode)
-    }
-    allNodes.forEach(node => {
-      const [indexOfNode] = this.getIndexByWord(keywords, node.nodeValue)
-      if (!indexOfNode.length) return
-      const slice = this.mergeIntoSlice(0, node.nodeValue.length, indexOfNode)
-      this.highlightText(node, slice, 'search-keyword')
-    })
-  }
-}
-
-window.addEventListener('load', () => {
-// Search
-  const { path, top_n_per_article, unescape, languages } = GLOBAL_CONFIG.localSearch
-  const localSearch = new LocalSearch({
-    path,
-    top_n_per_article,
-    unescape
-  })
-
-  const input = document.querySelector('#local-search-input input')
-  const statsItem = document.getElementById('local-search-stats-wrap')
-  const $loadingStatus = document.getElementById('loading-status')
-  const isXml = !path.endsWith('json')
-
-  const inputEventFunction = () => {
-    if (!localSearch.isfetched) return
-    let searchText = input.value.trim().toLowerCase()
-    isXml && (searchText = searchText.replace(/</g, '&lt;').replace(/>/g, '&gt;'))
-    if (searchText !== '') $loadingStatus.innerHTML = '<i class="fas fa-spinner fa-pulse"></i>'
-    const keywords = searchText.split(/[-\s]+/)
-    const container = document.getElementById('local-search-results')
-    let resultItems = []
-    if (searchText.length > 0) {
-    // Perform local searching
-      resultItems = localSearch.getResultItems(keywords)
-    }
-    if (keywords.length === 1 && keywords[0] === '') {
-      container.textContent = ''
-      statsItem.textContent = ''
-    } else if (resultItems.length === 0) {
-      container.textContent = ''
-      const statsDiv = document.createElement('div')
-      statsDiv.className = 'search-result-stats'
-      statsDiv.textContent = languages.hits_empty.replace(/\$\{query}/, searchText)
-      statsItem.innerHTML = statsDiv.outerHTML
-    } else {
-      resultItems.sort((left, right) => {
-        if (left.includedCount !== right.includedCount) {
-          return right.includedCount - left.includedCount
-        } else if (left.hitCount !== right.hitCount) {
-          return right.hitCount - left.hitCount
-        }
-        return right.id - left.id
-      })
-
-      const stats = languages.hits_stats.replace(/\$\{hits}/, resultItems.length)
-
-      container.innerHTML = `<div class="search-result-list">${resultItems.map(result => result.item).join('')}</div>`
-      statsItem.innerHTML = `<hr><div class="search-result-stats">${stats}</div>`
-      window.pjax && window.pjax.refresh(container)
-    }
-
-    $loadingStatus.textContent = ''
-  }
-
-  let loadFlag = false
-  const $searchMask = document.getElementById('search-mask')
-  const $searchDialog = document.querySelector('#local-search .search-dialog')
-
-  // fix safari
-  const fixSafariHeight = () => {
-    if (window.innerWidth < 768) {
-      $searchDialog.style.setProperty('--search-height', window.innerHeight + 'px')
-    }
-  }
-
-  const openSearch = () => {
-    btf.overflowPaddingR.add()
-    btf.animateIn($searchMask, 'to_show 0.5s')
-    btf.animateIn($searchDialog, 'titleScale 0.5s')
-    setTimeout(() => { input.focus() }, 300)
-    if (!loadFlag) {
-      !localSearch.isfetched && localSearch.fetchData()
-      input.addEventListener('input', inputEventFunction)
-      loadFlag = true
-    }
-    // shortcut: ESC
-    document.addEventListener('keydown', function f (event) {
-      if (event.code === 'Escape') {
-        closeSearch()
-        document.removeEventListener('keydown', f)
-      }
-    })
-
-    fixSafariHeight()
-    window.addEventListener('resize', fixSafariHeight)
-  }
-
-  const closeSearch = () => {
-    btf.overflowPaddingR.remove()
-    btf.animateOut($searchDialog, 'search_close .5s')
-    btf.animateOut($searchMask, 'to_hide 0.5s')
-    window.removeEventListener('resize', fixSafariHeight)
-  }
-
-  const searchClickFn = () => {
-    btf.addEventListenerPjax(document.querySelector('#search-button > .search'), 'click', openSearch)
-  }
-
-  const searchFnOnce = () => {
-    document.querySelector('#local-search .search-close-button').addEventListener('click', closeSearch)
-    $searchMask.addEventListener('click', closeSearch)
-    if (GLOBAL_CONFIG.localSearch.preload) {
-      localSearch.fetchData()
-    }
-    localSearch.highlightSearchWords(document.getElementById('article-container'))
-  }
-
-  window.addEventListener('search:loaded', () => {
-    const $loadDataItem = document.getElementById('loading-database')
-    $loadDataItem.nextElementSibling.style.display = 'block'
-    $loadDataItem.remove()
-  })
-
-  searchClickFn()
-  searchFnOnce()
-
-  // pjax
-  window.addEventListener('pjax:complete', () => {
-    !btf.isHidden($searchMask) && closeSearch()
-    localSearch.highlightSearchWords(document.getElementById('article-container'))
-    searchClickFn()
-  })
-})
+    };
+    const clearSearch = () => {
+      $inputArea.val('');
+      $resultArea.html('');
+    };
+    $("#search-button a").on("click", () => toggleSearch(true));
+    $searchMask.on("click", () => toggleSearch(false));
+    $("#search-close").on("click", () => toggleSearch(false));
+    $("#search-clear").on("click", clearSearch);
+  });
+});

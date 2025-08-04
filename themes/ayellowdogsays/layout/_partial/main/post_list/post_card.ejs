@@ -1,0 +1,109 @@
+<%
+var obj = {
+  image: post.cover
+};
+function div_default() {
+  var el = '';
+  el += '<article class="md-text">';
+
+  // 封面
+  if (obj.image || theme.article.auto_cover) {
+    var cover_url;
+    if (obj.image != undefined) {
+      if (obj.image.includes('/')) {
+        cover_url = obj.image;
+      } else {
+        cover_url = 'https://source.unsplash.com/1280x640/?' + obj.image;
+      }
+    } else {
+      // 自动以 tags 作为关键词搜索封面
+      if (post.tags) {
+        var params = '';
+        post.tags.reverse().forEach((tag, i) => {
+          if (i > 0) {
+            params += ',';
+          }
+          params += tag.name;
+        });
+        cover_url = 'https://source.unsplash.com/1280x640/?' + params;
+      } else {
+        cover_url = 'https://source.unsplash.com/random/1280x640';
+      }
+    }
+    if (cover_url) {
+      el += '<div class="post-cover">';
+      el += '<img src="' + cover_url + '"/>';
+      el += '</div>';
+    }
+  }
+
+  // meta
+  el += '<div class="meta cap">';
+  el += '<span class="cap" id="post-meta">';
+  // time
+  el += `<time datetime="${date_xml(post.date)}">${date(post.date, config.date_format)}`
+  // count
+  if (config.symbols_count_time.symbols) {
+    el += `&nbsp;·&nbsp;${symbolsCount(post)}&nbsp;${__("meta.wordcount.words")}`
+  }
+  el += '</time>'
+  el += '</span>'
+  if (post.sticky) {
+    el += `<span class="pin">${icon('default:pin')}</span>`
+  }
+  el += '</div>'
+
+  // 标题
+  el += `<a class="post-title" href="${url_for(post.link || post.path)}">`;
+  el += post.title ? post.title : date(post.date, config.date_format);
+  el += '</a>';
+
+  // 摘要
+  el += '<div class="excerpt';
+  if (theme.plugins.heti?.enable) {
+    el += ' heti';
+  }
+  el += '">';
+  el += '<p>';
+  if (post.excerpt) {
+    el += strip_html(post.excerpt);
+  } else if (post.description) {
+    el += post.description;
+  } else if (post.content && theme.article.auto_excerpt > 0) {
+    el += truncate(strip_html(post.content), {length: theme.article.auto_excerpt});
+  }
+  el += '</p>';
+  el += '</div>';
+
+  // meta
+  el += '<div class="meta cap">';
+  // cat
+  if (post.categories && post.categories.length > 0) {
+    if (post.layout === 'post' && post.categories && post.categories.length > 0) {
+      var cats = [];
+      if (post.categories) {
+        post.categories.forEach((cat, i) => {
+          cats.push(cat.name);
+        });
+      }
+      if (cats.length > 0) {
+        let cat = cats.shift();
+        el += `<a class="cap breadcrumb" ${category_color(cat)} href="/categories/${cat}/">`;
+        el += `<span>${cat}</span>`;
+        el += '</a>';
+      }
+    }
+  }
+  // cat tags
+  if (post.tags && post.tags.length > 0) {
+    el += post.tags.map(tag => `<a class="cap tag" href="/tags/${tag.name}/">${tag.name}</a>`).join('');
+  }
+  el += '</div>';
+  el += '</article>';
+  return el;
+}
+function div() {
+  return div_default();
+}
+%>
+<%- div() %>

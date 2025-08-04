@@ -1,0 +1,131 @@
+.search-wrapper
+  position: fixed
+  top: 10vh
+  left: 50%
+  z-index: 21
+  display: none
+  margin-left: -15rem
+  padding: 1rem
+  width: 30rem
+  word-break: break-all
+  box-shadow: $boxshadow-card
+  background: var(--site-bg)
+  border: 1px solid var(--block-border)
+  border-radius: $border-bar
+
+  .search-header
+    display: flex
+    align-items: center
+    justify-content: space-between
+    color: var(--text)
+    margin-bottom: 1rem
+
+  .search-close-button
+    margin-left: 8px
+    color: var(--text-p3)
+    line-height: 1
+    cursor: pointer
+    trans1 color
+    &:hover
+      color: $color-theme
+
+  >.search-form
+    display: flex
+    flex-direction: row
+    align-items: center
+    margin-bottom: .75rem
+    transition: 0.38s ease-out
+    border-radius: $border-bar
+    background: var(--block)
+    border: 1px solid var(--block-border)
+    &:has(input:focus)
+      background: var(--card)
+    .search-close-button
+      margin-right: 1rem
+
+  .search-input
+    width: 100%
+    box-sizing: border-box
+    font-family: $ff-body
+    font-size: $fs-14
+    padding: .75rem 1rem
+    color: var(--text)
+
+  #search-result
+    max-height: 60vh
+    overflow-y: auto
+    &:empty
+      display: none
+    .search-result-list
+      padding: 0
+      margin: 0
+      list-style-type: none
+    li a
+        display: block
+        background: var(--block)
+        line-height: 1.2
+        padding: 0.75rem 1rem
+        border-radius: $border-card
+        border: 1px solid var(--block-border)
+        trans1 background
+        &:hover
+          background: var(--card)
+    li+li
+        margin-top: 8px
+    .search-result-title
+      color: var(--text-p1)
+      font-weight: 700
+      font-size: $fs-15
+
+    .search-result-content
+      overflow: hidden
+      color: var(--text-p3)
+      margin: 4px 0 0
+      max-height: 13em
+      text-align: justify
+      font-size: $fs-13
+      display: -webkit-box
+      -webkit-box-orient: vertical
+      overflow: hidden
+      -webkit-line-clamp: 2
+
+    .search-keyword
+      color: $c-red
+      font-weight: bold
+      filter grayscale(25%)
+
+  .search-no-result
+    display: none
+    color: var(--text-p1)
+    text-align: center
+    font-size: $fs-14
+    padding: 2rem
+    background: var(--block)
+    border-radius: $border-card
+
+.search-wrapper.noresult[searching='true']
+  .search-no-result
+    display: block
+    margin: 0
+    border: 1px solid var(--block-border)
+
+#search-mask
+  position: fixed
+  inset: 0
+  z-index: 20
+  display: none
+  backdrop-filter: blur(20px)
+  -webkit-backdrop-filter: blur(20px)
+
+@media screen and (max-width: $device-mobile-max)
+  .search-wrapper 
+    top: 0
+    left: 0
+    margin: 0
+    width: 100%
+    height: 100%
+    border: 0
+    border-radius: 0
+    box-sizing: border-box
+    #search-result
+      max-height: 78vh

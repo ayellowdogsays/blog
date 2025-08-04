@@ -1,121 +1,76 @@
-footer:
-  framework: Framework
-  theme: Theme
+btn:
+  home: Home
+  blog: Blog
+  wiki: Wiki
+  topic: Topic
+  notebook: Notebook
+  recent_publish: Recent
+  all_wiki: All Products
+  category: Category
+  categories: Categories
+  tag: Tag
+  tags: Tags
+  archives: Archives
+  all_posts: All Posts
+  getting_started: Getting Started
+  edit: Edit This Page
+  top: Scroll to Top
+  comments: Join Discussion
 
-copy:
-  success: Copy Successful
-  error: Copy Failed
-  noSupport: Browser Not Supported
+meta:
+  recent_update: Recent Update
+  tag_tree: Tags
+  all_notes: All Notes
+  toc: On This Page
+  read_next: READ NEXT
+  prev: Prev
+  next: Next
+  older: Older
+  newer: Newer
+  references: References
+  related_posts: Related Posts
+  back_to_top: Back to top
+  more: More
+  created_author: '%s posted on'
+  created: 'Posted on'
+  updated: 'Updated on'
+  license: License
+  share: Share
+  date_suffix:
+    just: Just
+    min: minutes ago
+    hour: hours ago
+    day: days ago
+    month: months ago
+  wordcount:
+    count: Word
+    words: words
+    read_time: Time
+  expire:
+    title: Article Prescription Reminder
+    message: This article was last updated %s days ago, and some information may have changed. Please pay attention to discernment
 
 page:
-  articles: All Articles
-  tag: Tag
-  category: Category
-  archives: Archives
-
-card_post_count: comments
-
-no_title: Untitled
-
-post:
-  created: Created
-  updated: Updated
-  wordcount: Word Count
-  min2read: Reading Time
-  min2read_unit: mins
-  page_pv: Post Views
-  comments: Comments
-  copyright:
-    author: Author
-    link: Link
-    copyright_notice: Copyright Notice
-    copyright_content: 'All articles on this blog are licensed under <a href="%s">%s</a> unless otherwise stated.'
-  recommend: Related Articles
-  edit: Edit
+  error:
+    what: Page Not Found
+    why: The address may be entered incorrectly or the address has been deleted.
+    action: Back to Home
 
 search:
-  title: Search
-  load_data: Loading Database
-  input_placeholder: Search for Posts
-  algolia_search:
-    hits_empty: 'No results found for: ${query}'
-    hits_stats: '${hits} results found in ${time} ms'
-  local_search:
-    hits_empty: 'No results found for: ${query}'
-    hits_stats: '${hits} articles found'
+  search: Search
+  search_in: Search in %s
+  no_results: No Results!
 
-pagination:
-  prev: Previous
-  next: Next
+message:
+  copied: Copied!
+  theme_switched:
+    light: Switched to Light Mode
+    dark: Switched to Dark Mode
+    auto: Switched to Auto Mode
 
-comment: Comments
-
-aside:
-  articles: Articles
-  tags: Tags
-  categories: Categories
-  card_announcement: Announcement
-  card_categories: Categories
-  card_tags: Tags
-  card_archives: Archives
-  card_recent_post: Recent Posts
-  card_webinfo:
-    headline: Website Info
-    article_name: Article Count
-    runtime:
-      name: Runtime
-      unit: days
-    last_push_date:
-      name: Last Update
-    site_wordcount: Total Word Count
-    site_uv_name: Unique Visitors
-    site_pv_name: Page Views
-  more_button: View More
-  card_newest_comments:
-    headline: Latest Comments
-    loading_text: Loading...
-    error: Unable to retrieve comments, please check the configuration
-    zero: No comments
-    image: Image
-    link: Link
-    code: Code
-  card_toc: Contents
-  card_post_series: Post Series
-
-date_suffix:
-  just: Just now
-  min: minutes ago
-  hour: hours ago
-  day: days ago
-  month: months ago
-
-donate: Sponsor
-share: Share
-
-rightside:
-  readmode_title: Reading Mode
-  translate_title: Toggle Between Traditional and Simplified Chinese
-  night_mode_title: Toggle Between Light and Dark Mode
-  back_to_top: Back to Top
-  toc: Table of Contents
-  scroll_to_comment: Scroll to Comments
-  setting: Settings
-  aside: Toggle Between Single-column and Double-column
-  chat: Chat
-
-copy_copyright:
-  author: Author
-  link: Link
-  source: Source
-  info: Copyright belongs to the author. For commercial use, please contact the author for authorization. For non-commercial use, please indicate the source.
-
-Snackbar:
-  chs_to_cht: You have switched to Traditional Chinese
-  cht_to_chs: You have switched to Simplified Chinese
-  day_to_night: You have switched to Dark Mode
-  night_to_day: You have switched to Light Mode
-
-loading: Loading...
-load_more: Load More
-
-error404: Page Not Found
+symbol:
+  comma: ", "
+  period: ". "
+  colon: ": "
+  brackets_l: "("
+  brackets_r: ")"
