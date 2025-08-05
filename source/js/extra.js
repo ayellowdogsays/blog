@@ -506,3 +506,105 @@ function drawContour(ctx, cellSize, cols, rows, heightMap, level) {
 
 drawClouds()
 drawBackground()
+
+
+
+//ekfjeiihotjiow
+document.addEventListener('DOMContentLoaded', function() {
+  const menu = document.querySelector('.nav-area .menu');
+  if (!menu) return;
+
+  let isDragging = false;
+  let startX = 0;
+  let scrollLeft = 0;
+  let momentumID = null;
+  let startTime = 0;
+
+  // PC端鼠标事件
+  menu.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    menu.classList.add('dragging');
+    startX = e.pageX - menu.offsetLeft;
+    scrollLeft = menu.scrollLeft;
+    startTime = Date.now();
+    e.preventDefault();
+  });
+
+  menu.addEventListener('mousemove', (e) => {
+    if (!isDragging) return;
+    const x = e.pageX - menu.offsetLeft;
+    const walk = (x - startX) * 2; // 拖动速度系数
+    menu.scrollLeft = scrollLeft - walk;
+  });
+
+  menu.addEventListener('mouseup', () => {
+    isDragging = false;
+    menu.classList.remove('dragging');
+    applyMomentum();
+  });
+
+  menu.addEventListener('mouseleave', () => {
+    isDragging = false;
+    menu.classList.remove('dragging');
+  });
+
+  // 移动端触摸事件
+  menu.addEventListener('touchstart', (e) => {
+    isDragging = true;
+    menu.classList.add('dragging');
+    startX = e.touches[0].pageX - menu.offsetLeft;
+    scrollLeft = menu.scrollLeft;
+    startTime = Date.now();
+  }, { passive: false });
+
+  menu.addEventListener('touchmove', (e) => {
+    if (!isDragging) return;
+    const x = e.touches[0].pageX - menu.offsetLeft;
+    const walk = (x - startX) * 2;
+    menu.scrollLeft = scrollLeft - walk;
+    e.preventDefault();
+  }, { passive: false });
+
+  menu.addEventListener('touchend', () => {
+    isDragging = false;
+    menu.classList.remove('dragging');
+    applyMomentum();
+  });
+
+  // 惯性滑动效果
+  function applyMomentum() {
+    if (momentumID) cancelAnimationFrame(momentumID);
+    
+    const duration = Date.now() - startTime;
+    if (duration > 300) return; // 长时间拖动不应用惯性
+    
+    const startScroll = menu.scrollLeft;
+    const startTime = Date.now();
+    const direction = menu.scrollLeft > scrollLeft ? 1 : -1;
+    const distance = Math.abs(menu.scrollLeft - scrollLeft);
+    
+    if (distance < 10) return; // 小距离不应用惯性
+    
+    function animate() {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / 300, 1); // 300ms惯性时间
+      const ease = 1 - Math.pow(1 - progress, 3); // 缓动函数
+      
+      menu.scrollLeft = startScroll + (distance * direction * ease);
+      
+      if (progress < 1) {
+        momentumID = requestAnimationFrame(animate);
+      }
+    }
+    
+    momentumID = requestAnimationFrame(animate);
+  }
+
+  // 防止拖动时误触发点击
+  menu.addEventListener('click', (e) => {
+    if (isDragging) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }, true);
+});
