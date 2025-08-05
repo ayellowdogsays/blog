@@ -2,16 +2,12 @@
   width: 100%;
   display: grid;
   margin: 8px 0;
-  grid-template-columns: repeat(var(--menubar-columns), 1fr);
+  grid-template-columns: repeat(hexo-config('menubar.columns'), 1fr);
   grid-gap: 8px;
-  scrollbar-width: none; /* For Firefox */
   
   /* Hide scrollbar for Webkit browsers */
   &::-webkit-scrollbar {
     display: none;
-    width: 0;
-    height: 0;
-    background: transparent;
   }
   
   &::-webkit-scrollbar-track-piece {
@@ -21,121 +17,66 @@
   &::-webkit-scrollbar-thumb {
     display: none;
   }
-
+  
   .nav-item {
+    /* Layout */
     box-sizing: border-box;
     width: 100%;
     min-height: 40px;
-    border-radius: var(--border-bar);
-    font-size: var(--fs-15);
-    font-weight: 500;
-    color: var(--text-p3);
-    text-align: center;
-    background: var(--bg-a50);
-    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    overflow: hidden;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    padding: 6px 4px;
-    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-
+    position: relative;
+    
+    /* Visual styling */
+    border-radius: $border-bar;
+    background: var(--bg-a50);
+    color: var(--text-p3);
+    text-align: center;
+    
+    /* Typography */
+    font-size: $fs-15;
+    font-weight: 500;
+    
+    /* Content handling */
+    span {
+      text-overflow: ellipsis;
+      word-break: keep-all;
+    }
+    
+    /* Icon styling */
     img, svg {
       height: 28px;
-      width: auto;
-      max-width: 100%;
       object-fit: contain;
       filter: grayscale(50%) brightness(0.8) opacity(0.5);
-      transition: all 0.3s ease;
-      margin-bottom: 4px;
+      trans1 all;
     }
-
-    span {
-      display: inline-block;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      overflow: hidden;
-      word-break: keep-all;
-      max-width: 100%;
-      padding: 0 4px;
-      line-height: 1.2;
-    }
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-
-    &:active {
-      transform: translateY(1px);
-      transition: transform 0.1s ease;
-    }
-
+    
+    /* Transitions */
+    trans1 background;
+    
+    /* Active & hover states */
     &.active, &:hover {
       color: var(--text-p1);
       background: var(--bg-a100);
       
       img, svg {
-        filter: none;
-        transform: scale(1.05);
+        filter: unset;
       }
     }
-
-    &.active {
-      box-shadow: 
-        0 2px 4px rgba(0,0,0,0.1),
-        inset 0 1px 2px rgba(0,0,0,0.1);
-      
-      &:after {
-        content: '';
-        position: absolute;
-        width: 16px;
-        height: 2px;
-        left: 50%;
-        transform: translateX(-50%);
-        border-radius: 2px;
-        bottom: 2px;
-        background: currentColor;
-        animation: navPulse 2s infinite;
-      }
-    }
-  }
-}
-
-@keyframes navPulse {
-  0%, 100% {
-    opacity: 0.8;
-    width: 16px;
-  }
-  50% {
-    opacity: 1;
-    width: 24px;
-  }
-}
-
-/* Mobile responsiveness */
-@media (max-width: 768px) {
-  .nav-area .menu {
-    grid-gap: 6px;
     
-    .nav-item {
-      min-height: 36px;
-      font-size: var(--fs-14);
-      padding: 4px 2px;
-      
-      img, svg {
-        height: 24px;
-        margin-bottom: 2px;
-      }
-      
-      span {
-        font-size: var(--fs-12);
-      }
+    /* Active state indicator */
+    &.active:after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 2px;
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+      bottom: 2px;
+      background: currentColor;
     }
   }
 }
