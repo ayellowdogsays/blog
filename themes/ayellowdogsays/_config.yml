@@ -27,18 +27,20 @@ logo:
 
 
 menubar:
-  columns: 3 # 一行多少个
+  columns: 4 # 一行多少个
   items: # 可按照自己需求增加，符合以下格式即可
       - id: post
         title: 阿黄说
         url: /
-      - id: wiki
+      - id: pos
         title: 阿黄
         url: /says/
       - id: social
         title: 阿黄友
         url: /dogcare/
-
+      - id: so
+        title: 个性汪
+        url: /settings/
 ######## Main ########
 # 站点主结构树
 site_tree:
