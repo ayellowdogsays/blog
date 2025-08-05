@@ -2,15 +2,29 @@
   display: grid;
   margin-bottom: 8px;
   box-shadow: var(--boxshadow-inset-block);
-  padding: 3px; /* 增加内边距使圆角更明显 */
+  padding: 3px;
   border: 1px solid var(--block-border);
-  border-radius: 12px; /* 外层容器圆角增大 */
+  border-radius: 12px;
   background: var(--block);
   grid-template-columns: repeat(var(--menubar-columns), 1fr);
-  grid-gap: 3px; /* 间隙稍微增大 */
+  grid-gap: 3px;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  overflow: hidden; /* 确保内部圆角不被溢出内容破坏 */
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
+  user-select: none;
+}
+
+.nav-area .menu:active {
+  cursor: grabbing;
+}
+
+.nav-area .menu.dragging {
+  scroll-snap-type: none;
+  scroll-behavior: auto;
 }
 
 /* 隐藏滚动条 */
@@ -36,12 +50,15 @@
     transform 0.2s ease,
     background 0.3s ease,
     box-shadow 0.3s ease,
-    border-radius 0.2s ease; /* 圆角过渡动画 */
+    border-radius 0.2s ease,
+    filter 0.3s ease;
   padding: 6px 8px;
-  border-radius: 10px; /* 导航项圆角 */
+  border-radius: 10px;
   user-select: none;
   -webkit-tap-highlight-color: transparent;
-  background: var(--block); /* 默认背景 */
+  background: var(--block);
+  scroll-snap-align: start;
+  overflow: hidden;
 }
 
 /* 图标样式 */
@@ -54,7 +71,9 @@
   filter: grayscale(100%) brightness(0.8) opacity(0.8);
   transition: all 0.3s ease;
   margin-bottom: 4px;
-  border-radius: 6px; /* 图标容器圆角 */
+  border-radius: 6px;
+  transform: scale(1);
+  will-change: transform;
 }
 
 /* 文字样式 */
@@ -67,8 +86,9 @@
   word-break: keep-all;
   line-height: 1.2;
   padding: 2px 6px;
-  border-radius: 4px; /* 文字背景圆角 */
+  border-radius: 4px;
   background: rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
 }
 
 /* 悬停效果 */
@@ -77,7 +97,7 @@
   background: var(--card-hover);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-  border-radius: 8px; /* 悬停时圆角稍微减小 */
+  border-radius: 8px;
 }
 
 /* 激活状态 */
@@ -89,18 +109,20 @@
     inset 0 2px 4px rgba(0,0,0,0.1);
   transform: translateY(0);
   border-radius: 8px;
+  animation: itemActive 0.6s ease-out;
 }
 
-/* 点按效果 - 圆角动态变化 */
+/* 点击效果 - 增强版 */
 .nav-area .menu .nav-item:active {
   transform: translateY(2px) scale(0.98);
   box-shadow: 
     0 1px 2px rgba(0,0,0,0.1),
     inset 0 3px 5px rgba(0,0,0,0.2);
-  border-radius: 12px; /* 按下时圆角增大 */
+  border-radius: 12px;
   transition: 
     transform 0.1s ease,
-    border-radius 0.1s ease; /* 圆角变化动画 */
+    border-radius 0.1s ease;
+  animation: clickEffect 0.4s ease-out;
 }
 
 /* 图标悬停/激活效果 */
@@ -110,28 +132,75 @@
 .nav-area .menu .nav-item.active svg {
   filter: none;
   transform: scale(1.05);
-  border-radius: 4px; /* 图标圆角变化 */
+  border-radius: 4px;
 }
 
-/* 激活指示条 - 圆角增强 */
+/* 激活指示条 */
 .nav-area .menu .nav-item.active::after {
   content: '';
   position: absolute;
-  width: 60%; /* 更宽的指示条 */
+  width: 60%;
   height: 3px;
   left: 50%;
   transform: translateX(-50%);
-  border-radius: 3px; /* 圆形端点 */
+  border-radius: 3px;
   bottom: 4px;
   background: currentColor;
   opacity: 0.8;
   animation: pulse 2s infinite;
 }
 
-/* 点击涟漪效果 (圆角匹配) */
+/* 点击涟漪效果 - 增强版 */
+.nav-area .menu .nav-item::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255,255,255,0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: translate(-50%, -50%);
+}
+
 .nav-area .menu .nav-item:active::before {
-  border-radius: 12px; /* 匹配按下状态的圆角 */
   animation: ripple 0.6s ease-out;
+}
+
+/* 新增点击动画 */
+@keyframes clickEffect {
+  0% {
+    transform: translateY(0) scale(1);
+    box-shadow: 0 0 0 rgba(0,0,0,0.1);
+  }
+  50% {
+    transform: translateY(4px) scale(0.96);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  100% {
+    transform: translateY(2px) scale(0.98);
+    box-shadow: 
+      0 1px 2px rgba(0,0,0,0.1),
+      inset 0 3px 5px rgba(0,0,0,0.2);
+  }
+}
+
+@keyframes itemActive {
+  0% {
+    transform: scale(0.98);
+    box-shadow: 0 0 0 rgba(0,0,0,0.1);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 
+      0 2px 4px rgba(0,0,0,0.1),
+      inset 0 2px 4px rgba(0,0,0,0.1);
+  }
 }
 
 @keyframes ripple {
@@ -145,7 +214,7 @@
     width: 200px;
     height: 200px;
     opacity: 0;
-    border-radius: 20px; /* 涟漪结束时变为圆角矩形 */
+    border-radius: 20px;
   }
 }
 
@@ -156,7 +225,7 @@
   }
   50% { 
     opacity: 1;
-    width: 70%; /* 宽度动态变化 */
+    width: 70%;
   }
   100% { 
     opacity: 0.6;
@@ -167,7 +236,7 @@
 /* 移动端适配 */
 @media (max-width: 768px) {
   .nav-area .menu {
-    border-radius: 16px; /* 移动端更大的圆角 */
+    border-radius: 16px;
     padding: 4px;
     grid-gap: 4px;
   }
@@ -186,5 +255,10 @@
   .nav-area .menu .nav-item svg {
     height: 20px;
     border-radius: 4px;
+  }
+  
+  /* 移动端点击效果增强 */
+  .nav-area .menu .nav-item:active {
+    transform: translateY(3px) scale(0.96);
   }
 }
