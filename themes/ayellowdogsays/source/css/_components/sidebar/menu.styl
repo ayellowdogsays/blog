@@ -1,53 +1,133 @@
-.nav-area .menu
-  width: 100%
-  display: grid
-  margin: 8px 0
-  grid-template-columns: repeat(hexo-config('menubar.columns'), 1fr)
-  grid-gap: 8px
-  &::-webkit-scrollbar
-    display: none
-  &::-webkit-scrollbar-track-piece
-    background: transparent
-  &::-webkit-scrollbar-thumb
-    display: none
+.nav-area .menu {
+  width: 100%;
+  display: grid;
+  margin: 12px 0;  // 增加外边距
+  grid-template-columns: repeat(hexo-config('menubar.columns'), 1fr);
+  grid-gap: 12px;  // 增加网格间隙
+  scrollbar-width: none;  // 标准属性隐藏滚动条
+  -ms-overflow-style: none;  // IE隐藏滚动条
   
-  .nav-item
-    box-sizing: border-box
-    width: 100%
-    min-height: 40px
-    border-radius: $border-bar
-    font-size: $fs-15
-    font-weight: 500
-    color: var(--text-p3)
-    text-align: center
-    background: var(--bg-a50)
-    trans1 background
-    position: relative
-    display: flex
-    flex-direction: column
-    align-items: center
-    justify-content: center
-    img,svg
-      height: 28px
-      object-fit: contain
-      filter: grayscale(50%) brightness(0.8) opacity(0.5)
-      trans1 all
-    span
-      text-overflow: ellipsis
-      word-break: keep-all
-    &.active, &:hover
-      color: var(--text-p1)
-      background: var(--bg-a100)
-      img,svg
-        filter: unset
-    &.active:after
-      content: ''
-      position absolute
-      width: 16px
-      height: 2px
-      left: 50%
-      transform: translateX(-50%)
-      border-radius: 2px
-      bottom: 2px
-      background: currentColor
+  // 隐藏所有滚动条相关元素
+  &::-webkit-scrollbar,
+  &::-webkit-scrollbar-track-piece,
+  &::-webkit-scrollbar-thumb {
+    display: none;
+    background: transparent;
+  }
+  
+  .nav-item {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 48px;  // 增加高度
+    border-radius: $border-bar;
+    font-size: $fs-15;
+    font-weight: 500;
+    color: var(--text-p3);
+    text-align: center;
+    background: var(--bg-a50);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);  // 更平滑的过渡
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    overflow: hidden;  // 为伪元素做准备
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);  // 添加阴影
+    
+    // 图标样式
+    img, svg {
+      height: 28px;
+      width: 28px;  // 确保宽度一致
+      object-fit: contain;
+      filter: grayscale(50%) brightness(0.8) opacity(0.8);  // 调整不透明度
+      transition: all 0.3s ease;
+      margin-bottom: 4px;  // 增加与文字的间距
+    }
+    
+    span {
+      text-overflow: ellipsis;
+      word-break: keep-all;
+      white-space: nowrap;  // 防止文字换行
+      padding: 0 8px;  // 增加文字内边距
+    }
+    
+    // 悬停和激活状态
+    &.active, &:hover {
+      color: var(--text-p1);
+      background: var(--bg-a100);
+      transform: translateY(-2px);  // 悬停时轻微上浮
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  // 悬停时阴影加深
+      
+      img, svg {
+        filter: none;
+        transform: scale(1.1);  // 图标轻微放大
+      }
+    }
+    
+    // 激活状态指示器
+    &.active:after {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 3px;  // 加粗指示线
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 2px;
+      bottom: 4px;  // 调整位置
+      background: var(--theme);  // 使用主题色
+      box-shadow: 0 0 4px rgba(var(--theme-rgb), 0.3);  // 添加发光效果
+    }
+    
+    // 点击反馈效果
+    &:active {
+      animation: clickShake 0.3s ease;  // 点击震动效果
+      background: var(--bg-a80);
+      
+      &:after {
+        background: var(--theme-light);  // 点击时指示器变亮
+      }
+    }
+    
+    // 添加波纹点击效果
+    &::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(var(--theme-rgb), 0.2);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%, -50%);
+      transform-origin: 50% 50%;
+      transition: all 0.5s ease;
+    }
+    
+    &:focus:not(:active)::before {
+      animation: ripple 0.6s ease-out;
+    }
+  }
+}
 
+// 点击震动动画
+@keyframes clickShake {
+  0% { transform: translateY(-2px); }
+  25% { transform: translateY(-2px) rotate(1deg); }
+  50% { transform: translateY(-2px) rotate(-1deg); }
+  75% { transform: translateY(-2px) rotate(1deg); }
+  100% { transform: translateY(-2px); }
+}
+
+// 波纹效果动画
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(20, 20);
+    opacity: 0;
+  }
+}
