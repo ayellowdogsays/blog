@@ -1,18 +1,18 @@
 // list
 .l_main .post-list
   margin: 1rem
+  .post-title:first-child
+    margin-top: .5rem
 
 .l_main .post-list
   .post-title
-    display: block
     font-weight: 500
-    margin: .75rem auto .5rem 0
+    margin: 1.25rem auto .75rem 0
     line-height: 1.2
     font-size: $fsh4
     border-bottom: none
-    color: var(--text-p1)
-    &:hover
-      color: var(--text)
+    color: var(--text)
+    trans1 color
     @media screen and (max-width: $device-mobile)
       font-size: $fsh5
       margin: 0.5rem 0
@@ -23,13 +23,28 @@
 .post-list .post-card
   display: block
   margin: 1rem 0
-  border-radius: $border-card
+  border-radius: $border-card-l
   background: var(--card)
-  border: 1px solid var(--block-border)
+  hoverable-card()
   overflow: hidden
+  z-index: 0
   position: relative
+  --img-br: 100%
+  --img-sat: 100%
+  --blur-px: 1em
+  --blur-height: 128px
+  --blur-sat: 120%
+  &:hover
+    --img-br: 75%
+    --img-sat: 120%
+    // --blur-px: 0
+    // --blur-height: 0
+    --blur-sat: 200%
+  img
+    filter: brightness(var(--img-br)) saturate(var(--img-sat))
+    trans1 all
   .excerpt
-    margin: 0.75rem 0
+    margin: 1rem 0
     @media screen and (max-width: $device-mobile)
       margin: 0.5rem 0
     >p
@@ -52,13 +67,14 @@
       line-height: 0
       transform: scale(1.2)
       margin-right: 8px
+    >span+span
+      margin-left: 1.5rem
     span.pin
       img
         object-fit: contain
       svg
-        color: $color-accent
-    .cap
-      padding-right: 1em
+        color: $c-red
+
 
 // common article
 .post-list .md-text
@@ -73,18 +89,19 @@
 // posts
 .post-list .post-card .post-cover
   overflow: hidden
+  width: 'calc(100% + 2 * %s)' % 1rem
   border-radius: 0
-  position: absolute
-  right: -1em
-  bottom: -2em
+  margin-left: -1rem
+  margin-top: -1rem
+  margin-right: -1rem
+  background: var(--block)
   &:not(.lazy)
     trans1: transform 1s
   img
     object-fit: cover
-    width: 7em
-    transform: rotate(-10deg)
+    width: 100%
     border-radius: 0
-    opacity: .15
+    aspect-ratio: hexo-config('article.cover_ratio')
     
 .post-list .post-card.post.photo
   .cover
@@ -93,7 +110,61 @@
     img
       width: 100%
       object-fit: cover
-      aspect-ratio: hexo-config('article.cover_ratio')
+      aspect-ratio: hexo-config('article.cover_ratio') 
+      z-index 0
+    &:before
+      content: ''
+      z-index 1
+      position: absolute
+      left: 0
+      right: 0
+      height: var(--blur-height)
+      backdrop-filter: saturate(var(--blur-sat)) blur(var(--blur-px))
+      -webkit-backdrop-filter: saturate(var(--blur-sat)) blur(var(--blur-px))
+      trans1 all
+    &[position=top]:before
+      top: 0
+      mask: linear-gradient(black, rgba(black, 0.75), transparent)
+      -webkit-mask: linear-gradient(black, rgba(black, 0.75), transparent)
+    &[position=bottom]:before
+      bottom: 0
+      mask: linear-gradient(transparent, rgba(black, 0.75), black)
+      -webkit-mask: linear-gradient(transparent, rgba(black, 0.75), black)
+    .cover-info
+      padding: 1.5rem 1rem
+      position: absolute
+      line-height: 1.2
+      width: 'calc(100% - %s * 2)' % 1rem
+      --text-banner: white
+      color: var(--text-banner)
+      z-index: 2
+      &[position=top]
+        top: 0
+        background-image: linear-gradient(rgba(0,0,0,0.2),rgba(0,0,0,0))
+      &[position=bottom]
+        bottom: 0
+        background-image: linear-gradient(rgba(0,0,0,0),rgba(0,0,0,0.2))
+      div+div
+        margin-top: 4px
+      .text
+        color: unset
+        trans1 all
+        text-shadow: 0 2px 4px rgba(0,0,0,0.2)
+      .topic
+        font-size: $fs-13
+      .headline
+        font-weight: 500
+        font-size: $fsh3
+      .caption
+        font-size: $fs-14
+      @media screen and (max-width: $device-mobile)
+        padding: 1rem
+        div+div
+          margin-top: 2px
+        .headline
+          font-size: $fsh4
+        .caption
+          font-size: $fs-13
   h2
     margin: .25rem 0
     font-size: $fsh4
@@ -116,8 +187,7 @@
     width: 96px
     max-height: 96px
     object-fit: contain
-    &:not(.lazy)
-      trans1: transform 0.75s
+    trans1: all 0.75s
 .post-list .post-card.wiki article .excerpt
   margin: 1rem .5rem
   @media screen and (min-width: 950px)

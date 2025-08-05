@@ -6,37 +6,33 @@ function setCardLink(nodes) {
     // If it is not a tag element then it is not processed
     if (el.nodeType !== 1) return;
     el.removeAttribute('cardlink');
-    const api = el.getAttribute('api');
+    const api = el.dataset.api;
     if (api == null) return;
-    const loadData = () => {
-      fetch(api).then(function(response) {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Network response was not ok.');
-      }).then(function(data) {
-        var autofill = [];
-        const autofillStr = el.getAttribute('autofill');
-        if (autofillStr) {
-          autofill = autofillStr.split(',');
-        }
-        if (data.title && data.title.length > 0 && autofill.includes('title')) {
-          el.querySelector('.title').innerHTML = data.title;
-          el.title = data.title;
-        }
-        if (data.icon && data.icon.length > 0 && autofill.includes('icon')) {
-          el.querySelector('.img').style = 'background-image: url("' + data.icon + '");';
-          el.querySelector('.img').setAttribute('data-bg', data.icon);
-        }
-        let desc = el.querySelector('.desc');
-        if (desc && data.desc && data.desc.length > 0 && autofill.includes('desc')) {
-          desc.innerHTML = data.desc;
-        }
-      }).catch(function(error) {
-        console.error(error);
-      });
-    }
-    const lazyload = el.hasAttribute('lazyload');
-    util.viewportLazyload(el, loadData, lazyload);
+    fetch(api).then(function(response) {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Network response was not ok.');
+    }).then(function(data) {
+      var autofill = [];
+      const autofillStr = el.getAttribute('autofill');
+      if (autofillStr) {
+        autofill = autofillStr.split(',');
+      }
+      if (data.title && data.title.length > 0 && autofill.includes('title')) {
+        el.querySelector('.title').innerHTML = data.title;
+        el.title = data.title;
+      }
+      if (data.icon && data.icon.length > 0 && autofill.includes('icon')) {
+        el.querySelector('.img').style = 'background-image: url("' + data.icon + '");';
+        el.querySelector('.img').setAttribute('data-bg', data.icon);
+      }
+      let desc = el.querySelector('.desc');
+      if (desc && data.desc && data.desc.length > 0 && autofill.includes('desc')) {
+        desc.innerHTML = data.desc;
+      }
+    }).catch(function(error) {
+      console.error(error);
+    });
   })
 }
