@@ -11,14 +11,10 @@ function layoutDiv() {
   if (theme.article.share?.length > 0) {
     item.push('share');
   }
-  var contributors = partial('contributors', {map: theme.data_services.contributors.edit_this_page})
-  if (contributors?.trim().length > 0) {
-    item.push('contributors')
-  }
   if (item.length === 0) {
     return el;
   }
-  el += `<div class="article-footer${scrollreveal(' ')}">`
+  el += `<div class="article-footer${scrollreveal(' ')} fs14">`
   if (page.references?.length > 0) {
     function refList() {
       var el = '';
@@ -78,10 +74,6 @@ function layoutDiv() {
       <div class="body">${markdown(license)}</div>
     </section>
     `
-  }
-
-  if (contributors) {
-    el += contributors
   }
 
   var showSharePlugin = false

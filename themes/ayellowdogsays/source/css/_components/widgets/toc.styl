@@ -1,4 +1,5 @@
 .widget-wrapper.toc
+  background: var(--site-bg)
   z-index 3
   .widget-body
     position relative
@@ -11,14 +12,6 @@
       width: 4px
       background: var(--block)
       border-radius: 4px
-  
-  if !$site-background-image
-    @media screen and (min-width: $device-laptop)
-      background: var(--background)
-
-.l_left .widget-wrapper.toc
-  @media screen and (min-width: $device-laptop)
-    background: none
 
 // 目录基本样式
 .widget-wrapper.toc .toc
@@ -33,7 +26,7 @@
   a
     --padding: calc(var(--gap-padding) / 2)
     --padding-offset: calc(0 - var(--padding))
-    padding: 4px var(--padding)
+    padding: 6px var(--padding)
     margin: 0 var(--padding)
     color: var(--text-p3)
     display: block
@@ -47,10 +40,10 @@
       bottom: 6px
       left: -8px
       width: 4px
-      background: var(--theme)
+      background: $color-theme
       border-radius: 4px
     &:hover
-      background: var(--block-border)
+      background: var(--block-hover)
       color: var(--text)
     
 // 固定位置
@@ -58,15 +51,13 @@
   margin-top: 0
   position: sticky
   position: -webkit-sticky
-  top: calc(var(--gap-margin) * 1)
+  top: 0
   padding: 16px 0
   &:first-child
-    top: calc(var(--gap-margin) * 2)
-    padding-top: 1rem
+    top: 8px
+    padding-top: 8px
   .widget-body .toc
     max-height: 70vh
-    @media screen and (max-width: $device-desktop)
-      max-height: 60vh
     @media screen and (max-width: $device-laptop)
       max-height: unset
     overflow: auto
@@ -168,7 +159,7 @@
       width: auto
       margin-right: 8px
   a:hover
-    background: var(--block-border)
+    background: var(--block-hover)
     color: var(--text)
 
 .widget-wrapper.toc+.widget-wrapper
@@ -176,7 +167,6 @@
 
 @media screen and (max-width: $device-laptop)
   .l_right
-    blur-effect()
     .widgets
       .widget-wrapper.toc
         position: static
@@ -184,8 +174,3 @@
   .widget-wrapper.toc .toc
     a
       color: var(--text-p2)
-  .widget-wrapper.toc .widget-footer
-    a
-      background: var(--block)
-    a+a
-      margin-top: 4px
