@@ -73,44 +73,6 @@ if (theme.style.prefers_theme === 'auto') {
 html += `</html>`
 %>
 <%- html %>
-<script src="https://cdn.bootcss.com/sweetalert/2.1.0/sweetalert.min.js"></script>
-<script>
-    let password = "123124
-    }
- 
-    function checkPassword(ic, ti) {
-        swal({
-                title: "免责申明",
-                text: "\n您好\n\n为了防止你是机器人\n请输入123123以确认\请输入1234456前面的是假的\n这个是真的123124",
-                closeOnConfirm: false,
-                closeOnClickOutside: false,
-                icon: ic,
-                button: {
-                    text: "确认",
-                },
-                content: {
-                    element: "input",
-                    attributes: {
-                        placeholder: "Type your password",
-                        type: "password",
-                    },
-                },
-            })
-            .then((value) => {
-                if (value == '') {
-                    checkPassword("warning", "请输入正确的密码");
-                } else if (value == password) {
-                    swal("欢迎您！", {
-                        button: false,
-                    });
-                    localStorage.setItem("pan_password", value);
-                } else {
-                    checkPassword("warning", "再好好读一下？");
-                }
-            });
- 
-    }
-</script>
   <style>
     /* 加载动画样式 */
     #loader {
