@@ -1,83 +1,141 @@
-/* Horizontal Layout Modifications */
-#search-result {
-  max-height: 60vh;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-width: thin;
-  scrollbar-color: var(--color-theme) var(--block);
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 12px;
-  padding-bottom: 12px;
-}
-
-#search-result::-webkit-scrollbar {
-  height: 6px;
-}
-
-#search-result::-webkit-scrollbar-thumb {
-  background-color: var(--color-theme);
-  border-radius: 3px;
-}
-
-#search-result::-webkit-scrollbar-track {
-  background: var(--block);
-}
-
-.search-result-list {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 12px;
-  padding: 0 8px;
-  margin: 0;
-}
-
-.search-result-list li {
-  flex: 0 0 auto;
-  width: 280px; /* Fixed width for each card */
-}
-
-.search-result-list li a {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 120px; /* Minimum height for cards */
-  padding: 1rem;
-  transition: all 0.3s ease;
-}
-
-.search-result-list li+li {
-  margin-top: 0; /* Remove vertical margin */
-}
-
-.search-result-title {
-  font-size: var(--fs-14);
-  margin-bottom: 8px;
-}
-
-.search-result-content {
-  -webkit-line-clamp: 3; /* Show more lines in horizontal layout */
-  flex-grow: 1;
-}
-
-/* Mobile Responsiveness Adjustments */
-@media screen and (max-width: 768px) {
-  #search-result {
-    max-height: 65vh;
-    gap: 8px;
+.nav-area .menu {
+  width: 100%;
+  display: grid;
+  margin: 8px 0;
+  grid-template-columns: repeat(var(--menubar-columns), 1fr);
+  grid-gap: 8px;
+  scrollbar-width: none; /* For Firefox */
+  
+  /* Hide scrollbar for Webkit browsers */
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0;
+    height: 0;
+    background: transparent;
   }
   
-  .search-result-list li {
-    width: 240px; /* Slightly narrower cards on mobile */
+  &::-webkit-scrollbar-track-piece {
+    background: transparent;
   }
   
-  .search-result-title {
-    font-size: var(--fs-13);
+  &::-webkit-scrollbar-thumb {
+    display: none;
   }
-  
-  .search-result-content {
-    font-size: var(--fs-12);
+
+  .nav-item {
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 40px;
+    border-radius: var(--border-bar);
+    font-size: var(--fs-15);
+    font-weight: 500;
+    color: var(--text-p3);
+    text-align: center;
+    background: var(--bg-a50);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    padding: 6px 4px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+
+    img, svg {
+      height: 28px;
+      width: auto;
+      max-width: 100%;
+      object-fit: contain;
+      filter: grayscale(50%) brightness(0.8) opacity(0.5);
+      transition: all 0.3s ease;
+      margin-bottom: 4px;
+    }
+
+    span {
+      display: inline-block;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      word-break: keep-all;
+      max-width: 100%;
+      padding: 0 4px;
+      line-height: 1.2;
+    }
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    &:active {
+      transform: translateY(1px);
+      transition: transform 0.1s ease;
+    }
+
+    &.active, &:hover {
+      color: var(--text-p1);
+      background: var(--bg-a100);
+      
+      img, svg {
+        filter: none;
+        transform: scale(1.05);
+      }
+    }
+
+    &.active {
+      box-shadow: 
+        0 2px 4px rgba(0,0,0,0.1),
+        inset 0 1px 2px rgba(0,0,0,0.1);
+      
+      &:after {
+        content: '';
+        position: absolute;
+        width: 16px;
+        height: 2px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+        bottom: 2px;
+        background: currentColor;
+        animation: navPulse 2s infinite;
+      }
+    }
   }
 }
 
-/* Keep all other existing styles the same */
+@keyframes navPulse {
+  0%, 100% {
+    opacity: 0.8;
+    width: 16px;
+  }
+  50% {
+    opacity: 1;
+    width: 24px;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .nav-area .menu {
+    grid-gap: 6px;
+    
+    .nav-item {
+      min-height: 36px;
+      font-size: var(--fs-14);
+      padding: 4px 2px;
+      
+      img, svg {
+        height: 24px;
+        margin-bottom: 2px;
+      }
+      
+      span {
+        font-size: var(--fs-12);
+      }
+    }
+  }
+}
