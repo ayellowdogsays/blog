@@ -1,10 +1,4 @@
-// 文章辅助 AI
 function ChucklePostAI(config) {
-  // 检查是否启用文章辅助 AI
-  const aisummaryStatus = window.localStorage.getItem("aisummaryStatus");
-  if (!aisummaryStatus || aisummaryStatus === "false") {
-    return;
-  }
   // 获取要插入 AI 的文章容器
   function getArticleContainer() {
     let container = null;
@@ -118,7 +112,7 @@ function ChucklePostAI(config) {
         </div>
         <div class="ai-tag">${aiInterface.version}</div>
       </div>
-      <div class="ai-explanation">${aiInterface.name}生成中...</div>
+      <div class="ai-explanation">${aiInterface.name}初始化中...</div>
       <div class="ai-btn-box">
         ${aiInterface.buttons
           .map((btn) => `<div class="ai-btn-item">${btn}</div>`)
@@ -148,7 +142,7 @@ function ChucklePostAI(config) {
     generateIntroductionButton.addEventListener("click", () => {
       disableButtons(aiContainer); // 禁用按钮
       displaySummary(
-        "我是OpenAI的GPT-4模型，点击按钮可生成本文简介。",
+        "我是阿黄，喂肉让我生成本文简介。",
         aiContainer
       );
     });
@@ -181,15 +175,10 @@ function ChucklePostAI(config) {
 
   // 生成文章摘要
   async function generateSummary(aiContainer) {
-    const summary = window.localStorage.getItem(location.pathname);
-    if (summary) {
-      displaySummary(summary, aiContainer);
-      return;
-    }
     const content = getArticleContent();
-    const apiKey = "sk-MmmQ5j9P5uDYNyOM322fA5968574468085EfA6D3D5CeE623";
+    const apiKey = "sk-EK92QrKWdaMWzAQqWobw9J7kQVlRmR8vtdcNTJkgGgASqUyx"; // 请替换为你的实际 API KEY
     const requestBody = {
-      model: "gpt-3.5-turbo",
+      model: "gpt-3.5-turbo-16k",
       messages: [
         {
           role: "system",
@@ -202,32 +191,24 @@ function ChucklePostAI(config) {
     };
 
     try {
-      const response = await fetch(
-        "https://free.v36.cm/v1/chat/completions",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${apiKey}`,
-          },
-          body: JSON.stringify(requestBody),
-        }
-      );
-
-      const data = await response.json();
+      const response = await fetch("https://api.chatanywhere.tech/v1", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${apiKey}`,
+        },
+        body: JSON.stringify(requestBody),
+      });
 
       if (!response.ok) {
-        displaySummary("文章摘要生成失败...", aiContainer);
-        throw new Error(`网络响应错误: ${data.error.message}`);
+        throw new Error("网络响应不是 OK");
       }
 
+      const data = await response.json();
       displaySummary(data.choices[0].message.content, aiContainer);
-      window.localStorage.setItem(
-        location.pathname,
-        data.choices[0].message.content
-      );
+      console.log("摘要生成成功:", data.choices[0].message.content);
     } catch (error) {
-      console.error("摘要生成失败:", error);
+      console.error("请求失败:", error);
     }
   }
 
