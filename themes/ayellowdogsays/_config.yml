@@ -553,7 +553,7 @@ plugins:
   # https://github.com/qxchuckle/Post-Summary-AI
   tianli_gpt:
     enable: true
-    js: /js/chatgpt.js
+    js: /vendor/js/chatgpt.js
     field: post
     interface:
       name: 文章摘要
