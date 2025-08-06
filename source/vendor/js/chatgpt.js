@@ -176,7 +176,7 @@ function ChucklePostAI(config) {
   // 生成文章摘要
   async function generateSummary(aiContainer) {
     const content = getArticleContent();
-    const apiKey = "sk-EK92QrKWdaMWzAQqWobw9J7kQVlRmR8vtdcNTJkgGgASqUyx"; // 请替换为你的实际 API KEY
+    const apiKey = "sk-MmmQ5j9P5uDYNyOM322fA5968574468085EfA6D3D5CeE623"; // 请替换为你的实际 API KEY
     const requestBody = {
       model: "gpt-3.5-turbo-16k",
       messages: [
