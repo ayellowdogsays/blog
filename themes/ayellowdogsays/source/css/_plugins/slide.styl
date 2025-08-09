@@ -1,0 +1,103 @@
+.post-list .swiper-slide {
+  margin: 0;
+  padding: 0 1.5rem; /* 增加内边距 */
+  text-align: right;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
+  width: fit-content;
+  max-width: 18rem; /* 稍微增加最大宽度 */
+  height: 9rem; /* 增加高度 */
+  position: relative;
+  background: rgba(255, 255, 255, 0.1); /* 半透明背景 */
+  border-radius: 12px; /* 圆角 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+  transition: all 0.3s ease; /* 平滑过渡效果 */
+  overflow: hidden; /* 隐藏溢出内容 */
+  
+  &:hover {
+    transform: translateY(-5px); /* 悬停时轻微上浮 */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .post-cover {
+    left: -1em;
+    right: initial;
+    bottom: -1em;
+    border-radius: 8px; /* 图片圆角 */
+    transition: transform 0.3s ease;
+  }
+
+  &:hover .post-cover {
+    transform: scale(1.05); /* 悬停时图片轻微放大 */
+  }
+
+  .post-title {
+    font-size: var(--fsh4);
+    margin: 1rem 0 0 4rem;
+    color: #fff; /* 白色文字 */
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); /* 文字阴影增加可读性 */
+    z-index: 2; /* 确保文字在图片上方 */
+  }
+
+  .meta-cap {
+    bottom: 1rem;
+    position: absolute;
+    color: rgba(255, 255, 255, 0.8); /* 半透明文字 */
+    font-size: 0.9em;
+    z-index: 2;
+  }
+}
+
+.post-list .swiper {
+  padding: 1rem 0; /* 增加上下内边距 */
+  
+  .swiper-button-prev,
+  .swiper-button-next {
+    top: 50%;
+    transform: translateY(-50%);
+    display: none;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 50%;
+    color: #333;
+    transition: all 0.3s ease;
+    
+    &:after {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+    
+    &:hover {
+      background: rgba(255, 255, 255, 1);
+      transform: translateY(-50%) scale(1.1);
+    }
+  }
+
+  &:hover {
+    .swiper-button-prev,
+    .swiper-button-next {
+      display: flex;
+    }
+  }
+  
+  /* 添加分页指示器样式 */
+  .swiper-pagination {
+    bottom: 0;
+    
+    .swiper-pagination-bullet {
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 1;
+      width: 8px;
+      height: 8px;
+      margin: 0 4px;
+      
+      &-active {
+        background: #fff;
+        width: 12px;
+        height: 12px;
+      }
+    }
+  }
+}
