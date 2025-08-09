@@ -1,184 +1,169 @@
-var searchCache = null;
-var searchCacheKey = 'search_cache_v1';
-
 var searchFunc = function(path, filter, wrapperId, searchId, contentId) {
 
   function getAllCombinations(keywords) {
-    const result = [];
-    const maxLen = 3; // 组合最大长度
-    for (let i = 0; i < keywords.length; i++) {
-      for (let j = i + 1; j <= Math.min(i + maxLen, keywords.length); j++) {
+    let result = [];
+    const len = keywords.length;
+    for (let i = 0; i < len; i++) {
+      for (let j = i + 1; j <= len; j++) {
         result.push(keywords.slice(i, j).join(" "));
       }
     }
     return result;
   }
 
-  function escapeRegExp(string) {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  // 防抖函数减少触发频率
+  function debounce(func, wait) {
+    let timeout;
+    return function(...args) {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => func.apply(this, args), wait);
+    };
   }
 
-  function initSearch(datas) {
-    var $input = document.getElementById(searchId);
-    if (!$input) { return; }
-    if ($input._searchInitialized) return; // 防止重复绑定
-    $input._searchInitialized = true;
+  $.ajax({
+    url: path,
+    dataType: "json",
+    success: function(jsonResponse) {
+      const datas = jsonResponse;
+      const $input = document.getElementById(searchId);
+      if (!$input) { return; }
+      const $resultContent = document.getElementById(contentId);
+      const $wrapper = document.getElementById(wrapperId);
 
-    var $resultContent = document.getElementById(contentId);
-    var $wrapper = document.getElementById(wrapperId);
-
-    $input.addEventListener("input", function() {
-      var resultList = [];
-      var keywords = getAllCombinations(this.value.trim().toLowerCase().split(" "))
-        .sort(function(a,b) { return b.split(" ").length - a.split(" ").length; });
-      $resultContent.innerHTML = "";
-      if (this.value.trim().length <= 0) {
-        $wrapper.setAttribute('searching', 'false');
-        return;
-      }
-      $wrapper.setAttribute('searching', 'true');
-
-      datas.forEach(function(data) {
-        if (!data.content?.trim().length) return;
-        if (filter && !data.path.includes(filter)) return;
-
-        var matches = 0;
-        var dataTitle = data.title?.trim() || 'Untitled';
-        var dataTitleLowerCase = dataTitle.toLowerCase();
-        var dataContent = data.content;
-        var dataContentLowerCase = dataContent.toLowerCase();
-        var dataUrl = data.path.startsWith('//') ? data.path.slice(1) : data.path;
-        dataUrl = dataUrl.replace(/\/?index\.html$/, '/'); // index.html → /
-        dataUrl = dataUrl.replace(/\.html$/, '/'); // xxx.html → xxx/
-        
-        var indexTitle = -1;
-        var indexContent = -1;
-        var firstOccur = -1;
-
-        keywords.forEach(function(keyword) {
-          indexTitle = dataTitleLowerCase.indexOf(keyword);
-          indexContent = dataContentLowerCase.indexOf(keyword);
-          if (indexTitle >= 0 || indexContent >= 0) {
-            matches += 1;
-            if (indexContent < 0) indexContent = 0;
-            if (firstOccur < 0) firstOccur = indexContent;
-          }
-        });
-
-        if (matches > 0) {
-          const li = document.createElement('li');
-          const a = document.createElement('a');
-          a.href = dataUrl;
-
-          const titleSpan = document.createElement('span');
-          titleSpan.className = 'search-result-title';
-          titleSpan.textContent = dataTitle;
-          a.appendChild(titleSpan);
-
-          if (firstOccur >= 0) {
-            var start = Math.max(0, firstOccur - 20);
-            var end = Math.min(dataContent.length, firstOccur + 80);
-            if (start === 0) end = 100;
-            var matchContent = dataContent.substring(start, end);
-
-            var regS = new RegExp(keywords.map(escapeRegExp).join("|"), "gi");
-            matchContent = matchContent.replace(regS, function(keyword) {
-              return "<span class=\"search-keyword\">" + keyword + "</span>";
-            });
-
-            const para = document.createElement('p');
-            para.className = 'search-result-content';
-            para.innerHTML = matchContent + '...';
-            a.appendChild(para);
-          }
-
-          li.appendChild(a);
-          resultList.push({ rank: matches, element: li });
+      // 输入事件处理，使用防抖优化
+      const handleInput = debounce(function() {
+        const resultList = [];
+        const query = this.value.trim().toLowerCase();
+        if (query.length <= 0) {
+          $wrapper.setAttribute('searching', 'false');
+          $resultContent.innerHTML = "";
+          return;
         }
-      });
+        $wrapper.setAttribute('searching', 'true');
 
-      if (resultList.length) {
-        resultList.sort(function(a, b) {
-          return b.rank - a.rank;
+        // 获取所有关键词组合并排序
+        const keywords = getAllCombinations(query.split(" "))
+          .sort((a, b) => b.split(" ").length - a.split(" ").length);
+
+        datas.forEach(data => {
+          if (!data.content || !data.content.trim().length) return;
+          if (filter && !data.path.includes(filter)) return;
+          
+          const dataTitle = data.title?.trim() || 'Untitled';
+          const dataTitleLowerCase = dataTitle.toLowerCase();
+          const dataContent = data.content;
+          const dataContentLowerCase = dataContent.toLowerCase();
+          const dataUrl = data.path.startsWith('//') ? data.path.slice(1) : data.path;
+
+          let matches = 0;
+          let firstOccur = -1;
+          // 检查关键词匹配
+          keywords.forEach(keyword => {
+            const indexTitle = dataTitleLowerCase.indexOf(keyword);
+            const indexContent = dataContentLowerCase.indexOf(keyword);
+
+            if (indexTitle >= 0 || indexContent >= 0) {
+              matches += 1;
+              if (indexContent < 0) {
+                firstOccur = 0;
+              } else if (firstOccur < 0) {
+                firstOccur = indexContent;
+              }
+            }
+          });
+          // 如果有匹配结果，生成结果项
+          if (matches > 0) {
+            let matchContent = '';
+            if (firstOccur >= 0) {
+              let start = Math.max(firstOccur - 20, 0);
+              let end = Math.min(firstOccur + 80, dataContent.length);
+              matchContent = dataContent.substring(start, end);
+
+              // 高亮匹配的关键词
+              const regS = new RegExp(keywords.join("|"), "gi");
+              matchContent = matchContent.replace(regS, keyword => `<span class="search-keyword">${keyword}</span>`);
+            }
+
+            resultList.push({
+              rank: matches,
+              str: `
+                <li>
+                  <a href="${dataUrl}">
+                    <span class="search-result-title">${dataTitle}</span>
+                    ${matchContent ? `<p class="search-result-content">${matchContent}...</p>` : ''}
+                  </a>
+                </li>
+              `
+            });
+          }
         });
+        if (resultList.length) {
+          resultList.sort((a, b) => b.rank - a.rank);
+          $resultContent.innerHTML = `<ul class="search-result-list">${resultList.map(item => item.str).join('')}</ul>`;
+        } else {
+          $resultContent.innerHTML = '';
+        }
+      }, 300);
 
-        const ul = document.createElement('ul');
-        ul.className = 'search-result-list';
-        resultList.forEach(function(item) {
-          ul.appendChild(item.element);
-        });
-
-        $resultContent.innerHTML = '';
-        $resultContent.appendChild(ul);
-      }
-    });
-  }
-
-  if (!searchCache) {
-    // 数据还没准备好，延迟初始化
-    const timer = setInterval(() => {
-      if (searchCache) {
-        clearInterval(timer);
-        initSearch(searchCache);
-      }
-    }, 100);
-  } else {
-    initSearch(searchCache);
-  }
+      // 监听输入事件
+      $input.addEventListener("input", handleInput);
+    }
+  });
 };
 
 utils.jq(() => {
-  (function preloadSearchData() {
-    var path = ctx.search.path;
-    if (path.startsWith('/')) {
-      path = path.substring(1);
+  $(function () {
+    const $inputArea = $("#search-input");
+    if ($inputArea.length == 0) {
+      return;
     }
-    path = ctx.root + path;
-
-    try {
-      var cached = localStorage.getItem(searchCacheKey);
-      if (cached) {
-        searchCache = JSON.parse(cached);
+    const $resultArea = $("#search-result");
+    $inputArea.focus(function() {
+      let path = ctx.search.path;
+      if (path.startsWith('/')) {
+        path = path.substring(1);
       }
-    } catch (e) {
-      console.warn('搜索缓存解析失败', e);
-    }
-
-    fetch(path)
-      .then(res => res.json())
-      .then(json => {
-        searchCache = json;
-        try {
-          localStorage.setItem(searchCacheKey, JSON.stringify(json));
-        } catch (e) {
-          console.warn('搜索缓存写入失败', e);
+      path = ctx.root + path;
+      const filter = $inputArea.attr('data-filter') || '';
+      searchFunc(path, filter, 'search-wrapper', 'search-input', 'search-result');
+    });
+    // 阻止回车默认事件
+    $inputArea.keydown(function(e) {
+      if (e.which == 13) {
+        e.preventDefault();
+      }
+    });
+    // 监听搜索结果变化，更新样式
+    const observer = new MutationObserver(function(mutationsList) {
+      if (mutationsList.length == 1) {
+        if (mutationsList[0].addedNodes.length) {
+          $('.search-wrapper').removeClass('noresult');
+        } else if (mutationsList[0].removedNodes.length) {
+          $('.search-wrapper').addClass('noresult');
         }
-      });
-  })();
+      }
+    });
+    observer.observe($resultArea[0], { childList: true });
 
-  var $inputArea = $("input#search-input");
-  if ($inputArea.length == 0) return;
-  var $resultArea = document.querySelector("div#search-result");
-
-  $inputArea.focus(function() {
-    var path = ctx.search.path;
-    if (path.startsWith('/')) {
-      path = path.substring(1);
-    }
-    path = ctx.root + path;
-    const filter = $inputArea.attr('data-filter') || '';
-    searchFunc(path, filter, 'search-wrapper', 'search-input', 'search-result');
+    const $searchWrapper = $("#search-wrapper");
+    const $searchMask = $("#search-mask");
+    const toggleSearch = (show) => {
+      const method = show ? 'fadeIn' : 'fadeOut';
+      $searchWrapper.stop(true, true)[method](300);
+      $searchMask.stop(true, true)[method](300);
+      if (show) {
+        $inputArea.focus();
+      } else {
+        clearSearch();
+      }
+    };
+    const clearSearch = () => {
+      $inputArea.val('');
+      $resultArea.html('');
+    };
+    $("#search-button a").on("click", () => toggleSearch(true));
+    $searchMask.on("click", () => toggleSearch(false));
+    $("#search-close").on("click", () => toggleSearch(false));
+    $("#search-clear").on("click", clearSearch);
   });
-
-  $inputArea.keydown(function(e) {
-    if (e.which == 13) {
-      e.preventDefault();
-    }
-  });
-
-  const observer = new MutationObserver(function(mutationsList) {
-    const hasResults = $resultArea.querySelector(".search-result-list li");
-    $('.search-wrapper').toggleClass('noresult', !hasResults);
-  });
-  observer.observe($resultArea, { childList: true, subtree: true });
 });
