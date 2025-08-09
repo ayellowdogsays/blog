@@ -328,16 +328,16 @@ comments:
 
 ######## Footer ########
 footer:
-  social:
-      github:
-        icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/>'
-        url: https://github.com/
-      unsplash:
-        icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/3616429.svg"/>'
-        url: /settings/
-      comments:
-       icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/942ebbf1a4b91.svg"/>'
-       url: /dogcare/#comments
+ # social:
+ #     github:
+ #        icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/>'
+ #      url: https://github.com/
+ #    unsplash:
+ #     icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/3616429.svg"/>'
+ #        url: /settings/
+ #     comments:
+ #  icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/942ebbf1a4b91.svg"/>'
+ #     url: /dogcare/#comments
   sitemap:
       - title: 博客
         items:
