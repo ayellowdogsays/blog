@@ -18,7 +18,7 @@ function layoutNodeTitle(ctx, content) {
   var el = ''
   el += '<div class="header">'
   if (content && content.length > 0) {
-    el += `<span>${content}</span>`
+    el += content
   }
   el += '</div>'
   return el
@@ -36,14 +36,14 @@ function layoutNodeContent(ctx, content) {
 
 module.exports = ctx => function(args, content = '') {
   args = ctx.args.map(args, ['api', 'user', 'type', 'limit', 'hide', 'avatar'])
-  args['data-api'] = args.api
+  const lazyload = ctx.theme.config.plugins.lazyload.enable
   var el = ''
   if (!args.type) {
     args.type = 'timeline'
   }
   if (args.api && args.api.length > 0) {
-    el += `<div class="tag-plugin timeline data-service ds-${args.type}"`
-    el += ' ' + ctx.args.joinTags(args, ['data-api', 'user', 'limit', 'hide', 'avatar']).join(' ')
+    el += `<div class="tag-plugin timeline ds-${args.type}"${lazyload ? ' lazyload' : ''}`
+    el += ' ' + ctx.args.joinTags(args, ['api', 'user', 'limit', 'hide', 'avatar']).join(' ')
     el += '>'
   } else {
     el += '<div class="tag-plugin timeline">'

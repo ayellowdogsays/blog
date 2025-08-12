@@ -1,13 +1,13 @@
 .md-text
   u
     text-decoration: none
-    border-bottom: 2px solid var(--accent)
+    border-bottom: 2px solid $color-hover
   emp
     width: fit-content
     text-decoration: none
-    border-bottom: 4px dotted var(--accent)
+    border-bottom: 4px dotted $color-hover
   wavy
-    text-decoration: underline wavy var(--accent)
+    text-decoration: underline wavy $color-hover
   del
     color: var(--text-p3)
     text-decoration: line-through var(--text-p3)
@@ -28,11 +28,6 @@
     &:hover
       color: inherit
       background: none
-  blur
-    filter: blur(4px)
-    trans1 all
-    &:hover
-      filter: blur(0)
   sup,sub
     color: var(--theme)
     line-height: 1

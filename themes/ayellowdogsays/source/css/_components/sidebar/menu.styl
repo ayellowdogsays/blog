@@ -1,122 +1,57 @@
-.nav-area .menu {
-  width: 100%;
-  display: grid;
-  margin: 16px 0;
-  grid-template-columns: repeat(hexo-config('menubar.columns'), 1fr);
-  grid-gap: 12px;
+.nav-area .menu
+  display: grid
+  margin-bottom: 8px
+  box-shadow: $boxshadow-inset-block
+  padding: 1px
+  border: 1px solid var(--block-border)
+  border-radius: $border-bar
+  background: var(--block)
+  grid-template-columns: repeat(hexo-config('menubar.columns'), 1fr)
+  grid-gap: 2px
+  &::-webkit-scrollbar
+    display: none
+  &::-webkit-scrollbar-track-piece
+    background: transparent
+  &::-webkit-scrollbar-thumb
+    display: none
   
-  /* Hide scrollbar */
-  scrollbar-width: none;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  
-  .nav-item {
-    /* Layout */
-    box-sizing: border-box;
-    width: 100%;
-    min-height: 48px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    padding: 8px 4px;
-    
-    /* Visual styling */
-    border-radius: $border-bar;
-    background: var(--bg-a30);
-    color: var(--text-p3);
-    text-align: center;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    border: 1px solid var(--border-a10);
-    
-    /* Typography */
-    font-size: $fs-14;
-    font-weight: 600;
-    letter-spacing: 0.2px;
-    text-transform: uppercase;
-    
-    /* Content handling */
-    span {
-      text-overflow: ellipsis;
-      word-break: keep-all;
-      white-space: nowrap;
-      margin-top: 4px;
-    }
-    
-    /* Icon styling */
-    img, svg {
-      height: 24px;
-      width: 24px;
-      object-fit: contain;
-      filter: grayscale(70%) brightness(0.9) opacity(0.8);
-      transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    }
-    
-    /* Transitions */
-    transition: all 0.3s ease, transform 0.2s ease;
-    
-    /* Active & hover states */
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    
-    &.active, &:hover {
-      color: var(--text-p1);
-      background: var(--bg-a80);
-      border-color: var(--border-a30);
-      
-      img, svg {
-        filter: grayscale(0) brightness(1) opacity(1);
-        transform: scale(1.05);
-      }
-    }
-    
-    /* Active state indicator */
-    &.active:after {
-      content: '';
-      position: absolute;
-      width: 24px;
-      height: 3px;
-      left: 50%;
-      transform: translateX(-50%);
-      border-radius: 3px;
-      bottom: 4px;
-      background: currentColor;
-      box-shadow: 0 0 4px rgba(0,0,0,0.1);
-    }
-    
-    /* Ripple effect */
-    overflow: hidden;
-    &::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 5px;
-      height: 5px;
-      background: rgba(255,255,255,0.5);
-      opacity: 0;
-      border-radius: 100%;
-      transform: scale(1, 1) translate(-50%);
-      transform-origin: 50% 50%;
-    }
-    
-    &:focus:not(:active)::before {
-      animation: ripple 0.6s ease-out;
-    }
-  }
-}
+  .nav-item
+    box-sizing: border-box
+    width: 100%
+    min-height: 38px
+    font-size: $fs-15
+    font-weight: 500
+    color: var(--text-p3)
+    text-align: center
+    position: relative
+    display: flex
+    flex-direction: column
+    align-items: center
+    justify-content: center
+    img,svg
+      height: 28px
+      object-fit: contain
+      filter: grayscale(100%) brightness(0.8) opacity(0.8)
+      trans1 all
+    span
+      text-overflow: ellipsis
+      word-break: keep-all
+    &.active, &:hover
+      color: var(--text-p1)
+      background: var(--card)
+      trans1 background
+      border-radius: $border-bar
+      box-shadow: $boxshadow-button
+      img,svg
+        filter: unset
+    &.active:after
+      content: ''
+      position absolute
+      width: 16px
+      height: 2px
+      left: 50%
+      transform: translateX(-50%)
+      border-radius: 2px
+      bottom: 2px
+      background: currentColor
 
-@keyframes ripple {
-  0% {
-    transform: scale(0, 0);
-    opacity: 0.5;
-  }
-  100% {
-    transform: scale(20, 20);
-    opacity: 0;
-  }
-}

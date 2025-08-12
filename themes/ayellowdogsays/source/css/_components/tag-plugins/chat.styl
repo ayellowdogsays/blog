@@ -1,39 +1,3 @@
-chat_light()
-  --chat-bg:     #f1f2f5
-  --chat-block:  #ffffff
-  --chat-border: #f2f2f2
-  --chat-qq-right-bg: #0099FF
-  --chat-qq-right-text: #ffffff
-  --chat-wechat-news-num: #d8dadf
-  --chat-video-button: #ffffffE6
-  --chat-wechat-right-bg: #91ED61
-  --chat-quote-blink-color: #185c6d1a
-  --chat-wechat-quote-color: #808080
-  --chat-wechat-quote-bg: #8080801a
-
-chat_dark()
-  --chat-bg:     #1f2224  // #111111
-  --chat-block:  #25282a  // #191919
-  --chat-border: #303437  // #222222
-  --chat-qq-right-bg: #0099ff80
-  --chat-qq-right-text: #ffffff99
-  --chat-wechat-news-num: #25282a
-  --chat-video-button: #25282ad9  // #191919E6
-  --chat-wechat-right-bg: hsl(hue($c-green), 25, 25)
-  --chat-quote-blink-color: #185c6d26
-  --chat-wechat-quote-color: #858585
-  --chat-wechat-quote-bg: #8585851a
-
-:root[data-theme="light"]
-  chat_light()
-:root[data-theme="dark"]
-  chat_dark()
-:root:not([data-theme])
-  chat_light()
-  @media (prefers-color-scheme: dark)
-    chat_dark()
-
-
 .md-text .tag-plugin.chat
     .fs12
         font-size: $fs-12
@@ -151,10 +115,10 @@ chat_dark()
                 height: 100%
             .submit-btn
                 padding: 3px 6px
-                background: var(--theme-a30)
+                background: var(--theme-color-opa)
                 border-radius: 6px
                 font-size: $fs-14
-                color: var(--theme)
+                color: var(--theme-color)
         .icons
             margin: 0 .5em
             display: flex
@@ -204,8 +168,8 @@ chat_dark()
                     align-items: center
                     .label
                         padding: 0 4px
-                        color: var(--theme)
-                        background: var(--theme-a30)
+                        color: var(--theme-color)
+                        background: var(--theme-color-opa)
                         border-radius: 3px
                         margin-right: 4px
                         font-size: 'calc(%s - .1rem)' % $fs-12
@@ -228,17 +192,17 @@ chat_dark()
                         min-height: 100px
                     >.quote
                         color: var(--text-p3)
-                        background: var(--text-a20)
+                        background: var(--text-p3-opa)
                         padding: .3rem
                         border-radius: 6px
                         cursor: pointer
                         margin-bottom: .3em
                         trans2 color background .5s
                         &:hover
-                            color: var(--theme)
-                            background: var(--theme-a30)
+                            color: var(--theme-color)
+                            background: var(--theme-color-opa)
                             .quote-user>svg>path
-                                fill: var(--theme)
+                                fill: var(--theme-color)
                         .quote-user
                             display: flex
                             justify-content: space-between

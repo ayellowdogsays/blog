@@ -28,7 +28,11 @@ function div() {
   }
   el += '<div class="l_cover post' + scrollreveal(' ') + '">';
   el += '<div class="cover">';
-  el += '<div class="lazy img bg" data-bg="' + url + '"></div>';
+  if (theme.plugins.lazyload && theme.plugins.lazyload.enable) {
+    el += '<div class="lazy img bg" data-bg="' + url + '"></div>';
+  } else {
+    el += '<div class="lazy img bg" style="background-image:url(&quot;' + url + '&quot;)"></div>';
+  }
   el += '</div>';
   el += '</div>';
   return el;

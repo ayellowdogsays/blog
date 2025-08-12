@@ -22,6 +22,7 @@ module.exports = ctx => function(args, content) {
       })
     }
   }
+
   el += '<div class="tag-plugin swiper fancybox" id="swiper-api"'
   el += ' ' + ctx.args.joinTags(args, ['width', 'effect']).join(' ')
   el += '>'
@@ -29,8 +30,8 @@ module.exports = ctx => function(args, content) {
   slide()
   el += '</div>'
   el += '<div class="swiper-pagination"></div>'
-  el += '<div class="swiper-button-prev blur"></div>'
-  el += '<div class="swiper-button-next blur"></div>'
+  el += '<div class="swiper-button-prev"></div>'
+  el += '<div class="swiper-button-next"></div>'
   el += '</div>'
   return el
 }
