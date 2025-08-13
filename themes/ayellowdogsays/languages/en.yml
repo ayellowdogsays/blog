@@ -36,19 +36,13 @@ meta:
   updated: 'Updated on'
   license: License
   share: Share
+  contributors: Page Contributors
   date_suffix:
     just: Just
     min: minutes ago
     hour: hours ago
     day: days ago
     month: months ago
-  wordcount:
-    count: Word
-    words: words
-    read_time: Time
-  expire:
-    title: Article Prescription Reminder
-    message: This article was last updated %s days ago, and some information may have changed. Please pay attention to discernment
 
 page:
   error:

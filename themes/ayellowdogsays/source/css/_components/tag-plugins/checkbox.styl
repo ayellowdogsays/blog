@@ -26,7 +26,7 @@
     &:before, &:after
       position: absolute
       content: ""
-      background: var(--site-bg)
+      background: var(--background)
     &:before
       left: 1px
       top: 5px
@@ -58,7 +58,7 @@
         bottom: 1px
         width: 2px
         height: 10px
-  &[data-symbol=minus] input[type=checkbox]
+  &[symbol=minus] input[type=checkbox]
     &:before
       transform: rotate(0)
       left: 1px
@@ -82,7 +82,7 @@
         top: 5px
         width: 10px
         height: 2px
-  &[data-symbol=plus] input[type=checkbox]
+  &[symbol=plus] input[type=checkbox]
     &:before
       transform: rotate(0)
       left: 1px
@@ -106,7 +106,7 @@
         top: 1px
         width: 2px
         height: 10px
-  &[data-symbol=times] input[type=checkbox]
+  &[symbol=times] input[type=checkbox]
     &:before
       transform: rotate(45deg)
       left: 3px

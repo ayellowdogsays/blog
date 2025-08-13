@@ -110,11 +110,7 @@ module.exports = ctx => function(args, content) {
 
   function loadIcon(url) {
     var el = ''
-    if (ctx.theme.config.plugins.lazyload && ctx.theme.config.plugins.lazyload.enable) {
-      el += '<div class="lazy img" data-bg="' + ctx.theme.config.default.link + '"></div>'
-    } else {
-      el += '<div class="img" style="background-image:url(&quot;' + ctx.theme.config.default.link + '&quot;)"></div>'
-    }
+    el += '<div class="lazy img" data-bg="' + ctx.theme.config.default.link + '"></div>'
     return el
   }
 
@@ -414,7 +410,7 @@ module.exports = ctx => function(args, content) {
           let urlTarget = cell['link'].includes('://') ? ' target="_blank" rel="external nofollow noopener noreferrer"' : ''
           let linkFrom = cell['from'] || 'QQ小程序'
           el += `
-            <a class="link-card rich" href="${cell['link']}"${urlTarget} api="${ctx.theme.config.tag_plugins.chat?.api + '?url=' + cell['link']}" cardlink autofill="title,icon,desc">
+            <a class="link-card rich" href="${cell['link']}"${urlTarget} data-api="${ctx.theme.config.tag_plugins.chat?.api + '?url=' + cell['link']}" cardlink autofill="title,icon,desc">
             <div class="top">
               <span class="title">${cell['link']}</span>
             </div>
