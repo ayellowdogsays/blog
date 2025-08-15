@@ -323,18 +323,18 @@ comments:
 ######## Footer ########
 footer:
   social:
-    # github:
-    #   icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/>'
-    #   url: /
-    # music:
-    #   icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/3845874.svg"/>'
-    #   url: /
-    # unsplash:
-    #   icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/3616429.svg"/>'
-    #   url: /
-    # comments:
-    #   icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/942ebbf1a4b91.svg"/>'
-    #   url: /about/#comments
+      github:
+        icon: '<img src="https://api.iconify.design/line-md:github.svg"/>'
+        url: https://github.com/ayellowdogsays/
+      sun:
+        icon: '<img src="https://api.iconify.design/line-md:sun-rising-filled-loop.svg"/>'
+        url: switchTheme('lightdog')
+      evening:
+        icon: '<img src="https://api.iconify.design/line-md:sunny-filled-loop-to-moon-filled-alt-loop-transition.svg"/>'
+        url: switchTheme('darkdog')
+      auto:
+        icon: '<img src="https://api.iconify.design/line-md:star-pulsating-loop.svg"/>'
+        url: switchTheme('autocat')
   sitemap:
     # - title: 博客
     #   items:
@@ -361,7 +361,7 @@ footer:
     #     - '[xxx](/)'
     #     - '[xxx](/)'
   content: | # 支持 Markdown 格式
-    本站由 [{author.name}](/) 使用 [{theme.name} {theme.version}]({theme.tree}) 主题创建。
+    本站由 [{author.name}](/) 使用了如此beautiful的 [{theme.name} {theme.version}]({theme.tree}) 主题。
     本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议，转载请注明出处。
   # 主题用户越多，开发者维护和更新的积极性就越高，如果您喜欢本主题，请在适当的位置显示主题信息和仓库链接以表支持。
 
