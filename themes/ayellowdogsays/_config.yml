@@ -328,13 +328,13 @@ footer:
         url: https://github.com/ayellowdogsays/
       sun:
         icon: '<img src="https://api.iconify.design/line-md:sun-rising-filled-loop.svg"/>'
-        url: switchTheme('lightdog')
+        onclick: 'switchTheme('lightdog')'
       evening:
         icon: '<img src="https://api.iconify.design/line-md:sunny-filled-loop-to-moon-filled-alt-loop-transition.svg"/>'
-        url: switchTheme('darkdog')
+        onclick: 'switchTheme('darkdog')'
       auto:
         icon: '<img src="https://api.iconify.design/line-md:star-pulsating-loop.svg"/>'
-        url: switchTheme('autocat')
+        onclick: 'switchTheme('autocat')'
   sitemap:
     # - title: 博客
     #   items:
