@@ -1,67 +1,53 @@
 <script type="text/javascript">
   const applyTheme = (theme) => {
     if (theme === 'auto') {
-      document.documentElement.removeAttribute('data-theme')
+      document.documentElement.removeAttribute('data-theme');
     } else {
-      document.documentElement.setAttribute('data-theme', theme)
+      document.documentElement.setAttribute('data-theme', theme);
     }
 
-    // applyThemeToGiscus(theme)
+    applyThemeToGiscus(theme);
   }
 
-  // FIXME: 这会导致无法使用 preferred_color_scheme 以外的主题
   const applyThemeToGiscus = (theme) => {
-    // theme = theme === 'auto' ? 'preferred_color_scheme' : theme
-    const cmt = document.getElementById('giscus')
+    theme = theme === 'auto' ? 'preferred_color_scheme' : theme;
+
+    const cmt = document.getElementById('giscus');
     if (cmt) {
       // This works before giscus load.
-      cmt.setAttribute('data-theme', theme)
+      cmt.setAttribute('data-theme', theme);
     }
 
-    const iframe = document.querySelector('#comments > section.giscus > iframe')
+    const iframe = document.querySelector('#comments > section.giscus > iframe');
     if (iframe) {
       // This works after giscus loaded.
-      const src = iframe.src
-      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`)
-      iframe.src = newSrc
+      const src = iframe.src;
+      const newSrc = src.replace(/theme=[\w]+/, `theme=${theme}`);
+      iframe.src = newSrc;
     }
   }
 
-  const switchTheme = () => {
-    // light -> dark -> auto -> light -> ...
-    const currentTheme = document.documentElement.getAttribute('data-theme')
-    let newTheme;
-    switch (currentTheme) {
-      case 'light':
-        newTheme = 'dark'
-        break
-      case 'dark':
-        newTheme = 'auto'
-        break
-      default:
-        newTheme = 'light'
-    }
-    applyTheme(newTheme)
-    window.localStorage.setItem('Stellar.theme', newTheme)
-    utils.dark.mode = newTheme === 'auto' ? (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light") : newTheme;
-    utils.dark.method.toggle.start();
+  const switchTheme = (theme) => {
+    applyTheme(theme);
+    window.localStorage.setItem('Stellar.theme', theme);
 
     const messages = {
       light: `<%- __('message.theme_switched.light') %>`,
       dark: `<%- __('message.theme_switched.dark') %>`,
       auto: `<%- __('message.theme_switched.auto') %>`,
     }
-    hud?.toast?.(messages[newTheme])
+    hud?.toast?.(messages[theme]);
   }
+
+  const switchTolight = () => switchTheme('lightdog');
+  const switchTodark = () => switchTheme('darkdog');
+  const switchTosystem = () => switchTheme('autocat');
 
   (() => {
     // Apply user's preferred theme, if any.
-    const theme = window.localStorage.getItem('Stellar.theme')
+    const theme = window.localStorage.getItem('Stellar.theme');
     if (theme !== null) {
-      applyTheme(theme)
-    } else {
-      utils.dark.mode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      applyTheme(theme);
     }
-    utils.dark.method.toggle.start();
-  })()
+  })();
 </script>
