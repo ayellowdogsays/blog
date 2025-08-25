@@ -545,12 +545,13 @@ plugins:
   # swiper
   swiper:
     enable: true
+    homepage: true
     css: https://unpkg.com/swiper@10.3/swiper-bundle.min.css
     js: https://unpkg.com/swiper@10.3/swiper-bundle.min.js
 
   # https://scrollrevealjs.org/api/reveal.html
   scrollreveal:
-    enable: #true # 慎用，有些时候打开页面空白
+    enable: true # 慎用，有些时候打开页面空白
     js: https://gcore.jsdelivr.net/npm/scrollreveal@4.0/dist/scrollreveal.min.js
     distance: 8px
     duration: 1000 # ms
