@@ -1,4 +1,3 @@
-### 星星应该哈哈大笑，反正宇宙是个偏僻的地方，也许我站在你看不到的地方，看了你好多次
 <img src="https://ghchart.rshah.org/ayellowdogsays" />
 <div class="flex flex-wrap gap-4">
   <a class="btn-rose" href="https://github.com/ayellowdogsays">
