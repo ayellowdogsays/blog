@@ -5,5 +5,7 @@
     <span class="i-ph-heart-duotone"></span>跟我走</a>
   <a class="btn-yellow" href="/blog">
     <span class="i-ph-lightning-duotone"></span>点我看最近写的文章（原博客）</a>
+    <a class="btn-blue" href="https://history.ayellowdogsays.cn/">
+    <span class="i-ph-lightning-duotone"></span>点我看（原博客）强烈建议（如果第一次来我的博客）</a>
 </div>
 
