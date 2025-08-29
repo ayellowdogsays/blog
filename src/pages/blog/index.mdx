@@ -1,0 +1,27 @@
+---
+title: Blog
+description: 我的文章好不好呢🤔
+subtitle: 星星应该哈哈大笑，反正宇宙是个偏僻的地方，也许我站在你看不到的地方，看了你好多次
+bgType: plum
+toc: false
+ogImage: true
+---
+
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import StandardLayout from '~/layouts/StandardLayout.astro'
+import ListView from '~/components/views/ListView.astro'
+
+<BaseLayout
+  title={frontmatter.title}
+  description={frontmatter.description}
+  bgType={frontmatter.bgType}
+  ogImage={frontmatter.ogImage}
+>
+  <StandardLayout
+    class="prose"
+    title={frontmatter.title}
+    subtitle={frontmatter.subtitle}
+  >
+    <ListView collectionType="blog" pageToc={frontmatter.toc} />
+  </StandardLayout>
+</BaseLayout>
