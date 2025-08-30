@@ -1,8 +1,15 @@
 ---
-date: ''
-title: 友链
-updated: '2025-08-30T13:29:02.093+08:00'
+title: '友链'
+subtitle: ''
+description: Page not found
+bgType: false
+toc: false
+ogImage: false
 ---
+
+import BaseLayout from '~/layouts/BaseLayout.astro'
+import StandardLayout from '~/layouts/StandardLayout.astro'
+
 <div id="qexo-friends"></div>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/qexo-static@1.1.3/hexo/friends/friends.css"/>
 <script src="https://cdn.jsdelivr.net/npm/qexo-static@1.1.3/hexo/friends/friends.js"></script>
