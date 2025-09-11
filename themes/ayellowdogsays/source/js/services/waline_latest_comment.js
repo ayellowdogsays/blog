@@ -4,14 +4,13 @@ utils.jq(() => {
       for (var i = 0; i < els.length; i++) {
         const el = els[i];
         const limit = parseInt(el.getAttribute('limit')) || 10;
-        const apiBase = el.dataset.api;
+        const apiBase = el.getAttribute('api');
         if (apiBase == null) {
           continue;
         }
         const api = apiBase + '/comment?type=recent&count=' + limit;
         const default_avatar = def.avatar;
-        utils.request(el, api, async resp => {
-          const data = await resp.json();
+        utils.request(el, api, function(data) {
           data.forEach((item, i) => {
             var cell = '<div class="timenode" index="' + i + '">';
             cell += '<div class="header">';
