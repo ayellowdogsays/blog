@@ -1,0 +1,88 @@
+<%
+// 初始化设置
+if (page.menu_id == undefined) {
+  page.menu_id = 'post';
+}
+if (page.title && page.wiki) {
+  page.robots = 'noindex,follow';
+}
+
+// 获取 swiper 文章
+var swiperPosts = site.posts.toArray().filter(function(post) {
+  return Number.isInteger(post.swiper_index) && post.swiper_index >= 0 && post.indexing != false;
+}).sort(function(a, b) {
+  return b.swiper_index - a.swiper_index;
+});
+
+// 文章卡片布局函数（简化版）
+function layout_post_card(layout, post, content) {
+  var el = '';
+  var layout = layout;
+  // 仅在同时有 cover 和 poster 时才添加 photo 类
+  if (layout == 'post' && post.cover != undefined && post.poster != undefined) {
+    layout += ' photo';
+  }
+  // 外层增加 post-card-wrap 容器
+  el += `<div class="post-card-wrap${scrollreveal(' ')}">`;
+  // 使用 pretty_url 处理链接
+  el += `<a class="post-card ${layout}" href="${pretty_url(post.link || post.path)}">`;
+  el += content;
+  el += '</a>';
+  el += '</div>';
+  return el;
+}
+
+// 文章列表布局函数
+function layout_post_list(partial) {
+  var el = '';
+  el += '<div class="post-list post">';
+  
+  // 渲染 Swiper 轮播（如果启用）
+  if (theme.plugins.swiper.enable && theme.plugins.swiper.homepage) {
+    el += render_swiper(swiperPosts);
+  }
+  
+  // 渲染文章列表（过滤 indexing=false 的文章）
+  page.posts.each(function(post){
+    if (post.indexing != false) {
+      el += layout_post_card('post', post, partial(post));
+    }
+  });
+  
+  el += '</div>';
+  return el;
+}
+
+// Swiper 幻灯片布局函数
+function layout_swiper_slide(post) {
+  let el = `<a class="post-card swiper-slide" href="${pretty_url(post.path)}">`;
+  el += `<div class="post-cover"><img src="${post.cover || theme.default.cover}" alt="${post.title}"></div>`;
+  el += `<p class="post-title">${post.title}</p>`;
+  el += '<div class="meta-cap">';
+  el += `<span class="cap">${date(post.date, config.date_format)}</span>`;
+  el += '</div>';
+  el += '</a>';
+  return el;
+}
+
+// 渲染 Swiper 轮播函数
+function render_swiper(posts) {
+  var el = '';
+  el += '<div class="swiper" id="swiper-api" homepage="true">';
+  el += '<div class="swiper-wrapper">';
+  posts.forEach(function(post) {
+    el += layout_swiper_slide(post);
+  });
+  el += '</div>';
+  el += '<div class="swiper-button-next"></div>';
+  el += '<div class="swiper-button-prev"></div>';
+  el += '</div>';
+  return el;
+}
+%>
+
+<%- partial('_partial/main/navbar/nav_tabs_blog') %>
+<%- layout_post_list(function(post){
+  return partial('_partial/main/post_list/post_card', {post: post})
+}) %>
+<%- partial('_partial/main/post_list/paginator') %>

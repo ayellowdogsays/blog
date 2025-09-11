@@ -1,0 +1,58 @@
+- class_name: 框架
+  flink_style: flexcard
+  hundredSuffix: ""
+  link_list:
+    - name: Hexo
+      link: https://hexo.io/zh-tw/
+      avatar: https://d33wubrfki0l68.cloudfront.net/6657ba50e702d84afb32fe846bed54fba1a77add/827ae/logo.svg
+      descr: 快速、简单且强大的网站框架
+    - name: 浩瀚星河
+      link: https://haohanxinghe.com/
+      avatar: https://haohanxinghe.com/assets/images/avatar.jpg
+      descr: 
+      siteshot: 
+    - name: XAOXUU
+      link: https://xaoxuu.com/
+      avatar: https://xaoxuu.com/assets/xaoxuu/avatar/rect-256@2x.png
+      descr: 
+      siteshot: 
+    - name: 星日语
+      link: https://weekdaycare.cn/
+      avatar: https://weekdaycare.cn/asset/avatar.svg
+      descr: 
+      siteshot: 
+    - name: 星辰日记
+      link: https://blog.xsot.cn/
+      avatar: https://img.iirose.cn/avatar/xcsoft.webp
+      descr: 
+      siteshot: 
+    - name: 龙腾收录网
+      link: https://dh.lt6.ltd/
+      avatar: https://dh.lt6.ltd/assets/images/logo.png
+      descr: 
+      siteshot: 
+    - name: 杜老师说
+      link: https://dusays.com/
+      avatar: https://cdn.dusays.com/logo.png
+      descr: 
+      siteshot: 
+    - name: 清羽飞扬
+      link: https://blog.liushen.fun/
+      avatar: https://blog.liushen.fun/
+      descr: 
+      siteshot: 
+    - name: 姚远
+      link: https://yaoyuan.vip/
+      avatar: https://yaoyuan.vip/
+      descr: 
+      siteshot: 
+    - name: Peter267
+      link: https://peter267.github.io/
+      avatar: https://wmimg.com/i/1169/2024/09/66ec1739c38a0.png
+      descr: 
+      siteshot: 
+    - name: THUN888
+      link: https://blog.hzchu.top/
+      avatar: https://blog.hzchu.top/
+      descr: 
+      siteshot: 
