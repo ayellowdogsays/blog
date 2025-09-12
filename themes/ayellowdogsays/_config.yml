@@ -530,7 +530,7 @@ plugins:
 
   # https://scrollrevealjs.org/api/reveal.html
   scrollreveal:
-    enable: #true
+    enable: true
     js: https://cdn.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js
     distance: 16px
     duration: 800 # ms
@@ -629,8 +629,8 @@ style:
   prefix:
     h2: https://api.iconify.design/ci:heading-h2.svg
   border-radius:
-    card-l: 16px # 侧边栏、文章横幅位置的圆角
-    card: 12px # 文章内大部分卡片的圆角
+    card-l: 10px # 侧边栏、文章横幅位置的圆角
+    card: 10px # 文章内大部分卡片的圆角
     bar: 8px # 横条类元素的圆角
     image: 12px # 图片圆角
   color:
