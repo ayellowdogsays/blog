@@ -200,7 +200,7 @@ search:
 
 ######## Comments ########
 comments:
-  service: giscus
+  service: twikoo
   comment_title: 快来参与讨论吧~
   lazyload: false # true / false
   # beaudar
@@ -246,7 +246,7 @@ comments:
   # https://twikoo.js.org/
   twikoo:
     js: https://gcore.jsdelivr.net/npm/twikoo@1.6.8/dist/twikoo.all.min.js # 建议锁定版本
-    envId: https://xxx # vercel函数
+    envId: https://tl.ayellowdogsays.cn/
 
   # Waline
   # https://waline.js.org/
