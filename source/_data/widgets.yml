@@ -1,6 +1,6 @@
 welcome:
   layout: markdown
-  title: U•ェ•*U
+  title: 你好
   content: |
     阿黄在望。
 
@@ -14,7 +14,7 @@ comment:
   layout: markdown
   title: 呦呵，被我逮到了吧！
   content: |
-    对，就是你，快去评论区留个言吧，==不管你要说什么==
+    对，就是你，~~快去评论区留个言吧~~
   linklist:
     columns: 1 
     items:
@@ -32,6 +32,14 @@ social:
     - icon: ✋
       title: 我的说说
       url: /says/
+
+new_comment:
+  layout: timeline
+  title: 狗窝留言者
+  api: https://tl.ayellowdogsays.cn/
+  type: twikoo
+  limit: 16 # 限制获取数量，默认为 10
+  hide: reply # 是否隐藏回复，不填默认不隐藏
 
 
 

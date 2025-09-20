@@ -19,11 +19,15 @@ hexo.extend.tag.register('friends', require('./lib/friends')(hexo))
 hexo.extend.tag.register('albums', require('./lib/albums')(hexo))
 hexo.extend.tag.register('posters', require('./lib/posters')(hexo))
 hexo.extend.tag.register('sites', require('./lib/sites')(hexo))
+hexo.extend.tag.register('projects', require('./lib/projects')(hexo))
 hexo.extend.tag.register('ghcard', require('./lib/ghcard')(hexo))
 hexo.extend.tag.register('toc', require('./lib/toc')(hexo))
 hexo.extend.tag.register('timeline', require('./lib/timeline')(hexo), {ends: true})
 hexo.extend.tag.register('md', require('./lib/md')(hexo))
 hexo.extend.tag.register('chat', require('./lib/chat')(hexo), {ends: true})
+hexo.extend.tag.register('coding', require('./lib/coding')(hexo))
+hexo.extend.tag.register('office', require('./lib/office')(hexo))
+
 
 // express
 hexo.extend.tag.register('checkbox', require('./lib/checkbox')(hexo, 'checkbox'))
@@ -38,6 +42,8 @@ hexo.extend.tag.register('button', require('./lib/button')(hexo))
 hexo.extend.tag.register('mark', require('./lib/mark')(hexo))
 hexo.extend.tag.register('navbar', require('./lib/navbar')(hexo))
 hexo.extend.tag.register('note', require('./lib/note')(hexo))
+hexo.extend.tag.register('bignote', require('./lib/bignote')(hexo), true)
+
 hexo.extend.tag.register('poetry', require('./lib/poetry')(hexo), true)
 hexo.extend.tag.register('quot', require('./lib/quot')(hexo))
 hexo.extend.tag.register('blockquote', require('./lib/blockquote')(hexo), true)
@@ -47,6 +53,7 @@ hexo.extend.tag.register('audio', require('./lib/audio')(hexo))
 hexo.extend.tag.register('video', require('./lib/video')(hexo))
 hexo.extend.tag.register('rating', require('./lib/rating')(hexo))
 hexo.extend.tag.register('vote', require('./lib/vote')(hexo))
+hexo.extend.tag.register('tip', require('./lib/tip')(hexo))
 
 // read 阅读类
 hexo.extend.tag.register('reel', require('./lib/read/reel')(hexo), true)

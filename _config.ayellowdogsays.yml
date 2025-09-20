@@ -6,7 +6,7 @@ site_tree:
     base_dir: blog # 只影响自动生成的页面路径
     menu_id: post # 未在 front-matter 中指定 menu_id 时，layout 为 post 的页面默认使用这里配置的 menu_id
     leftbar: recent # for categories/tags/archives
-    rightbar: ghrepo
+    rightbar:
     nav_tabs: # 近期发布 分类 标签 专栏 归档 and ...
       "新闻": /news/
   # 博客专栏列表页配置
@@ -23,7 +23,7 @@ site_tree:
   # 博客文章内页配置
   home:
     leftbar: welcome, announcement
-    rightbar: comment, tagcloud
+    rightbar: comment, tagcloud, new_comment
   post:
     menu_id: post # 未在 front-matter 中指定 menu_id 时，layout 为 post 的页面默认使用这里配置的 menu_id
     leftbar: related, recent # for pages using 'layout:post'
@@ -65,12 +65,7 @@ article:
 inject:
   head:
     - <link rel="stylesheet" href="/css/extra.css">
-    - <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/lxgw-wenkai-screen-webfont/1.7.0/style.min.css"/>
   script:
     - <script src="/js/extra.js"></script>
-    - <script src="/js/hendend.js"></script>
-    - <script src="/js/load.js"></script>
-    - <script src="/vendor/js/snow.js"></script>
-    - <script src="/vendor/js/lantern.js"></script>
-    - <script src="/js/xiantiao.js"></script>
-    - <script data-website-id="91357f39-3d88-42f3-bf11-e1c1206ac8ab" src="https://logsphere.codepzj.cn/js/track.js"></script>
+    - <script src="/js/extra2.js"></script>
+

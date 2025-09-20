@@ -37,13 +37,8 @@ logo:
 
 # 侧边栏主功能导航菜单
 menubar:
-  columns: 4 # 一行多少个
+  columns: 3 # 一行多少个
   items: # 可按照自己需求增加，符合以下格式即可
-    # id: 页面中高亮的 menu_id 
-    # theme: 高亮时的颜色，仅 svg 中 fill="currentColor" 时有效
-    # icon: 支持 svg/img 标签，可以定义在 icons.yml 文件中，也支持外部图片的 URL
-    # title: 标题
-    # url: 点击跳转到哪，支持相对路径和绝对路径
       - id: post
         theme: '#1BCDFC'
         icon: solar:documents-bold-duotone
@@ -52,12 +47,7 @@ menubar:
       - id: wiki
         theme: '#3DC550'
         icon: solar:notebook-bookmark-bold-duotone
-        title: 说~
-        url: /says/
-      - id: explore
-        theme: '#FA6400'
-        icon: solar:planet-bold-duotone
-        title: 探索
+        title: 文档
         url: /settings/
       - id: social
         theme: '#F44336'
@@ -99,7 +89,7 @@ site_tree:
   post:
     menu_id: post # 未在 front-matter 中指定 menu_id 时，layout 为 post 的页面默认使用这里配置的 menu_id
     leftbar: related, recent # for pages using 'layout:post'
-    rightbar: ghrepo, toc
+    rightbar: ghrepo
   # 博客专栏文章内页配置
   topic:
     menu_id: post
@@ -217,7 +207,7 @@ search:
 
 ######## Comments ########
 comments:
-  service: giscus
+  service: twikoo
   comment_title: 快来参与讨论吧~
   lazyload: false # true / false
   custom_css: # artalk,twikoo,... 可以为没有全局启用的评论加载自定义样式
@@ -246,10 +236,10 @@ comments:
   # https://giscus.app/zh-CN
   giscus:
     src: https://giscus.app/client.js
-    data-repo: ayellowdogsays/giscus
-    data-repo-id: R_kgDOPk4m3A
-    data-category: Announcements
-    data-category-id: DIC_kwDOPk4m3M4CupDE
+    data-repo: xxx/xxx # [在此输入仓库]
+    data-repo-id: # [在此输入仓库 ID]
+    data-category: # [在此输入分类名]
+    data-category-id:
     data-mapping: pathname
     data-strict: 0
     data-reactions-enabled: 1
@@ -329,18 +319,21 @@ comments:
 ######## Footer ########
 footer:
   social:
-    # github:
-    #   icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/>'
-    #   url: /
-    # music:
-    #   icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/3845874.svg"/>'
-    #   url: /
-    # unsplash:
-    #   icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/3616429.svg"/>'
-    #   url: /
-    # comments:
-    #   icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/942ebbf1a4b91.svg"/>'
-    #   url: /about/#comments
+      github:
+        icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/>'
+        url: https://github.com/ayellowdogsays/
+      music:
+        icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/3845874.svg"/>'
+        url: /
+      unsplash:
+        icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/3616429.svg"/>'
+        url: /
+      comments:
+        icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/942ebbf1a4b91.svg"/>'
+        url: /about/#comments
+      theme:
+        icon: default:theme
+        onclick: 'switchTheme()'
   sitemap:
     # - title: 博客
     #   items:
@@ -368,6 +361,9 @@ footer:
     #     - '[xxx](/)'
   content: | # 支持 Markdown 格式
     本站由 [{author.name}](/) 使用 [{theme.name} {theme.version}]({theme.tree}) 主题创建。
+    本博客所有文章除特别声明外，均采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可协议，转载请注明出处。
+  # 主题用户越多，开发者维护和更新的积极性就越高，如果您喜欢本主题，请在适当的位置显示主题信息和仓库链接以表支持。
+
 
 ######## Tag Plugins ########
 tag_plugins:
@@ -545,7 +541,7 @@ plugins:
   # swiper
   swiper:
     enable: true
-    homepage: true
+    homepage: ture
     css: https://unpkg.com/swiper@10.3/swiper-bundle.min.css
     js: https://unpkg.com/swiper@10.3/swiper-bundle.min.js
 
@@ -585,7 +581,7 @@ plugins:
   katex:
     enable: #true # hexo-renderer-markdown-it-plus 默认开启 katex，此选项仅用于引入样式
     inject: |
-      <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-vKruj+a13U8yHIkAyGgK1J3ArTLzrFGBbBc0tDp4ad/EyewESeXE/Iv67Aj8gKZ0" crossorigin="anonymous">
+      <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous">
   
   # MathJax
   # 需在Markdown文件开头加入mathjax: true
@@ -629,7 +625,7 @@ plugins:
 
 
 style:
-  prefers_theme: auto # auto / light / dark
+  prefers_theme: dark
   smooth_scroll: true # true / false 开启时如果目录过长可能无法准确定位
   font-size:
     root: 16px # 改这个会影响全局所有文字的字号
@@ -679,8 +675,8 @@ style:
     next: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/arrow/064b95430caf4.svg
   error_page: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/404/1c830bfcd517d.svg
   site: # 使用 background-image 后，blur 设置才有效
-    background-image: url(/img/1.jpg)
-    blur-px: 0px
+    background-image: #url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.14/image/site-bg1@small.webp)
+    blur-px: 60px
     blur-bg: var(--bg-a75)
     blur-sat: 300%
   # 技术文章内页各级标题前面的符号
