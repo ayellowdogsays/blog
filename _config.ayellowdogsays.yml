@@ -8,7 +8,7 @@ site_tree:
     leftbar: recent # for categories/tags/archives
     rightbar:
     nav_tabs: # 近期发布 分类 标签 专栏 归档 and ...
-      "新闻": /news/
+  #    "新闻": /news/
   # 博客专栏列表页配置
   index_topic:
     base_dir: topic # 只影响自动生成的页面路径
@@ -65,7 +65,4 @@ article:
 inject:
   head:
     - <link rel="stylesheet" href="/css/extra.css">
-  script:
-    - <script src="/js/extra.js"></script>
-    - <script src="/js/extra2.js"></script>
 
