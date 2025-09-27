@@ -1,6 +1,6 @@
 welcome:
   layout: markdown
-  title: U•ェ•*U
+  title: 你好
   content: |
     阿黄在望。
 
@@ -21,17 +21,12 @@ comment:
       - title: GO！
         url: /about/#comments
 
-social:
-  title: 社交
-  layout: linklist
-  columns: 1 
-  items:
-    - icon: 🙌
-      title: 好盆友
-      url: /dogcare/
-    - icon: ✋
-      title: 我的说说
-      url: /says/
+new_comment:
+  layout: timeline
+  title: 最新评论
+  api: https://tl.ayellowdogsays.cn/
+  type: waline
+  limit: 16 # 限制获取数量，默认为 10
 
 
 

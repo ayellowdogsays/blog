@@ -30,14 +30,12 @@ if (page.indent != null) {
 } else {
   indent = article_type === 'story'
 }
-
 var site_background = ''
 if (theme.style.site && theme.style.site['background-image']) {
   site_background += `<div class="sitebg">`
-  site_background += `<div class="siteblur"></div>`
+  site_background += `<div class="siteblur"><canvas id="background-canvas"></canvas></div>`
   site_background += `</div>`
 }
-
 var html = `<!DOCTYPE html>`
 if (theme.style.prefers_theme === 'auto') {
     html += `<html lang="${page.lang}">`
@@ -50,7 +48,7 @@ if (theme.style.prefers_theme === 'auto') {
     html += partial('_partial/cover/index')
     html += `<div class="l_body ${page_type}" id="start" layout="${page.layout}" type="${article_type}" ${indent ? 'text-indent' : ''}>`
       html += `<aside class="l_left">`
-        html += `<div class="sidebg"></div>`
+        html += `<div class="sidebg"><canvas id="cloud-canvas"></canvas></div>`
         html += `<div class="leftbar-container${theme.style.leftbar?.blur ? ' leftbar-blur' : ''}">`
           html += partial('_partial/sidebar/index_leftbar')
         html += `</div>`
@@ -73,3 +71,110 @@ if (theme.style.prefers_theme === 'auto') {
 html += `</html>`
 %>
 <%- html %>
+<!-- views/page.ejs -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>加载动画示例</title>
+  <style>
+    /* 加载动画样式 */
+    #loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      transition: opacity 0.3s;
+    }
+    
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 5px solid rgba(0,0,0,0.1);
+      border-radius: 50%;
+      border-top-color: #3498db;
+      animation: spin 1s ease-in-out infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body>
+  <!-- 加载动画容器 -->
+  <div id="loader">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- 页面内容 -->
+  <main id="content" style="display:none;">
+    <h1>页面内容已加载</h1>
+    <p>其他数据...</p>
+  </main>
+
+  <script>
+    // 页面加载完成后隐藏动画
+    window.addEventListener('load', () => {
+      const loader = document.getElementById('loader');
+      const content = document.getElementById('content');
+      
+      // 模拟延迟（实际使用时可以去掉）
+      setTimeout(() => {
+        loader.style.opacity = '0';
+        content.style.display = 'block';
+        
+        // 动画结束后移除元素
+        setTimeout(() => loader.remove(), 300);
+      }, 1500); // 仅用于演示，真实项目去掉 setTimeout
+    });
+  </script>
+</body>
+</html>
+<script src="https://cdn.bootcss.com/sweetalert/2.1.0/sweetalert.min.js"></script>
+<script>
+    let password = "123456ABC";
+    if (localStorage.getItem('pan_password') == password) {
+ 
+    } else {
+        checkPassword("success", "输入密码进入")
+    }
+ 
+    function checkPassword(ic, ti) {
+        swal({
+                title: "验证",
+                text: "\n输入123456ABC来验证你是否是人类",
+                closeOnConfirm: false,
+                closeOnClickOutside: false,
+                icon: ic,
+                button: {
+                    text: "确认",
+                },
+                content: {
+                    element: "input",
+                    attributes: {
+                        placeholder: "Type your password",
+                        type: "password",
+                    },
+                },
+            })
+            .then((value) => {
+                if (value == '') {
+                    checkPassword("warning", "请输入正确的密码");
+                } else if (value == password) {
+                    swal("欢迎！", {
+                        button: false,
+                    });
+                    localStorage.setItem("pan_password", value);
+                } else {
+                    checkPassword("warning", "密码错误");
+                }
+            });
+ 
+    }
+</script>

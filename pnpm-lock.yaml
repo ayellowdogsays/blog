@@ -33,7 +33,7 @@ importers:
         specifier: ^7.3.0
         version: 7.3.0(chokidar@3.6.0)
       hexo-butterfly-swiper:
-        specifier: ^1.0.0
+        specifier: ^1.0.12
         version: 1.0.12
       hexo-filter-nofollow:
         specifier: ^2.0.2
