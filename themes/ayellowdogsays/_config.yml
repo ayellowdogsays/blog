@@ -625,8 +625,8 @@ style:
   prefix:
     h2: https://api.iconify.design/ci:heading-h2.svg
   border-radius:
-    card-l: 0px # 侧边栏、文章横幅位置的圆角
-    card: 0px # 文章内大部分卡片的圆角
+    card-l: 15px # 侧边栏、文章横幅位置的圆角
+    card: 20px # 文章内大部分卡片的圆角
     bar: 50px # 横条类元素的圆角
     image: 12px # 图片圆角
   color:
