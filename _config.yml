@@ -105,6 +105,7 @@ deploy:
   type: 'git'
   repo: https://github.com/shinianlaojinmao/shinianlaojinmao.github.io.git/
   branch: main
+  type: indexnow_url_submitter
 # Sitemap Generator
 sitemap:
   path: sitemap.xml
@@ -117,6 +118,4 @@ hexo_indexnow:
   apikey: c9febc5bde7f4018a0f7f51d0fbeb923
   server: bing # indexnow 服务器，可选值有:bing、yandex、indexnow
 
-deploy:
-  - type: indexnow_url_submitter
 
