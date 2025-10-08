@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Allow: /archives/
+Allow: /says/
+Allow: /link/
+
+Disallow: /vendors/
+Disallow: /js/
+Disallow: /css/
+Disallow: /fonts/
+Disallow: /fancybox/
+
+Sitemap: https://www.eyunbook.com/sitemap.xml
