@@ -102,18 +102,13 @@ theme: ayellowdogsays
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-    type: 'git'     
-    repo: https://github.com/shinianlaojinmao/shinianlaojinmao.github.io.git/
-    branch: main
+  type: 'git'
+  repo: https://github.com/shinianlaojinmao/shinianlaojinmao.github.io.git/
+  branch: main
 # Sitemap Generator
 sitemap:
   path: sitemap.xml
   tags: false
   categories: false
-
-
-  
-
-  
 
 
