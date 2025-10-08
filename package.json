@@ -45,7 +45,6 @@
     "hexo-word-counter": "^0.2.1",
     "moment": "^2.30.1",
     "moment-timezone": "^0.6.0",
-    "hexo-indexnow": "^1.2.0",
     "probe-image-size": "^7.2.3",
     "style": "^0.0.3",
     "stylus": "^0.64.0",
