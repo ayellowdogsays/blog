@@ -105,7 +105,6 @@ deploy:
   - type: 'git'                # 第一个部署目标：Git（加 - 表示数组项）
     repo: https://github.com/shinianlaojinmao/shinianlaojinmao.github.io.git/
     branch: main
-  - type: indexnow_url_submitter  # 第二个部署目标：indexnow（加 - 表示数组项）
 # Sitemap Generator
 sitemap:
   path: sitemap.xml
@@ -114,13 +113,7 @@ sitemap:
 
 
   
-hexo_indexnow:
-  count: 15  # 提交策略："latest"=仅提交最新1篇文章；数字=提交最近N篇（如 10=最近10篇）
-  txt_name: 4c91d25c0fae49879f2cf0 4c032e83 48.txt  # 从 Bing 下载的 TXT 文件名（必须和密钥一致）
-  apikey: 4c91d25c0fae49879f2cf0 4c032e83 48  # 你的 IndexNow API 密钥（32位）
-  server: bing  # 提交目标服务器：bing（必应）、yandex（雅虎）、indexnow（通用服务器）
-  auto: true  # 可选：是否自动提交（建议开启，部署时自动触发）
-  url: https://ayellowdogsays.cn  # 可选：你的站点根域名（确保和 Bing 验证的域名一致）
+
   
 
 
