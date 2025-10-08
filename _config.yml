@@ -116,5 +116,8 @@ hexo_indexnow:
   txt_name: c9febc5bde7f4018a0f7f51d0fbeb923.txt # 链接文件名
   apikey: c9febc5bde7f4018a0f7f51d0fbeb923
   server: bing # indexnow 服务器，可选值有:bing、yandex、indexnow
+  
+deploy:
+  - type: indexnow_url_submitter
 
 
