@@ -102,7 +102,7 @@ theme: ayellowdogsays
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  - type: 'git'                # 第一个部署目标：Git（加 - 表示数组项）
+    type: 'git'     
     repo: https://github.com/shinianlaojinmao/shinianlaojinmao.github.io.git/
     branch: main
 # Sitemap Generator
