@@ -112,11 +112,17 @@ sitemap:
   tags: false
   categories: false
 
+yaml
+# --------------------------
+# 1. hexo-indexnow 插件核心配置
+# --------------------------
 hexo_indexnow:
-  count: latest # 数字或者 "latest"(=1)
-  txt_name: c9febc5bde7f4018a0f7f51d0fbeb923.txt # 链接文件名
-  apikey: c9febc5bde7f4018a0f7f51d0fbeb923
-  server: bing # indexnow 服务器，可选值有:bing、yandex、indexnow
+  count: latest  # 提交策略："latest"=仅提交最新1篇文章；数字=提交最近N篇（如 10=最近10篇）
+  txt_name: c9febc5bde7f4018a0f7f51d0fbeb923.txt  # 从 Bing 下载的 TXT 文件名（必须和密钥一致）
+  apikey: c9febc5bde7f4018a0f7f51d0fbeb923  # 你的 IndexNow API 密钥（32位）
+  server: bing  # 提交目标服务器：bing（必应）、yandex（雅虎）、indexnow（通用服务器）
+  auto: true  # 可选：是否自动提交（建议开启，部署时自动触发）
+  url: https://ayellowdogsays.cn/  # 可选：你的站点根域名（确保和 Bing 验证的域名一致）
   
 
 
