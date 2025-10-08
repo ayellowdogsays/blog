@@ -105,7 +105,6 @@ deploy:
   type: 'git'
   repo: https://github.com/shinianlaojinmao/shinianlaojinmao.github.io.git/
   branch: main
-  type: indexnow_url_submitter
 # Sitemap Generator
 sitemap:
   path: sitemap.xml
