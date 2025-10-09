@@ -1,9 +1,0 @@
-User-agent: *
-Allow: /
-Allow: /archives/
-Allow: /says/
-Allow: /link/
-
-Disallow: /js/
-
-Sitemap: https://ayellowdogsays.cn/sitemap.xml
