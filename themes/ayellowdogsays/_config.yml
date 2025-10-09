@@ -327,7 +327,7 @@ footer:
       url: /dogcare/
     comments:
       icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/942ebbf1a4b91.svg"/>'
-      url: /about/
+      url: /says/
     theme:
       icon: default:theme
       onclick: 'switchTheme()'
