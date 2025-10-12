@@ -102,13 +102,21 @@ theme: ayellowdogsays
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
-  type: 'git'
+- type: 'git'
   repo: https://github.com/shinianlaojinmao/shinianlaojinmao.github.io.git/
   branch: main
+- type: indexnow_url_submitter
 # Sitemap Generator
 sitemap:
   path: sitemap.xml
   tags: false
   categories: false
+
+hexo_indexnow:
+  count: 3 # 数字或者"latest"(=1)
+  txt_name: a534cdcbe87b417c9ab59f7cf8d3432d.txt # 链接文件名
+  apikey: a534cdcbe87b417c9ab59f7cf8d3432d # 你的apikey
+  server: bing # indexnow服务器,可选值有:bing、yandex、indexnow
+
 
 
