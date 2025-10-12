@@ -543,8 +543,8 @@ plugins:
 
   # https://scrollrevealjs.org/api/reveal.html
   scrollreveal:
-    enable: #true # 慎用，有些时候打开页面空白
-    js: https://gcore.jsdelivr.net/npm/scrollreveal@4.0/dist/scrollreveal.min.js
+    enable: true # 慎用，有些时候打开页面空白
+    js: /js/6.js
     distance: 8px
     duration: 1000 # ms
     interval: 100 # ms
