@@ -1,22 +1,11 @@
 ---
-abbrlink: '55630'
-categories:
-- - 美化、动手
-date: '2025-02-15T18:38:48.352541+08:00'
-swiper_index: 2
-tags:
-- stellar
-- 侧边栏
-- 设置
-- xaoxuu
-- weekdaycare
 title: stellar主题修改
-top_img: https://img.picui.cn/free/2025/03/16/67d62e4e0aed9.png
+date: '2025-07-24T16:35:33.158330+08:00'
 updated: '2025-02-15T18:38:48.352541+08:00'
 ---
 # 开头
 
-也没想到我还能修改主题啊（毕竟看着一堆HTML乱码的经历还是有的，魔改不备份，博主两行泪）我反正先备后改😁
+也没想到我还能修改主题啊，我反正先备后改😁
 
 ### 前言
 
