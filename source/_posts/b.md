@@ -5,6 +5,8 @@ date: '2025-08-25T16:41:41.830947+08:00'
 tags: []
 title: blog年度总结
 updated: '2025-08-25T16:58:14.638+08:00'
+swiper_index: 1 # 数字越大轮播的位置越靠前
+cover: https://api.iconify.design/line-md:chat-filled.svg
 ---
 # 碎碎念
 

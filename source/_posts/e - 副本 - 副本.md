@@ -2,6 +2,8 @@
 title: stellar主题修改
 date: '2025-07-24T16:35:33.158330+08:00'
 updated: '2025-02-15T18:38:48.352541+08:00'
+swiper_index: 1 # 数字越大轮播的位置越靠前
+cover: https://api.iconify.design/tabler:brand-hexo.svg?color=%235d95b1
 ---
 # 开头
 

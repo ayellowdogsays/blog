@@ -41,17 +41,17 @@ menubar:
   items: # 可按照自己需求增加，符合以下格式即可
       - id: post
         theme: '#1BCDFC'
-        icon: solar:documents-bold-duotone
+        icon: https://api.iconify.design/line-md:home-alt-twotone.svg?color=%235d95b1
         title: 博客
         url: /
       - id: explore
         theme: '#FA6400'
-        icon: solar:planet-bold-duotone
+        icon: https://api.iconify.design/line-md:map-marker-alt-loop.svg?color=%235d95b1
         title: 探索
         url: /says/
       - id: social
         theme: '#F44336'
-        icon: solar:chat-square-like-bold-duotone
+        icon: https://api.iconify.design/line-md:person-search-filled.svg?color=%235d95b1
         title: 社交
         url: /link/
 
@@ -318,19 +318,19 @@ comments:
 
 ######## Footer ########
 footer:
-  social:
-    github:
-      icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/08a41b181ce68.svg"/>'
-      url: https://github.com/ayellowdogsays/
-    unsplash:
-      icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/3845874.svg"/>'
-      url: /dogcare/
-    comments:
-      icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/942ebbf1a4b91.svg"/>'
-      url: /says/
-    theme:
-      icon: default:theme
-      onclick: 'switchTheme()'
+ # social:
+ #   github:
+ #     icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/08a41b181ce68.svg"/>'
+ #     url: https://github.com/ayellowdogsays/
+   # unsplash:
+     # icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/3845874.svg"/>'
+     # url: /dogcare/
+   # comments:
+      #icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/942ebbf1a4b91.svg"/>'
+      #url: /says/
+   # theme:
+     # icon: default:theme
+     # onclick: 'switchTheme()'
   sitemap:
     # - title: 博客
     #   items:
@@ -538,6 +538,7 @@ plugins:
   # swiper
   swiper:
     enable: true
+    homepage: true
     css: https://unpkg.com/swiper@10.3/swiper-bundle.min.css
     js: https://unpkg.com/swiper@10.3/swiper-bundle.min.js
 
@@ -638,8 +639,8 @@ style:
   border-radius:
     card-l: 38px # 侧边栏、文章横幅位置的圆角
     card: 30px # 文章内大部分卡片的圆角
-    card-s: 40px # 文章内小型卡片的圆角
-    bar: 30px # 横条类元素的圆角
+    card-s: 20px # 文章内小型卡片的圆角
+    bar: 10px # 横条类元素的圆角
     image-l: 24px # 非技术类文章插图圆角
     image: 16px # 技术类文章插图圆角
     image-s: 8px # 评论区图片圆角（部分评论支持）
@@ -662,7 +663,7 @@ style:
   leftbar:
     # 可以设置：纯色/渐变色/图片作为背景
     background-color: var(--card) # var(--block)
-    background-image: linear-gradient(45deg, blue, green);
+    background-image: linear-gradient(67deg, blue, green);
     blur-px: 100px
     blur-bg: var(--bg-a60)
     background-opacity: 0.8

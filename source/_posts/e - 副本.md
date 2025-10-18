@@ -5,6 +5,8 @@ date: '2025-02-15T18:38:48.352541+08:00'
 tags: []
 title: Stellar可控夜间模式
 updated: '2025-10-13T17:51:36.568+08:00'
+swiper_index: 1 # 数字越大轮播的位置越靠前
+cover: https://api.iconify.design/line-md:emoji-smile-wink-twotone.svg
 ---
 # 前言
 
