@@ -5,6 +5,4 @@ title: 说说
 {% timeline %}
 <!-- node 2025 年 10 月 8 日 -->
 换到Stellar啦！
-<!-- node 2025 年 10 月 21 日 -->
-记得穿校服，我今天忘了
 {% endtimeline %}
