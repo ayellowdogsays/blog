@@ -1,15 +1,13 @@
-/* 噪声纹理背景覆盖层 */
-body::before {
+/*背景笼罩层*/
+body:before {
     content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-image: url("/config/noise.png");
     position: fixed;
-    inset: 0; /* 替代 top, right, bottom, left 的简写 */
-    z-index: 15; /* 最大z-index值确保在最顶层 */
-    background: 
-        url("/config/noise.png") center/cover, /* 确保图片覆盖并居中 */
-        transparent; /* 后备颜色 */
-    opacity: 0.036;
+    z-index: 9999; /* 提高z-index确保始终置顶 */
+    opacity: .036;
     pointer-events: none;
     touch-action: none;
-    will-change: transform; /* 性能优化 */
-    backface-visibility: hidden; /* 防止闪烁 */
 }
