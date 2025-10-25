@@ -14,12 +14,12 @@ comment:
   layout: markdown
   title: 呦呵，被我逮到了吧！
   content: |
-    对，就是你，快去评论区留个言吧，==不管你要说什么==
+    对，就是你，快去评论区留个言吧，~~不管你要说什么~~
   linklist:
     columns: 1 
     items:
       - title: GO！
-        url: /about/#comments
+        url: /dogcare/#comments
 
 social:
   title: 社交

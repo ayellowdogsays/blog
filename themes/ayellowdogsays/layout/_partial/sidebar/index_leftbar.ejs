@@ -61,8 +61,8 @@ if (typeof page.leftbar == 'string') {
 
 function layoutTitle(main, url, sub) {
   var el = '';
-  el += '<a class="title" href="' + pretty_url(url || "/") + '">';
-  el += '<div class="main">' + main + '</div>';
+  el += '<a class="title" href="' + url_for(url || "/") + '">';
+  el += '<div class="main" ff="title">' + main + '</div>';
   if (sub) {
     let arr = sub.split('|');
     if (arr.length > 1) {
@@ -79,15 +79,6 @@ function layoutWidgets() {
   var el = '';
   el += '<div class="widgets">';
   if (page.leftbar) {
-    var search = {}
-    if (page.search) {
-      search = page.search
-    } else if (wiki?.search) {
-      search = wiki.search
-    } else if (topic?.search) {
-      search = topic.search
-    }
-    el += partial('search', {item: search})
     page.leftbar.forEach((w, i) => {
       let name = ''
       let widget = {}
@@ -112,15 +103,12 @@ function layoutWidgets() {
 }
 function layoutFooterDiv() {
   const { social } = theme.footer
-  // 初始化底部元素，先添加主题切换模块
   var el = '<footer class="footer dis-select">';
-  // 新增：主题切换按钮组（从第一代码迁移）
   el += '<div class="theme-switch">';
   el += `<button class="switch-item" data-theme="light" onclick='javascript:switchTolight()'>${icon('default:light')}</button>`;
   el += `<button class="switch-item" data-theme="auto" onclick='javascript:switchTosystem()'>${icon('default:system')}</button>`;
   el += `<button class="switch-item" data-theme="dark" onclick='javascript:switchTodark()'>${icon('default:dark')}</button>`;
-  el += '</div>';
-  // 保留原有社交图标组逻辑，增加非空判断
+  el += '</div>'
   if (social) {
     el += '<div class="social-wrap">';
     for (let id of Object.keys(social)) {
@@ -149,8 +137,7 @@ function layoutFooterDiv() {
     el += '</div>';
   }
   el += '</footer>';
-  // 调整空值判断逻辑：即使无社交图标，仍渲染主题切换模块
-  return social || true ? el : '';
+  return el;
 }
 
 function layoutLogo() {
@@ -159,9 +146,6 @@ function layoutLogo() {
 
 function layoutNavArea() {
   var el = ''
-  if (page.menu == false) {
-    return el
-  }
   el += `<div class="nav-area">`
   el += partial('menu', {where: 'sidebar'})
   el += `</div>`

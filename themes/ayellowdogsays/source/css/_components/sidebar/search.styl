@@ -1,284 +1,131 @@
-.search-wrapper {
-  padding-bottom: 32px;
-  width: 100%;
-  border-radius: $border-card-s;
-  position: relative;
+.search-wrapper
+  position: fixed
+  top: 10vh
+  left: 50%
+  z-index: 21
+  display: none
+  margin-left: -15rem
+  padding: 1rem
+  width: 30rem
+  word-break: break-all
+  box-shadow: $boxshadow-card
+  background: var(--site-bg)
+  border: 1px solid var(--block-border)
+  border-radius: $border-bar
 
-  > .search-form {
-    position: sticky;
-    top: 0;
-    height: 42px; // 增加高度提升舒适度
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    transition: all 0.38s cubic-bezier(0.4, 0, 0.2, 1); // 更平滑的过渡曲线
-    z-index: 10; // 提高层级避免被遮挡
-    border-radius: $border-card-s;
-    color: var(--text);
-    padding: 0 1rem; // 增加内边距
-    gap: 0.75rem; // 元素间距
+  .search-header
+    display: flex
+    align-items: center
+    justify-content: space-between
+    color: var(--text)
+    margin-bottom: 1rem
 
-    > * {
-      z-index: 1;
-    }
+  .search-close-button
+    margin-left: 8px
+    color: var(--text-p3)
+    line-height: 1
+    cursor: pointer
+    trans1 color
+    &:hover
+      color: $color-theme
 
-    &:before {
-      position: absolute;
-      content: '';
-      height: 2px;
-      bottom: 0;
-      left: 1rem;
-      right: 1rem;
-      border-radius: $border-bar;
-      background: var(--bg-a100);
-      @media screen and (prefers-color-scheme: dark) {
-        background: var(--bg-a20);
-      }
-      z-index: 0;
-      transition: all 0.3s ease; // 平滑过渡
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); // 微妙阴影
-    }
+  >.search-form
+    display: flex
+    flex-direction: row
+    align-items: center
+    margin-bottom: .75rem
+    transition: 0.38s ease-out
+    border-radius: $border-bar
+    background: var(--block)
+    border: 1px solid var(--block-border)
+    &:has(input:focus)
+      background: var(--card)
+    .search-close-button
+      margin-right: 1rem
 
-    &:hover,
-    &:has(input:focus),
-    &:has(input:not(:placeholder-shown)) {
-      &:before {
-        background: var(--bg-a100);
-        height: 100%;
-        left: 0;
-        right: 0;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08); // 增强阴影
-      }
-    }
-  }
+  .search-input
+    width: 100%
+    box-sizing: border-box
+    font-family: $ff-body
+    font-size: $fs-14
+    padding: .75rem 1rem
+    color: var(--text)
 
-  .search-input {
-    width: 100%;
-    box-sizing: border-box;
-    font-family: $ff-body;
-    font-size: $fs-15; // 稍大字体提高可读性
-    padding: 12px 0;
-    color: var(--text);
-    background: transparent;
-    border: none;
-    outline: none;
-    transition: all 0.2s ease;
+  #search-result
+    max-height: 60vh
+    overflow-y: auto
+    &:empty
+      display: none
+    .search-result-list
+      padding: 0
+      margin: 0
+      list-style-type: none
+    li a
+        display: block
+        background: var(--block)
+        line-height: 1.2
+        padding: 0.75rem 1rem
+        border-radius: $border-card
+        border: 1px solid var(--block-border)
+        trans1 background
+        &:hover
+          background: var(--card)
+    li+li
+        margin-top: 8px
+    .search-result-title
+      color: var(--text-p1)
+      font-weight: 700
+      font-size: $fs-15
 
-    &::placeholder {
-      color: var(--text-p3);
-      @media screen and (prefers-color-scheme: dark) {
-        color: var(--text-p2);
-      }
-      transition: color 0.2s ease;
-    }
+    .search-result-content
+      overflow: hidden
+      color: var(--text-p3)
+      margin: 4px 0 0
+      max-height: 13em
+      text-align: justify
+      font-size: $fs-13
+      display: -webkit-box
+      -webkit-box-orient: vertical
+      overflow: hidden
+      -webkit-line-clamp: 2
 
-    &:focus::placeholder {
-      color: transparent; // 聚焦时隐藏占位符
-    }
-  }
+    .search-keyword
+      color: $c-red
+      font-weight: bold
+      filter grayscale(25%)
 
-  .search-button {
-    border-radius: $border-bar;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 40px;
-    width: 40px; // 固定宽度确保圆形
-    background: transparent;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    position: relative;
-    overflow: hidden;
+  .search-no-result
+    display: none
+    color: var(--text-p1)
+    text-align: center
+    font-size: $fs-14
+    padding: 2rem
+    background: var(--block)
+    border-radius: $border-card
 
-    &:hover {
-      background: rgba(0, 0, 0, 0.05);
-      @media screen and (prefers-color-scheme: dark) {
-        background: rgba(255, 255, 255, 0.05);
-      }
-    }
+.search-wrapper.noresult[searching='true']
+  .search-no-result
+    display: block
+    margin: 0
+    border: 1px solid var(--block-border)
 
-    svg {
-      height: 1.25rem; // 稍大图标
-      width: 1.25rem;
-      color: var(--text-p2);
-      fill: currentColor;
-      transition: all 0.2s ease;
+#search-mask
+  position: fixed
+  inset: 0
+  z-index: 20
+  display: none
+  backdrop-filter: blur(20px)
+  -webkit-backdrop-filter: blur(20px)
 
-      path[p-id="1562"] {
-        color: var(--theme);
-        transition: color 0.3s ease;
-      }
-    }
-
-    // 点击波纹效果
-    &:after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      background: rgba(0, 0, 0, 0.1);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.6s ease, height 0.6s ease;
-    }
-
-    &:active:after {
-      width: 40px;
-      height: 40px;
-      opacity: 0;
-    }
-  }
-
-  &[searching='true'] {
-    .search-button {
-      path[p-id="1562"] {
-        color: $c-green;
-        animation: pulse 1.5s infinite; // 搜索中脉动动画
-      }
-    }
-  }
-
-  &.noresult[searching='true'] {
-    .search-button {
-      path[p-id="1562"] {
-        color: $c-red;
-      }
-    }
-  }
-
-  .search-no-result {
-    display: none;
-    color: var(--text-p1);
-    text-align: center;
-    font-size: $fs-14;
-    padding: 2rem;
-    margin: 8px 0;
-    background: var(--bg-a20);
-    border-radius: $border-card-s;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
-    transition: all 0.3s ease;
-    transform: translateY(10px);
-    opacity: 0;
-
-    // 添加图标增强视觉反馈
-    &:before {
-      content: '🔍';
-      display: block;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      opacity: 0.7;
-    }
-  }
-
-  #search-result {
-    max-height: 60vh;
-    overflow: auto;
-    scrollbar-width: none;
-    scrollbar(0, 0);
-    border-radius: $border-bar;
-    margin-top: 12px; // 增加间距
-    transition: all 0.3s ease;
-
-    &:empty {
-      display: none;
-    }
-
-    .search-result-list {
-      padding: 0;
-      margin: 8px 0;
-      list-style-type: none;
-    }
-
-    li a {
-      display: block;
-      background: var(--bg-a20);
-      line-height: 1.4; // 增加行高提高可读性
-      padding: 1rem;
-      border-radius: $border-card-s;
-      transition: all 0.25s ease;
-      text-decoration: none;
-      transform: translateX(0);
-      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
-
-      &:hover {
-        background: var(--bg-a100);
-        transform: translateX(4px); // 悬停时轻微右移
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-      }
-    }
-
-    li + li {
-      margin-top: 10px; // 增加列表项间距
-    }
-
-    .search-result-title {
-      color: var(--text-p1);
-      font-weight: 700;
-      font-size: $fs-15;
-      margin-bottom: 6px;
-      transition: color 0.2s ease;
-
-      // 标题悬停效果
-      a:hover & {
-        color: var(--theme);
-      }
-    }
-
-    .search-result-content {
-      overflow: hidden;
-      color: var(--text-p3);
-      margin: 4px 0 0;
-      max-height: 13em;
-      text-align: justify;
-      font-size: $fs-13;
-      display: -webkit-box;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      -webkit-line-clamp: 2;
-      transition: color 0.2s ease;
-
-      a:hover & {
-        color: var(--text-p2);
-      }
-    }
-
-    .search-keyword {
-      color: $c-red;
-      border-bottom: 1px dashed $c-red;
-      font-weight: bold;
-      filter: grayscale(25%);
-      padding: 0 2px;
-      border-radius: 2px;
-      background: rgba(255, 0, 0, 0.05);
-    }
-  }
-
-  // 无结果状态动画
-  &.noresult[searching='true'] {
-    .search-no-result {
-      display: block;
-      margin-bottom: 8px;
-      transform: translateY(0);
-      opacity: 1;
-    }
-  }
-}
-
-// 脉动动画
-@keyframes pulse {
-  0% {
-    opacity: 1;
-    transform: scale(1);
-  }
-  50% {
-    opacity: 0.7;
-    transform: scale(0.95);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
+@media screen and (max-width: $device-mobile-max)
+  .search-wrapper 
+    top: 0
+    left: 0
+    margin: 0
+    width: 100%
+    height: 100%
+    border: 0
+    border-radius: 0
+    box-sizing: border-box
+    #search-result
+      max-height: 78vh
