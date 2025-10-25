@@ -21,18 +21,18 @@
   --waline-theme-color: var(--theme);
   --waline-active-color: var(--accent);
 
-  /* 界面色彩 */
+  /* 界面色彩 - 添加半透明 */
   --waline-color: #444;
-  --waline-bgcolor: #fff;
-  --waline-bgcolor-light: #f8f8f8;
-  --waline-bgcolor-hover: #f0f0f0;
-  --waline-border-color: #ddd;
-  --waline-disable-bgcolor: #f8f8f8;
-  --waline-disable-color: #bbb;
-  --waline-code-bgcolor: #282c34;
+  --waline-bgcolor: rgba(255, 255, 255, 0.85);
+  --waline-bgcolor-light: rgba(248, 248, 248, 0.8);
+  --waline-bgcolor-hover: rgba(240, 240, 240, 0.9);
+  --waline-border-color: rgba(221, 221, 221, 0.6);
+  --waline-disable-bgcolor: rgba(248, 248, 248, 0.7);
+  --waline-disable-color: rgba(187, 187, 187, 0.8);
+  --waline-code-bgcolor: rgba(40, 44, 52, 0.9);
 
   /* 特殊元素 */
-  --waline-bq-color: #f0f0f0;
+  --waline-bq-color: rgba(240, 240, 240, 0.8);
 
   /* ===== 尺寸系统 ===== */
   /* 头像尺寸 */
@@ -40,18 +40,22 @@
   --waline-m-avatar-size: calc(var(--waline-avatar-size) * 9 / 13);
 
   /* 徽章样式 */
-  --waline-badge-color: #3498db;
+  --waline-badge-color: rgba(52, 152, 219, 0.9);
   --waline-badge-font-size: 0.725em;
 
   /* 信息文本 */
-  --waline-info-bgcolor: #f8f8f8;
-  --waline-info-color: #999;
+  --waline-info-bgcolor: rgba(248, 248, 248, 0.8);
+  --waline-info-color: rgba(153, 153, 153, 0.9);
   --waline-info-font-size: 0.725em;
 
   /* ===== 视觉效果 ===== */
   --waline-border: 1px solid var(--waline-border-color);
   --waline-avatar-radius: 50%;
   --waline-box-shadow: none;
+  
+  /* 添加背景模糊效果 */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 /* 深色主题适配 */
@@ -59,43 +63,121 @@
   /* 深色主题混入 */
   ondark() {
     /* 基础灰度调整 */
-    --waline-white: #000;
-    --waline-light-grey: #666;
-    --waline-dark-grey: #999;
+    --waline-white: rgba(0, 0, 0, 0.85);
+    --waline-light-grey: rgba(102, 102, 102, 0.8);
+    --waline-dark-grey: rgba(153, 153, 153, 0.9);
 
-    /* 界面色彩深色版本 */
-    --waline-color: #fff;
-    --waline-bgcolor: var(--block);
-    --waline-bgcolor-light: #272727;
-    --waline-border-color: #333;
-    --waline-disable-bgcolor: #444;
-    --waline-disable-color: #272727;
+    /* 界面色彩深色版本 - 添加半透明 */
+    --waline-color: rgba(255, 255, 255, 0.95);
+    --waline-bgcolor: rgba(var(--block-rgb, 0, 0, 0), 0.8);
+    --waline-bgcolor-light: rgba(39, 39, 39, 0.75);
+    --waline-bgcolor-hover: rgba(48, 48, 48, 0.85);
+    --waline-border-color: rgba(51, 51, 51, 0.5);
+    --waline-disable-bgcolor: rgba(68, 68, 68, 0.7);
+    --waline-disable-color: rgba(39, 39, 39, 0.8);
+    --waline-code-bgcolor: rgba(40, 44, 52, 0.85);
 
     /* 特殊元素深色版本 */
-    --waline-bq-color: #272727;
+    --waline-bq-color: rgba(39, 39, 39, 0.8);
 
     /* 信息区域深色版本 */
-    --waline-info-bgcolor: #272727;
-    --waline-info-color: #666;
+    --waline-info-bgcolor: rgba(39, 39, 39, 0.8);
+    --waline-info-color: rgba(102, 102, 102, 0.9);
+
+    /* 徽章半透明 */
+    --waline-badge-color: rgba(52, 152, 219, 0.8);
 
     /* 评论计数特殊样式 */
     .wl-count {
       padding: 0.375em;
       font-weight: bold;
       font-size: 1.25em;
-      color: #fff;
+      color: rgba(255, 255, 255, 0.95);
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      -webkit-backdrop-filter: blur(5px);
+    }
+
+    /* 添加整体模糊效果 */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    
+    /* 确保文字可读性 */
+    .wl-content {
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
     }
   }
 
   /* 显式深色主题 */
   :root[data-theme="dark"] & {
     ondark();
+    
+    /* 额外的深色主题半透明优化 */
+    .wl-card {
+      background: rgba(30, 30, 30, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .wl-header {
+      background: rgba(40, 40, 40, 0.6);
+    }
   }
 
   /* 系统偏好深色模式 */
   :root:not([data-theme]) & {
     @media (prefers-color-scheme: dark) {
       ondark();
+      
+      /* 系统深色模式的额外优化 */
+      .wl-btn {
+        background: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.15);
+        }
+      }
+    }
+  }
+}
+
+/* 响应式半透明调整 */
+@media (max-width: 768px) {
+  .cmt-body {
+    --waline-bgcolor: rgba(255, 255, 255, 0.92);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  
+  .cmt-body.waline {
+    :root[data-theme="dark"] &,
+    :root:not([data-theme]) & {
+      @media (prefers-color-scheme: dark) {
+        --waline-bgcolor: rgba(var(--block-rgb, 0, 0, 0), 0.85);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+      }
+    }
+  }
+}
+
+/* 半透明过渡动画 */
+.cmt-body.waline {
+  .wl-panel,
+  .wl-card,
+  .wl-header {
+    transition: all 0.3s ease;
+  }
+  
+  .wl-panel:hover,
+  .wl-card:hover {
+    background: rgba(255, 255, 255, 0.95);
+    
+    :root[data-theme="dark"] &,
+    :root:not([data-theme]) & {
+      @media (prefers-color-scheme: dark) {
+        background: rgba(40, 40, 40, 0.9);
+      }
     }
   }
 }
