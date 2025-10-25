@@ -12,9 +12,9 @@ announcement:
 
 comment:
   layout: markdown
-  title: 呦呵，被我逮到了吧！
+  title: 欢迎旅行者
   content: |
-    对，就是你，快去评论区留个言吧，~~不管你要说什么~~
+    对，就是你，快去评论区留个言吧
   linklist:
     columns: 1 
     items:
