@@ -1,16 +1,7 @@
 ---
 menu_id: social
-header: false
 sidebar: [sociallist, welcome, recent]
 title: 友链
-h1: ''
-breadcrumb: false
-logo:
-  subtitle: 快来交换友链吧～
-comment_title: 快来交换友链吧～
-giscus:
-  data-mapping: number
-  data-term: 22
 ---
 
 
