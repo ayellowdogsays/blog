@@ -13,9 +13,6 @@ giscus:
   data-term: 22
 ---
 
-{% banner 小伙伴们 如果宇宙中真有什么终极的逻辑，那就是我们终有一天会在舰桥上重逢，直到生命终结。  %}
-{% navbar active:/friends/ [友链](/link/)  %}
-{% endbanner %}
 
 {% sites link %}
 
