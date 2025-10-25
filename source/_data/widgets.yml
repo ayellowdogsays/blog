@@ -4,11 +4,6 @@ welcome:
   content: |
     阿黄在望。
 
-announcement:
-  layout: markdown
-  title: 个性签名
-  content: |
-    低级的欲望通过放纵就可获得；高级的欲望通过自律方可获得；顶级的欲望通过煎熬才可获得。“所谓自由，不是随心所欲，而是自我主宰。”
 
 comment:
   layout: markdown
