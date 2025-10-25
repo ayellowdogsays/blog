@@ -3,7 +3,7 @@ body::before {
     content: "";
     position: fixed;
     inset: 0; /* 替代 top, right, bottom, left 的简写 */
-    z-index: 2147483647; /* 最大z-index值确保在最顶层 */
+    z-index: 15; /* 最大z-index值确保在最顶层 */
     background: 
         url("/config/noise.png") center/cover, /* 确保图片覆盖并居中 */
         transparent; /* 后备颜色 */
