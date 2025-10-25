@@ -1,17 +1,27 @@
-.cmt-body
-  .wl-panel
-    margin: 0.5em 0 !important
-  .wl-meta-head
-    padding: 0 !important
+.cmt-body {
+  /* 布局调整 */
+  .wl-panel {
+    margin: 0.5em 0 !important;
+  }
+  
+  .wl-meta-head {
+    padding: 0 !important;
+  }
+
+  /* 基础字体大小 */
   --waline-font-size: 0.9375rem;
-  /* 常规颜色 */
+
+  /* ===== 颜色系统 ===== */
+  /* 基础灰度 */
   --waline-white: #fff;
   --waline-light-grey: #999;
   --waline-dark-grey: #666;
-  /* 主题色 */
+
+  /* 主题色彩 */
   --waline-theme-color: var(--theme);
   --waline-active-color: var(--accent);
-  /* 布局颜色 */
+
+  /* 界面色彩 */
   --waline-color: #444;
   --waline-bgcolor: #fff;
   --waline-bgcolor-light: #f8f8f8;
@@ -20,49 +30,72 @@
   --waline-disable-bgcolor: #f8f8f8;
   --waline-disable-color: #bbb;
   --waline-code-bgcolor: #282c34;
-  /* 特殊颜色 */
+
+  /* 特殊元素 */
   --waline-bq-color: #f0f0f0;
-  /* 头像 */
+
+  /* ===== 尺寸系统 ===== */
+  /* 头像尺寸 */
   --waline-avatar-size: 3.25rem;
   --waline-m-avatar-size: calc(var(--waline-avatar-size) * 9 / 13);
-  /* 徽章 */
+
+  /* 徽章样式 */
   --waline-badge-color: #3498db;
   --waline-badge-font-size: 0.725em;
-  /* 信息 */
+
+  /* 信息文本 */
   --waline-info-bgcolor: #f8f8f8;
   --waline-info-color: #999;
   --waline-info-font-size: 0.725em;
-  /* 渲染选择 */
+
+  /* ===== 视觉效果 ===== */
   --waline-border: 1px solid var(--waline-border-color);
   --waline-avatar-radius: 50%;
   --waline-box-shadow: none;
+}
 
-.cmt-body.waline
-  ondark()
+/* 深色主题适配 */
+.cmt-body.waline {
+  /* 深色主题混入 */
+  ondark() {
+    /* 基础灰度调整 */
     --waline-white: #000;
     --waline-light-grey: #666;
     --waline-dark-grey: #999;
-    /* 布局颜色 */
 
+    /* 界面色彩深色版本 */
     --waline-color: #fff;
     --waline-bgcolor: var(--block);
     --waline-bgcolor-light: #272727;
     --waline-border-color: #333;
     --waline-disable-bgcolor: #444;
     --waline-disable-color: #272727;
-    /* 特殊颜色 */
+
+    /* 特殊元素深色版本 */
     --waline-bq-color: #272727;
-    /* 其他颜色 */
+
+    /* 信息区域深色版本 */
     --waline-info-bgcolor: #272727;
     --waline-info-color: #666;
-    .wl-count
-      padding: .375em;
+
+    /* 评论计数特殊样式 */
+    .wl-count {
+      padding: 0.375em;
       font-weight: bold;
       font-size: 1.25em;
       color: #fff;
+    }
+  }
 
-  :root[data-theme="dark"] &
-    ondark()
-  :root:not([data-theme]) &
-    @media (prefers-color-scheme: dark)
-      ondark()
+  /* 显式深色主题 */
+  :root[data-theme="dark"] & {
+    ondark();
+  }
+
+  /* 系统偏好深色模式 */
+  :root:not([data-theme]) & {
+    @media (prefers-color-scheme: dark) {
+      ondark();
+    }
+  }
+}
