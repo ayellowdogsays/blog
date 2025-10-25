@@ -1,9 +1,21 @@
 ---
 menu_id: social
+header: false
 sidebar: [sociallist, welcome, recent]
 title: 友链
+h1: ''
+breadcrumb: false
+logo:
+  subtitle: 快来交换友链吧～
+comment_title: 快来交换友链吧～
+giscus:
+  data-mapping: number
+  data-term: 22
 ---
 
+{% banner 小伙伴们 如果宇宙中真有什么终极的逻辑，那就是我们终有一天会在舰桥上重逢，直到生命终结。  %}
+{% navbar active:/friends/ [友链](/link/)  %}
+{% endbanner %}
 
 {% sites link %}
 

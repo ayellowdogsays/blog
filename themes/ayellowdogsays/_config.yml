@@ -27,26 +27,34 @@ open_graph:
 structured_data:
   links: [] # your social links.
 
+
 ######## Sidebar ########
 # 左上角显示的 logo 区域，包含图标、大标题、副标题
 logo:
-  avatar: '[{config.avatar}](/link/)' # you can set avatar link in _config.yml or '[https://xxx.png](/about/)'
+  avatar: '[{config.avatar}](/says/)' # you can set avatar link in _config.yml or '[https://xxx.png](/about/)'
   title: '[{config.title}](/)' # you can set html tag like: '[<img no-lazy height="32px" src="xxx"/>](/)'
-  subtitle: '阿黄的博客 | 阿黄说' 
+  subtitle: 'NeverSettle  | 阿黄说' # '文字1 | 文字2' (鼠标放上去会切换到文字2)
 
 # 侧边栏主功能导航菜单
 menubar:
   columns: 3 # 一行多少个
   items: # 可按照自己需求增加，符合以下格式即可
       - id: post
+        theme: '#1BCDFC'
+        icon: https://api.iconify.design/line-md:home-alt-twotone.svg?color=%235d95b1
         title: 博客
         url: /
       - id: explore
+        theme: '#FA6400'
+        icon: https://api.iconify.design/line-md:map-marker-alt-loop.svg?color=%235d95b1
         title: 探索
         url: /says/
       - id: social
+        theme: '#F44336'
+        icon: https://api.iconify.design/line-md:person-search-filled.svg?color=%235d95b1
         title: 社交
         url: /link/
+
 
 ######## Main ########
 # 站点主结构树
@@ -199,9 +207,9 @@ search:
 
 ######## Comments ########
 comments:
-  service: waline # beaudar, utterances, giscus, twikoo, waline, artalk
+  service: waline
   comment_title: 快来参与讨论吧~
-  lazyload: false # true / false
+  lazyload: false
   custom_css: # artalk,twikoo,... 可以为没有全局启用的评论加载自定义样式
   # beaudar
   # https://beaudar.lipk.org/
@@ -246,7 +254,7 @@ comments:
   # https://twikoo.js.org/
   twikoo:
     js: https://gcore.jsdelivr.net/npm/twikoo@1.6/dist/twikoo.all.min.js # 建议锁定版本
-    envId: https://xxx # vercel函数
+    envId: https://tl.ayellowdogsays.cn
 
   # Waline
   # https://waline.js.org/
@@ -310,19 +318,19 @@ comments:
 
 ######## Footer ########
 footer:
-  social:
-    # github:
-    #   icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/08a41b181ce68.svg"/>'
-    #   url: /
-    # music:
-    #   icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/3845874.svg"/>'
-    #   url: /
-    # unsplash:
-    #   icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/3616429.svg"/>'
-    #   url: /
-    # comments:
-    #   icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/social/942ebbf1a4b91.svg"/>'
-    #   url: /about/#comments
+ # social:
+ #   github:
+ #     icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/08a41b181ce68.svg"/>'
+ #     url: https://github.com/ayellowdogsays/
+   # unsplash:
+     # icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/3845874.svg"/>'
+     # url: /dogcare/
+   # comments:
+      #icon: '<img src="https://gcore.jsdelivr.net/gh/cdn-x/placeholder/social/942ebbf1a4b91.svg"/>'
+      #url: /says/
+   # theme:
+     # icon: default:theme
+     # onclick: 'switchTheme()'
   sitemap:
     # - title: 博客
     #   items:
@@ -530,13 +538,14 @@ plugins:
   # swiper
   swiper:
     enable: true
+    homepage: true
     css: https://unpkg.com/swiper@10.3/swiper-bundle.min.css
     js: https://unpkg.com/swiper@10.3/swiper-bundle.min.js
 
   # https://scrollrevealjs.org/api/reveal.html
   scrollreveal:
-    enable: #true # 慎用，有些时候打开页面空白
-    js: https://gcore.jsdelivr.net/npm/scrollreveal@4.0/dist/scrollreveal.min.js
+    enable: true # 慎用，有些时候打开页面空白
+    js: /js/6.js
     distance: 8px
     duration: 1000 # ms
     interval: 100 # ms
@@ -569,8 +578,8 @@ plugins:
   katex:
     enable: #true # hexo-renderer-markdown-it-plus 默认开启 katex，此选项仅用于引入样式
     inject: |
-      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.23/dist/katex.min.css" integrity="sha384-//SZkxyB7axjCAopkAL1E1rve+ZSPKapD89Lo/lLhcsXR+zOYl5z6zJZEFXil+q0" crossorigin="anonymous">
-
+      <link rel="stylesheet" href="https://gcore.jsdelivr.net/npm/katex@0.16/dist/katex.min.css" integrity="sha384-5TcZemv2l/9On385z///+d7MSYlvIEw9FuZTIdZ14vJLqWphw7e7ZPuOiCHJcFCP" crossorigin="anonymous">
+  
   # MathJax
   # 需在Markdown文件开头加入mathjax: true
   # 推荐使用Pandoc: npm uninstall hexo-renderer-marked --save & npm install hexo-renderer-pandoc --save
@@ -628,10 +637,10 @@ style:
   prefix:
     h2: https://api.iconify.design/ci:heading-h2.svg
   border-radius:
-    card-l: 24px # 侧边栏、文章横幅位置的圆角
-    card: 16px # 文章内大部分卡片的圆角
-    card-s: 12px # 文章内小型卡片的圆角
-    bar: 8px # 横条类元素的圆角
+    card-l: 38px # 侧边栏、文章横幅位置的圆角
+    card: 30px # 文章内大部分卡片的圆角
+    card-s: 20px # 文章内小型卡片的圆角
+    bar: 10px # 横条类元素的圆角
     image-l: 24px # 非技术类文章插图圆角
     image: 16px # 技术类文章插图圆角
     image-s: 8px # 评论区图片圆角（部分评论支持）
@@ -654,7 +663,7 @@ style:
   leftbar:
     # 可以设置：纯色/渐变色/图片作为背景
     background-color: var(--card) # var(--block)
-    background-image: url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.13/image/sidebar-bg1@small.jpg)
+    background-image: linear-gradient(67deg, blue, green);
     blur-px: 100px
     blur-bg: var(--bg-a60)
     background-opacity: 0.8
@@ -663,8 +672,8 @@ style:
     next: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/arrow/064b95430caf4.svg
   error_page: https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.12/404/1c830bfcd517d.svg
   site: # 使用 background-image 后，blur 设置才有效
-    # background-image: url(https://gcore.jsdelivr.net/gh/cdn-x/placeholder@1.0.14/image/site-bg1@small.webp)
-    blur-px: 100px
+    background-image: url(https://img-baofun.zhhainiao.com/pcwallpaper_ugc/static/5b8c69d9c90e6ee426a89ec4eeb5dd18.jpg?x-oss-process=image%2fresize%2cm_lfit%2cw_1920%2ch_1080)
+    blur-px: 0px
     blur-bg: var(--bg-a75)
     blur-sat: 300%
   # 技术文章内页各级标题前面的符号
@@ -700,3 +709,9 @@ api_host:
 system:
   # hexo 支持输出的链接格式众多，维护成本高，为了减少出错，统一成推荐的格式。
   override_pretty_urls: true
+
+
+inject:
+  head:
+    - <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC&display=swap" rel="stylesheet">
+ # script:

@@ -4,19 +4,34 @@ welcome:
   content: |
     阿黄在望。
 
+announcement:
+  layout: markdown
+  title: 个性签名
+  content: |
+    低级的欲望通过放纵就可获得；高级的欲望通过自律方可获得；顶级的欲望通过煎熬才可获得。“所谓自由，不是随心所欲，而是自我主宰。”
 
 comment:
   layout: markdown
-  title: 欢迎旅行者
+  title: 呦呵，被我逮到了吧！
   content: |
-    对，就是你，快去评论区留个言吧
+    对，就是你，快去评论区留个言吧，==不管你要说什么==
   linklist:
     columns: 1 
     items:
       - title: GO！
-        url: /link/#comments
+        url: /about/#comments
 
-
+social:
+  title: 社交
+  layout: linklist
+  columns: 1 
+  items:
+    - icon: 🙌
+      title: 好盆友
+      url: /dogcare/
+    - icon: ✋
+      title: 我的说说
+      url: /says/
 
 new_comment:
   layout: timeline
@@ -38,5 +53,33 @@ recent:
 related:
   layout: related
 
+# 标签索引组件
+tagcloud:
+  layout: tagcloud
+  title: 标签索引
+  # 标签索引配置
+  min_font: 12
+  max_font: 24
+  amount: 100
+  orderby: name
+  order: 1 # 1, sac 升序；-1, desc 降序
+  color: false # 使用颜色
+  start_color: # 开始的颜色。您可使用十六进位值（'#b700ff'），rgba（rgba(183, 0, 255, 1)），hsla（hsla(283, 100%, 50%, 1)）或 颜色关键字。此变量仅在 color 参数开启时才有用。
+  end_color: # 结束的颜色。您可使用十六进位值（'#b700ff'），rgba（rgba(183, 0, 255, 1)），hsla（hsla(283, 100%, 50%, 1)）或 颜色关键字。此变量仅在 color 参数开启时才有用。
+  show_count: false # 显示每个标签的文章总数
 
+# github用户卡片
+ghuser:
+  layout: ghuser
+  username: ayellowdogsays
+  avatar: true # show avatar or not
+  menu: true # show menu or not
 
+ghrepo:
+  layout: ghrepo
+
+tagtree:
+  layout: tagtree
+  expand_all: false # 是否展开所有节点
+  expand_active: true # 是否展开当前节点
+  show_tagcon: true # 是否显示标签 icon
