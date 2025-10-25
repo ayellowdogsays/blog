@@ -10,13 +10,12 @@
 
 module.exports = ctx => function (args) {
   args = ctx.args.map(args, ['type', 'bilibili', 'youtube', 'ratio', 'width', 'autoplay'], ['src'])
-  const lazyload = ctx.theme.config.plugins.lazyload.enable
   if (args.width == null) {
     args.width = '100%'
   }
   if (args.bilibili) {
-    return `<div class="tag-plugin video" style="aspect-ratio:${args.ratio || 16 / 9};max-width:${args.width};">
-    <iframe class="${lazyload ? 'lazy' : ''}" ${lazyload ? 'data-src' : 'src'}="https://player.bilibili.com/player.html?bvid=${args.bilibili}&autoplay=${args.autoplay || 'false'}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true">
+    return `<div class="tag-plugin video-player" style="aspect-ratio:${args.ratio || 16 / 9};max-width:${args.width};">
+    <iframe src="https://player.bilibili.com/player.html?bvid=${args.bilibili}&autoplay=${args.autoplay || 'false'}" scrolling="no" border="0" frameborder="no" framespacing="0" allowfullscreen="true">
     </iframe>
     </div>
     `
@@ -27,15 +26,15 @@ module.exports = ctx => function (args) {
     } else {
       args.autoplay = '0'
     }
-    return `<div class="tag-plugin video" style="aspect-ratio:${args.ratio || 16 / 9};max-width:${args.width};">
-    <iframe class="${lazyload ? 'lazy' : ''}" style="border:none" ${lazyload ? 'data-src' : 'src'}="https://www.youtube.com/embed/${args.youtube}?rel=0&disablekb=1&playsinline=1&autoplay=${args.autoplay}" picture-in-picture="true" allowfullscreen="true" >
+    return `<div class="tag-plugin video-player" style="aspect-ratio:${args.ratio || 16 / 9};max-width:${args.width};">
+    <iframe style="border:none" src="https://www.youtube.com/embed/${args.youtube}?rel=0&disablekb=1&playsinline=1&autoplay=${args.autoplay}" picture-in-picture="true" allowfullscreen="true" >
     </iframe>
     </div>
     `
   }
-  return `<div class="tag-plugin video" style="max-width:${args.width};">
-  <video class="${lazyload ? 'lazy' : ''}" controls preload="none">
-  <source ${lazyload ? 'data-src' : 'src'}="${args.src}" type="${args.type || 'video/mp4'}">Your browser does not support the video tag.
+  return `<div class="tag-plugin video-player" style="max-width:${args.width};">
+  <video controls preload playsinline webkit-playsinline>
+  <source src="${args.src}" type="${args.type || 'video/mp4'}">Your browser does not support the video tag.
   </video>
   </div>
   `

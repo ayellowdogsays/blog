@@ -36,19 +36,13 @@ meta:
   updated: 更新於
   license: 授權條款
   share: 分享文章
+  contributors: 本文貢獻者
   date_suffix:
     just: 剛剛
     min: 分鐘前
     hour: 小時前
     day: 天前
     month: 個月前
-  wordcount:
-    count: 字數
-    words: 字
-    read_time: 時長
-  expire:
-    title: 文章時效提醒
-    message: 這篇文章上次更新於 %s 天前，部分信息可能已發生改變，請注意甄別
 
 page:
   error:
