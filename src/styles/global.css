@@ -1,8 +1,16 @@
+/* ==========================================================================
+   🌟 字体与样式导入
+   ========================================================================== */
+
 @import './iconfont.css';
 @import './shiki.css';
 @import './markdown.css';
 @import './signature.css';
 @import './swup.css';
+
+/* ==========================================================================
+   🎨 优雅字体定义
+   ========================================================================== */
 
 @font-face {
   font-family: 'Atkinson';
@@ -10,6 +18,7 @@
   font-weight: 400;
   font-style: normal;
   font-display: swap;
+  font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
 @font-face {
@@ -18,27 +27,131 @@
   font-weight: 700;
   font-style: normal;
   font-display: swap;
+  font-feature-settings: 'kern' 1, 'liga' 1;
 }
 
+/* ==========================================================================
+   💫 选择器美化
+   ========================================================================== */
+
 ::selection {
-  background-color: theme('colors.accent');
+  background: linear-gradient(135deg, theme('colors.accent'), theme('colors.accent/0.8'));
   color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+::-moz-selection {
+  background: linear-gradient(135deg, theme('colors.accent'), theme('colors.accent/0.8'));
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme='dark'] ::selection {
-  background-color: theme('colors.accent/0.3');
+  background: linear-gradient(135deg, theme('colors.accent/0.4'), theme('colors.accent/0.2'));
+  color: theme('colors.white');
+  backdrop-filter: blur(4px);
 }
+
+/* ==========================================================================
+   🎯 根元素与滚动美化
+   ========================================================================== */
 
 html {
   color: theme('textColor.primary');
-  background-color: theme('backgroundColor.root');
+  background: linear-gradient(135deg, theme('backgroundColor.root') 0%, theme('backgroundColor.root/0.98') 100%);
   scroll-padding-top: 64px;
+  scroll-behavior: smooth;
 }
 
 html.gray {
-  filter: grayscale(1);
+  filter: grayscale(1) contrast(0.95);
+  transition: filter 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
+
+/* ==========================================================================
+   🌀 滚动条美化
+   ========================================================================== */
 
 * {
   scrollbar-width: thin;
+  scrollbar-color: theme('colors.gray.300') transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, theme('colors.gray.300'), theme('colors.gray.400'));
+  border-radius: 3px;
+  transition: all 0.3s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, theme('colors.accent'), theme('colors.accent/0.8'));
+  transform: scale(1.1);
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, theme('colors.gray.600'), theme('colors.gray.500'));
+}
+
+[data-theme='dark'] ::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, theme('colors.accent'), theme('colors.accent/0.6'));
+}
+
+/* ==========================================================================
+   ✨ 全局过渡效果
+   ========================================================================== */
+
+* {
+  transition: color 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* ==========================================================================
+   🌙 深色主题优化
+   ========================================================================== */
+
+[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+[data-theme='dark'] html {
+  background: linear-gradient(135deg, theme('backgroundColor.root') 0%, theme('backgroundColor.root/0.95') 100%);
+}
+
+/* ==========================================================================
+   💎 焦点样式美化
+   ========================================================================== */
+
+:focus-visible {
+  outline: 2px solid theme('colors.accent');
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ==========================================================================
+   🎭 渐变遮罩效果
+   ========================================================================== */
+
+html::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 20vh;
+  background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 9999;
+}
+
+[data-theme='dark'] html::before {
+  background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, transparent 100%);
 }
