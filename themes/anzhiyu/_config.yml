@@ -679,7 +679,7 @@ canvas_ribbon:
 # Fluttering Ribbon (动态彩带)
 canvas_fluttering_ribbon:
   enable: true
-  mobile: true
+  mobile: false
 
 # canvas_nest
 # https://github.com/hustcc/canvas-nest.js
