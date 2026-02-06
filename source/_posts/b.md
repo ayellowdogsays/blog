@@ -5,7 +5,7 @@ date: '2025-08-25T16:41:41.830947+08:00'
 tags: []
 title: blog年度总结
 updated: '2025-08-25T16:58:14.638+08:00'
-cover: https://api.iconify.design/cil:dog.svg?color=%236a86c8
+cover: https://youke.xn--y7xa690gmna.cn/s1/2026/02/06/6985ccd428db3.webp
 swiper_index: 1
 ---
 # 碎碎念

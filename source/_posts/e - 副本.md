@@ -6,7 +6,7 @@ tags: []
 title: Stellar可控夜间模式
 updated: '2025-02-15T18:38:48.352541+08:00'
 swiper_index: 3
-cover: https://api.iconify.design/line-md:light-dark-loop.svg
+cover: https://youke.xn--y7xa690gmna.cn/s1/2026/02/06/6985ccd428db3.webp
 ---
 # 前言
 
