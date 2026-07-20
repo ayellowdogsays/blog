@@ -1,0 +1,21 @@
+.widget-wrapper.markdown
+  .widget-body
+    border-radius: $border-card
+    padding: 4px 16px
+    background: var(--card)
+    border: 1px solid var(--block-border)
+
+    a:not([class])
+      trans1 all
+      border-bottom: 1px solid var(--text)
+      color: var(--text)
+      &:hover
+        color: $color-hover
+        border-bottom: 1px solid $color-hover
+
+.widget-wrapper.markdown .linklist
+  margin: 1em 0
+  .link
+    background: var(--block-hover)
+  .link:hover
+    background: var(--card)

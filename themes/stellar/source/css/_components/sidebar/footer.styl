@@ -1,0 +1,52 @@
+.l_left footer.footer
+  margin: 0.5rem var(--gap-max) 1rem
+
+.theme-switch
+  display: flex
+  justify-content: center
+  width: fit-content
+  margin: 0 auto
+  padding: 2px
+  gap: 2px
+  box-shadow: $boxshadow-inset-block
+  background: var(--block)
+  border-radius: 1rem
+  border: 1px solid var(--block-border)
+  .switch-item
+    display: grid
+    padding: 4px 1rem
+    border-radius: 1rem
+    background: var(--block)
+    svg
+      color: var(--text-p3)
+    &:hover
+      background: var(--block-hover)
+    :root[data-theme="light"] &[data-theme="light"],
+    :root:not([data-theme]) &[data-theme="auto"],
+    :root[data-theme="dark"] &[data-theme="dark"]
+      background: var(--card)
+      box-shadow: $boxshadow-button
+      trans1 all
+      svg
+        color: var(--text-p1)
+
+.social-wrap
+  display: grid
+  grid-gap: 0.25rem 0.25rem
+  grid-template-columns: repeat(auto-fill, 32px)
+  text-align: center
+  .social
+    line-height: 0
+    display: inline-block
+    padding: 6px
+    border-radius: 32px
+    filter: grayscale(100%)
+    overflow: hidden
+    background: transparent
+    trans3: box-shadow background transform
+    &:hover
+      z-index: 1
+      filter: unset
+      background: var(--block)
+    img
+      border-radius: 2px

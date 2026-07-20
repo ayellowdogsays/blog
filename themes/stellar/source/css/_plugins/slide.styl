@@ -1,0 +1,56 @@
+.post-list .swiper-slide
+  margin: 0
+  padding: 0 1rem
+  text-align: right
+  display: flex
+  align-items: flex-end
+  flex-direction: column
+  width: fit-content
+  max-width: 15rem
+  height: 7rem
+  position: relative
+  transition: opacity 0.3s ease
+
+  // 非激活状态稍微降低存在感（可选，需配合Swiper的active类）
+  &:not(.swiper-slide-active)
+    opacity: 0.7
+
+  .post-cover
+    left: -1em
+    right: initial
+    bottom: -1em
+    filter: brightness(0.9) // 封面稍微压暗，突出文字
+    transition: filter 0.3s ease
+  &:hover .post-cover
+    filter: brightness(1)
+
+  .post-title
+    font-size: var(--fsh4)
+    margin: 1rem 0 0 4rem
+    font-weight: 600 // 标题加粗
+    letter-spacing: 0.5px // 增加字间距，提升阅读体验
+
+  .meta-cap
+    bottom: 1rem
+    position: absolute
+    color: var(--font-color) // 使用主题变量，适配暗色模式
+    font-size: 0.8em
+
+.post-list .swiper
+  .swiper-button-prev,
+  .swiper-button-next
+    top: 46%
+    display: none
+    // 极简按钮：去掉背景，只留箭头
+    background: transparent
+    &::after
+      font-size: 16px
+      opacity: 0.6
+      transition: opacity 0.3s ease
+    &:hover::after
+      opacity: 1
+
+  &:hover
+    .swiper-button-prev,
+    .swiper-button-next
+      display: flex

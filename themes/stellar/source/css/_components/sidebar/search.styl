@@ -1,0 +1,157 @@
+// ================= 搜索框弹出动画 =================
+@keyframes searchFadeIn
+  from
+    opacity: 0
+    transform: translateX(-50%) scale(0.95) translateY(-10px)
+  to
+    opacity: 1
+    transform: translateX(-50%) scale(1) translateY(0)
+
+// 搜索遮罩层
+#search-mask
+  position: fixed
+  inset: 0
+  z-index: 20
+  display: none // 保持原样，由JS控制显隐
+  backdrop-filter: blur(20px)
+  -webkit-backdrop-filter: blur(20px)
+  background: rgba(0, 0, 0, 0.2)
+
+// 搜索框主体
+.search-wrapper
+  position: fixed
+  top: 10vh
+  left: 50%
+  z-index: 50
+  display: none // 保持原样，由JS控制显隐
+  margin-left: -3rem
+  padding: 1.25rem
+  width: 30rem
+  word-break: break-all
+  box-shadow: $boxshadow-card
+  background: var(--site-bg)
+  border: 1px solid var(--block-border)
+  border-radius: $border-bar
+  
+  // 核心：当JS把display设为block时，触发弹出动画
+  &[style*="display: block"]
+    animation: searchFadeIn 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards
+
+  // 头部样式
+  .search-header
+    display: flex
+    align-items: center
+    justify-content: space-between
+    color: var(--text)
+    margin-bottom: 1rem
+
+  .search-close-button
+    margin-left: 8px
+    color: var(--text-p3)
+    line-height: 1
+    cursor: pointer
+    transition: color 0.3s ease
+    &:hover
+      color: $color-theme
+
+  // 搜索输入框区域
+  > .search-form
+    display: flex
+    flex-direction: row
+    align-items: center
+    margin-bottom: 0.75rem
+    transition: background 0.3s ease
+    border-radius: $border-bar
+    background: var(--block)
+    border: 1px solid var(--block-border)
+    &:has(input:focus)
+      background: var(--card)
+    .search-close-button
+      margin-right: 1rem
+
+  .search-input
+    width: 100%
+    box-sizing: border-box
+    font-family: $ff-body
+    font-size: $fs-14
+    padding: 0.75rem 1rem
+    color: var(--text)
+    background: transparent
+    border: none
+    outline: none
+
+  // 搜索结果列表
+  #search-result
+    max-height: 60vh
+    overflow-y: auto
+    &:empty
+      display: none
+    .search-result-list
+      padding: 0
+      margin: 0
+      list-style-type: none
+    li a
+      display: block
+      background: var(--block)
+      line-height: 1.2
+      padding: 0.75rem 1rem
+      border-radius: $border-card
+      border: 1px solid var(--block-border)
+      transition: background 0.3s ease, transform 0.2s ease
+      &:hover
+        background: var(--card)
+        transform: translateX(7px) // 悬停时轻微右移
+    li + li
+      margin-top: 8px
+    .search-result-title
+      color: var(--text-p1)
+      font-weight: 700
+      font-size: $fs-15
+    .search-result-content
+      overflow: hidden
+      color: var(--text-p3)
+      margin: 4px 0 0
+      max-height: 13em
+      text-align: justify
+      font-size: $fs-13
+      display: -webkit-box
+      -webkit-box-orient: vertical
+      -webkit-line-clamp: 2
+    .search-keyword
+      color: $c-red
+      font-weight: bold
+      filter: grayscale(25%)
+
+  // 无结果提示
+  .search-no-result
+    display: none
+    color: var(--text-p1)
+    text-align: center
+    font-size: $fs-14
+    padding: 2rem
+    background: var(--block)
+    border-radius: $border-card
+
+.search-wrapper.noresult[searching='true']
+  .search-no-result
+    display: block
+    margin: 0
+    border: 1px solid var(--block-border)
+
+// 移动端响应式适配
+@media screen and (max-width: $device-mobile-max)
+  .search-wrapper
+    top: 0
+    left: 0
+    margin: 0
+    width: 100%
+    height: 100%
+    border: 0
+    border-radius: 0
+    box-sizing: border-box
+    // 移动端不需要缩放和位移，直接全屏淡入
+    &[style*="display: block"]
+      animation: none
+      opacity: 1
+    #search-result
+      max-height: 78vh

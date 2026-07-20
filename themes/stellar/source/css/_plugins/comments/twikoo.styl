@@ -1,0 +1,316 @@
+// ================= 核心变量与全局样式 =================
+.OwO .OwO-body
+  min-width: 31.25rem
+  color: var(--text)
+
+.twikoo svg
+  color: var(--text-p1)
+
+// ================= 评论区主体 =================
+.twikoo
+  // 修复提交区域溢出问题
+  .tk-comments > .tk-submit
+    overflow: visible !important
+
+  // 评论区列表容器
+  .tk-comments-container > .tk-comment
+    margin-top: 0 !important
+    margin-bottom: 1rem !important
+    border-radius: $border-card
+    padding: 1rem 0 0 0
+    border: none
+    transition: all 0.3s ease
+
+  // 页面级卡片样式
+  .page .tk-comments-container > .tk-comment
+    background: var(--card)
+    padding: 1.25rem
+    padding-bottom: 1rem
+    &:hover
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05)
+
+  // ================= 输入框与表单 =================
+  .tk-input .el-textarea__inner
+    min-height: 130px !important
+    border: 1px solid var(--block-border)
+    border-radius: $border-card
+    display: block
+    resize: vertical
+    padding: 16px 16px 40px 16px
+    line-height: 1.6
+    box-sizing: border-box
+    width: 100%
+    font-size: inherit
+    color: var(--text-p1)
+    background: var(--block)
+    transition: all 0.3s ease
+    &:focus
+      background: var(--card)
+      border-color: $color-theme
+
+  // 昵称/邮箱/网址输入框组
+  .el-input-group__append,
+  .el-input-group__prepend
+    background-color: var(--card)
+    background-clip: border-box
+    color: var(--text-p1)
+    border: 1px solid var(--block-border)
+    border-right: none
+    border-radius: $border-card 0 0 $border-card
+
+  .el-input__inner
+    background: var(--block) !important
+    border: 1px solid var(--block-border)
+    border-radius: 0 $border-card $border-card 0
+    border-left-width: 0 !important
+    color: var(--text-p1) !important
+    padding-left: 8px
+    transition: all 0.3s ease
+    &:hover,
+    &:focus
+      border-color: var(--block-border)
+
+  .el-input--small .el-input__inner
+    padding: 8px 16px
+
+  .tk-meta-input
+    position: relative
+    margin-top: 8px
+    width: calc(100% - 6.875rem)
+    .el-input .el-input-group__prepend
+      user-select: none
+
+  // ================= 按钮与操作区 =================
+  .el-button--primary
+    border: 1px solid var(--block-border)
+    color: var(--text)
+    border-radius: $border-card
+    transition: all 0.3s ease
+    width: 6.25rem
+    position: absolute
+    top: -40px
+    right: 0
+    margin-left: 0.5rem !important
+    height: 32px
+    &:hover
+      background-color: $color-theme
+      border-color: $color-theme
+      color: #fff
+
+  // 禁用状态
+  .el-button--primary.is-disabled,
+  .el-button--primary.is-disabled:active,
+  .el-button--primary.is-disabled:focus,
+  .el-button--primary.is-disabled:hover
+    background-color: var(--block)
+    color: var(--text-meta)
+    border: 1px solid var(--block-border)
+
+  // 取消按钮
+  button.el-button.tk-cancel.el-button--default.el-button--small
+    background: var(--block)
+    border-radius: $border-card
+    border: 1px solid var(--block-border)
+    color: var(--text-p1)
+    transition: all 0.3s ease
+    &:hover
+      background: var(--card)
+      color: var(--text-p2)
+
+  // 隐藏不必要的元素
+  a.tk-submit-action-icon.__markdown
+    display: none
+  & > div.tk-submit > div.tk-row.actions > a
+    display: none
+  .el-button.tk-preview
+    display: none
+
+  .tk-row.actions
+    margin: 0
+    justify-content: space-around
+
+  // ================= 表情面板 (OwO) =================
+  .OwO .OwO-body
+    border-color: var(--block-border) !important
+    border-radius: $border-card !important
+    overflow: hidden
+    background-color: var(--block) !important
+    cursor: auto
+    transform: translateZ(0)
+    animation: 0.3s ease 0.1s 1 normal both running donate_effcet
+    .OwO-bar
+      color: var(--text)
+    .OwO-items-show
+      margin: 12px 8px
+
+  // ================= 评论列表与内容 =================
+  .tk-comment pre
+    background: var(--block)
+    padding: 1em
+    overflow: auto
+    border-radius: $border-card
+
+  .tk-avatar .tk-avatar-img
+    height: 2.5rem !important
+    width: 2.5rem !important
+
+  .tk-nick
+    line-height: 40px
+    color: var(--text-p1)
+    font-weight: 600
+
+  .tk-content
+    margin-top: 0.5rem
+    overflow: auto
+    max-height: 500px
+    p
+      margin: 0
+      line-height: 1.6
+    span a:not([data-fancybox="gallery"])
+      color: var(--text-p1)
+      padding: 0 0.2em
+      text-decoration: none
+      border-bottom: 1px dashed var(--text-p3)
+      transition: all 0.3s ease
+      &:hover
+        color: $color-theme
+        border-bottom-color: $color-theme
+
+  // 表情图片对齐
+  .tk-owo-emotion
+    display: inline-block
+    margin: 0 0.25em
+    max-height: 24px
+    width: unset
+    vertical-align: middle
+
+  // 标签与元数据
+  .tk-tag-green,
+  .tk-tag-red
+    background-color: var(--theme-link-opa)
+    border: none
+    border-radius: 4px
+    color: var(--text-p2)
+
+  .tk-extra
+    background: var(--block)
+    padding: 4px 8px
+    border-radius: $border-card
+    margin-right: 4px
+    color: var(--text-p3)
+    margin-top: 6px
+    font-size: 0.8rem
+
+  .tk-time
+    color: var(--text-p3)
+
+  .tk-extra-text
+    font-size: 0.75rem
+
+  .tk-extras
+    margin-top: 0.5rem
+    padding-bottom: 0.5rem
+
+  // 展开/收起回复
+  .tk-expand
+    width: auto
+    transition: all 0.3s ease
+    border-radius: $border-card
+    letter-spacing: 2px
+    margin-top: 0.5em
+    background: var(--block)
+    &:hover
+      background-color: var(--card)
+      color: $color-theme
+
+  // 回复区域
+  .tk-replies
+    max-height: 10rem !important
+    &.tk-replies-expand
+      max-height: none !important
+    .tk-comment
+      border-radius: $border-card
+      padding: 1rem 0 0
+      margin-top: 0
+      transition: all 0.3s ease
+    .tk-content span:first-child:not(.token)
+      font-size: 0.75rem
+      color: var(--text-p2)
+
+  // 操作图标
+  .tk-action-link
+    color: var(--text-p2)
+    background: var(--block)
+    border-radius: $border-card
+    padding: 2px 10px 2px 14px
+    transition: all 0.3s ease
+    &:hover
+      background: var(--card)
+    &:first-child
+      display: none
+
+  .tk-action-icon
+    color: var(--theme-link-opa)
+    cursor: pointer
+
+  .tk-icon.__comments
+    color: var(--theme-link-opa)
+
+  .tk-actions a
+    cursor: pointer
+
+  // 代码块工具栏
+  .code-toolbar .toolbar .toolbar-item
+    > a,
+    > button,
+    > span
+      font-family: $ff-codeblock
+    > button
+      border: none !important
+      background: var(--card)
+
+// ================= 页面级输入框 =================
+.body-wrap.page .el-input__inner
+  background: var(--card)
+  color: var(--text-p1)
+
+.body-wrap.page .tk-admin-config .el-input__inner
+  color: currentColor
+
+.post-comment .comment-head
+  font-size: 0.8em !important
+  margin-bottom: 0.5rem
+
+.tk-main .tk-content span > a
+  border-bottom: none
+
+// ================= 移动端响应式适配 =================
+@media screen and (max-width: 768px)
+  .OwO .OwO-body
+    min-width: 260px
+
+  .tk-comments .tk-row-actions-start
+    position: absolute
+    top: -164px
+
+  .twikoo .tk-comments .tk-submit .el-button--primary
+    height: 112px
+    top: -120px
+
+  .twikoo .el-textarea__inner
+    background: var(--block) !important
+    overflow: hidden
+    resize: none !important
+
+  .tk-comments button.el-button.tk-preview.el-button--default.el-button--small
+    display: none
+
+  .tk-comments .tk-main .tk-submit .tk-row.actions
+    justify-content: center
+
+  // 移动端卡片样式微调
+  .tk-comments-container .tk-comment
+    padding: 1rem
+    background: var(--card)
+  .tk-replies .tk-comment
+    border: none
