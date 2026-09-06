@@ -3,20 +3,24 @@
   align-items: center
   overflow: hidden
   min-height: 48px
+
   img.avatar
     object-fit: cover
   img.icon
     object-fit: contain
+
   .icon
     width: 48px
     height: 48px
     margin-right: 1rem
     border-radius: 4px
     flex-shrink: 0
+
   a
     color: inherit
     display: flex
     align-items: center
+
   a.avatar
     display: block
     position: relative
@@ -32,45 +36,19 @@
       background-size: cover
     img.avatar
       margin: 2px
-      width: calc(100% - 4px)
-      height: calc(100% - 4px)
+      width: "calc(100% - 2 * %s)" % @margin
+      height: "calc(100% - 2 * %s)" % @margin
 
-/* ========== 新增：头像外框、搜索圆框，原有代码一行未改 ========== */
-.logo-wrap
-  a.avatar
-    border: 2px solid #e5e7eb
-    padding: 2px
-    box-sizing: border-box
-    transition: border-color 0.2s ease
-    &:hover
-      border-color: #2563eb
-
-  /* 搜索按钮圆框，请确认你的搜索元素类名，不对就替换 .search-btn */
-  .search-btn
-    width: 40px
-    height: 40px
-    border: 2px solid #e5e7eb
-    border-radius: 50%
-    box-sizing: border-box
-    display: flex
-    align-items: center
-    justify-content: center
-    transition: border-color 0.2s ease
-    &:hover
-      border-color: #2563eb
-    img
-      width: 20px
-      height: 20px
-      object-fit: contain
-
-/* 暗色模式适配 */
-@media (prefers-color-scheme: dark)
+// ========== 新增：深色模式白色边框 ==========
+.dark
+  // 头像外圈白色边框
   .logo-wrap
     a.avatar
-      border-color: rgba(255,255,255,0.18)
-      &:hover
-        border-color: #60a5fa
-    .search-btn
-      border-color: rgba(255,255,255,0.18)
-      &:hover
-        border-color: #60a5fa
+      border 2px solid rgba(255,255,255,0.25)
+
+// 搜索框示例，替换成你真实搜索框选择器
+.dark
+  .search-input
+    border 1px solid rgba(255,255,255,0.2)
+    // 可选：背景微调适配深色
+    background rgba(255,255,255,0.05)
