@@ -3,24 +3,20 @@
   align-items: center
   overflow: hidden
   min-height: 48px
-
   img.avatar
     object-fit: cover
   img.icon
     object-fit: contain
-
   .icon
     width: 48px
     height: 48px
     margin-right: 1rem
     border-radius: 4px
     flex-shrink: 0
-
   a
     color: inherit
     display: flex
     align-items: center
-
   a.avatar
     display: block
     position: relative
@@ -38,17 +34,3 @@
       margin: 2px
       width: "calc(100% - 2 * %s)" % @margin
       height: "calc(100% - 2 * %s)" % @margin
-
-// ========== 新增：深色模式白色边框 ==========
-.dark
-  // 头像外圈白色边框
-  .logo-wrap
-    a.avatar
-      border 2px solid rgba(255,255,255,0.25)
-
-// 搜索框示例，替换成你真实搜索框选择器
-.dark
-  .search-input
-    border 1px solid rgba(255,255,255,0.2)
-    // 可选：背景微调适配深色
-    background rgba(255,255,255,0.05)
