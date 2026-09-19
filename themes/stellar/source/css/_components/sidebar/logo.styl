@@ -34,3 +34,65 @@
       margin: 2px
       width: "calc(100% - 2 * %s)" % @margin
       height: "calc(100% - 2 * %s)" % @margin
+      border-radius: @width
+    if hexo-config('style.animated_avatar.animate')
+      div.bg
+        trans1: opacity
+        position: absolute
+        opacity: 0 !important
+        z-index: -1
+      @keyframes spin
+        from
+          transform:rotate(0deg)
+        to
+          transform:rotate(360deg)
+    if hexo-config('style.animated_avatar.animate') == 'always'
+      div.bg
+        opacity: 1 !important
+        animation: spin infinite 4s
+        animation-timing-function: linear
+    if hexo-config('style.animated_avatar.animate') == 'auto'
+      &:hover
+        div.bg
+          opacity: 1 !important
+          animation: spin infinite 4s
+          animation-timing-function: linear
+
+  a.title
+    font-size: 1.5rem
+    font-weight: 900
+    color: inherit
+    line-height: 1.2
+    display: block
+    position: relative
+    .main
+      color: var(--text)
+    .sub
+      color: var(--text-p1)
+      trans2 opacity transform
+      white-space: nowrap
+    .hover
+      position: absolute
+      bottom: 0
+      transform: translateY(8px)
+      overflow: visible
+    &:hover
+      .normal
+        opacity: 0
+        transform: translateY(-8px)
+      .hover
+        transform: translateY(0)
+        opacity: 1 !important
+  #search-button
+    margin-left: auto
+    >a
+      color: var(--text-p3)
+      border-radius: 50%
+      border: 1px solid var(--block-border)
+      padding: .5rem
+      background: var(--block)
+      box-shadow: $boxshadow-inset-block
+      &:hover
+        background: var(--card)
+        color: $color-theme
+        trans2 color background
