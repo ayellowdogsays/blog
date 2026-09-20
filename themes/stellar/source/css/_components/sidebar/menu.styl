@@ -1,59 +1,68 @@
 .nav-area .menu
   display: grid
-  margin-bottom: 8px
+  margin-bottom: 12px
   box-shadow: $boxshadow-inset-block
-  padding: 2px
-  border: 1px solid rgba(var(--block-border-rgb), 0.25)
+  padding: 4px
+  border: 1px solid var(--block-border)
   border-radius: $border-bar
-  background: rgba(var(--block-rgb), 0.65)
-  backdrop-filter: blur(12px)
-  -webkit-backdrop-filter: blur(12px)
+  background: var(--block)
   grid-template-columns: repeat(hexo-config('menubar.columns'), 1fr)
-  grid-gap: 2px
+  grid-gap: 4px
   overflow: hidden
+  // 隐藏滚动条
   &::-webkit-scrollbar,
   &::-webkit-scrollbar-track-piece,
   &::-webkit-scrollbar-thumb
     display: none
-  .nav-item
-    box-sizing: border-box
-    width: 100%
-    min-height: 38px
-    font-size: $fs-15
-    font-weight: 500
-    color: var(--text-p3)
-    text-align: center
-    position: relative
-    display: flex
-    flex-direction: column
-    align-items: center
-    justify-content: center
-    border-radius: $border-bar
-    transition: background 0.2s ease, color 0.2s ease
+
+.nav-item
+  box-sizing: border-box
+  width: 100%
+  min-height: 44px
+  font-size: $fs-15
+  font-weight: 500
+  color: var(--text-p3)
+  text-align: center
+  position: relative
+  display: flex
+  flex-direction: column
+  align-items: center
+  justify-content: center
+  border-radius: $border-bar
+  // 加长过渡，增加缩放微动画
+  transition: background 0.24s ease, color 0.24s ease, transform 0.2s ease
+  cursor: pointer
+
+  img, svg
+    height: 26px
+    object-fit: contain
+    filter: grayscale(100%) brightness(0.7) opacity(0.7)
+    transition: filter 0.24s ease, transform 0.2s ease
+
+  span
+    text-overflow: ellipsis
+    word-break: keep-all
+    white-space: nowrap
+    overflow: hidden
+    max-width: 100%
+    margin-top: 2px
+
+  &.active, &:hover
+    color: var(--text-p1)
+    background: var(--card)
+    transform: translateY(-1px) // 悬浮轻微上浮
     img, svg
-      height: 26px
-      object-fit: contain
-      filter: grayscale(100%) brightness(0.7) opacity(0.7)
-      transition: filter 0.2s ease
-    span
-      text-overflow: ellipsis
-      word-break: keep-all
-      white-space: nowrap
-      overflow: hidden
-      max-width: 100%
-    &.active, 
-    &:hover
-      color: var(--text-p1)
-      background: rgba(var(--card-rgb), 0.45)
-      img, svg
-        filter: unset
-    &.active::after
-      content: ''
-      position: absolute
-      width: 16px
-      height: 2px
-      left: 50%
-      transform: translateX(-50%)
-      border-radius: 2px
-      bottom: 3px
-      background: currentColor
+      filter: unset
+      transform: scale(1.05) // 图标轻微放大
+
+  &.active::after
+    content: ''
+    position: absolute
+    width: 20px
+    height: 3px
+    left: 50%
+    transform: translateX(-50%)
+    border-radius: 99px
+    bottom: 4px
+    background: currentColor
+    opacity: 0.85
